@@ -24,11 +24,7 @@
 		$Mailer->FromName = 'Gabriel Barban';
 		$Mailer->Subject = '[SBG] Novas mensagens de SUPORTE';
 
-		$texto = "Olá Sr. Gabriel Barban, tudo bem?<br>Segue abaixo as novas mensagens que o SUPORTE recebeu:<br>";
-		foreach ($data as $d) {
-			echo $d["nome_usuario1"];exit;
-			$texto += "Usuário: ".$d["nome_usuario1"]."<br>Texto: ".$d["texto"]."<br><br>";
-		}
+		$texto = "Olá Sr. Gabriel Barban, tudo bem?<br>Segue abaixo as novas mensagens que o SUPORTE recebeu:<br><br><br>Usuário: "$data[0]["nome_usuario1"]."<br>Texto: ".$data[0]["texto"]."<br><br>";
 
 		$Mailer->Body = $texto;
 		$Mailer->addAddress('barbangabriel@gmail.com');
