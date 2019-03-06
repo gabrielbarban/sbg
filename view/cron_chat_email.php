@@ -22,7 +22,7 @@
 		$Mailer->Password = 'gabriel1995';
 		$Mailer->From = 'barbangabriel@gmail.com';
 		$Mailer->FromName = 'Gabriel Barban';
-		$Mailer->Subject = '[SBG] Novas mensagens não lidas de SUPORTE';
+		$Mailer->Subject = '[SBG] Novas mensagens nao lidas de SUPORTE';
 
 		$texto = "Olá Sr. Gabriel Barban, tudo bem?<br>Segue abaixo as novas mensagens que o SUPORTE recebeu:<br><br><br>Usuário: ".$data[0]["nome_usuario1"]."<br>Texto: ".$data[0]["texto"]."<br><br>";
 
