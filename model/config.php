@@ -1501,5 +1501,15 @@ class config
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$pdo->exec($sql);
 	}
+
+	public function chats_nao_lidos()
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT c.*, DATE_FORMAT(c.data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro', u.nome as 'nome_usuario1'  
+			FROM chat c JOIN usuarios u ON (u.id = c.usuario1) JOIN companhia cc ON (u.empresa_id = cc.id)
+			WHERE c.usuario2=43 AND c.lido=0;")->fetchAll();
+		return $data;
+	}
 }
 ?>
