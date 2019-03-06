@@ -26,7 +26,8 @@
 
 		$texto = "Olá Sr. Gabriel Barban, tudo bem?<br>Segue abaixo as novas mensagens que o SUPORTE recebeu:<br>";
 		foreach ($data as $d) {
-			$texto += "Usuário: ".$d["nome_usuario1"]."<br>Texto: ".$d["texto"]."<br>Data: ".$d["data_cadastro"]."<br><br>";
+			echo $d["nome_usuario1"];exit;
+			$texto += "Usuário: ".$d["nome_usuario1"]."<br>Texto: ".$d["texto"]."<br><br>";
 		}
 
 		$Mailer->Body = $texto;
