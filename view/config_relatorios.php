@@ -178,7 +178,7 @@ header('Location: ../index.php');
       <b>Suporte técnico:</b><br>
       <i>E-mail: barbangabriel@gmail.com</i><br>
       <i>WhatsApp: 11 939261285</i><br>
-      <i>Chat Online</i><br>
+      <i><a href="chat.php"><i class="fas fas fa-envelope"></i> Chat Online</a></i><br>
       <i><a href="tutoriais.php"><i class="fas fa-fw fa fa-graduation-cap"></i> Central de ajuda</a></i>
         <br><br>
            <!--   <p style="font-family: 'Laila', serif;">Gabriel Barban Rocha</p> -->
