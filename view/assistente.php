@@ -175,18 +175,11 @@ header('Location: ../index.php');
 
      <div id='content-wrapper' style='margin-left: 15px'>
       <br>
-      <b>Suporte técnico:</b><br>
-      <i>E-mail: barbangabriel@gmail.com</i><br>
-      <i>WhatsApp: 11 939261285</i><br>
-      <i>Chat Online</i><br>
-      <i><a href="tutoriais.php"><i class="fas fa-fw fa fa-graduation-cap"></i> Central de ajuda</a></i>
-        <br><br>
-           <!--   <p style="font-family: 'Laila', serif;">Gabriel Barban Rocha</p> -->
-        <center><img src="../images/logo-sbg.png"></center>
-        <br>
-        <b><i>
-                  <center>Versão 3.0.1 (Fevereiro/2019)</center>
-        </i></b>
+          <center>
+            <h2>Assistente inteligente</h2>
+            <img style="width: 100px; border-radius: 12px;" src="../images/cerebro.gif">
+            <br><br><b>Como posso te ajudar <?= $nome_usuario?>?</b>
+          </center>
       </div>
       <!-- /.content-wrapper -->
 
