@@ -78,6 +78,9 @@ header('Location: ../index.php');
       <ul class="navbar-nav ml-auto ml-md-0">
         <div id="canto" style="border-radius: 8px; float: right; background-color: #FFFFFF"></div>
         <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="assistente.php"><i class="fas fa-lightbulb" title="Assistente inteligente"></i></a>
+        </li>
+        <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="tutoriais.php"><i class="fas fa-question-circle" title="Central de ajuda"></i></a>
         </li>
         <li class="nav-item dropdown no-arrow">
@@ -174,12 +177,32 @@ header('Location: ../index.php');
       </ul>
 
      <div id='content-wrapper' style='margin-left: 15px'>
+      <?php
+        $data = $config->verifica_log($usuario_id);
+        $data2 = $config->verifica_log_relatorios($usuario_id);
+        $cont_logou = 0;
+        $cont_msg = 0;
+        $cont_relatorios = count($data2);
+
+        foreach ($data as $d)
+        {
+          if($d['acao'] == "Logou no sistema")
+            $cont_logou++;
+
+          if($d['acao'] == "Enviou nova mensagem")
+            $cont_msg++;
+        }
+      ?>
       <br>
           <center>
             <h2>Assistente inteligente</h2>
             <img style="width: 100px; border-radius: 12px;" src="../images/cerebro.gif">
-            <br><br><b>Como posso te ajudar <?= $nome_usuario?>?</b>
+            <br><br><b>Olá <?= $nome_usuario?>, aqui estão algumas informações sobre você</b>
           </center>
+          <br><br><i>Nos últimos 30 dias...</i><br>
+            Você entrou na plataforma <?= $cont_logou ?> vezes.<br>
+            Você enviou <?= $cont_msg ?> mensagens através do CHAT.<br>
+            Você gerou <?= $cont_relatorios ?> relatórios.<br>
       </div>
       <!-- /.content-wrapper -->
 

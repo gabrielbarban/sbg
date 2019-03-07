@@ -1332,6 +1332,7 @@ class config
 
 
 		$data = $pdo->query($query)->fetchAll();
+		$this->gera_log("Gerou relatorio de saídas", "---");
 		return $data;
 	}
 
@@ -1370,6 +1371,7 @@ class config
 
 
 		$data = $pdo->query($query)->fetchAll();
+		$this->gera_log("Gerou relatorio de registros", "---");
 		return $data;
 	}
 
@@ -1404,6 +1406,7 @@ class config
 
 
 		$data = $pdo->query($query)->fetchAll();
+		$this->gera_log("Gerou relatorio de caixa", "---");
 		return $data;
 	}
 
@@ -1509,6 +1512,35 @@ class config
 		$data = $pdo->query("SELECT c.*, DATE_FORMAT(c.data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro', u.nome as 'nome_usuario1'  
 			FROM chat c JOIN usuarios u ON (u.id = c.usuario1) JOIN companhia cc ON (u.empresa_id = cc.id)
 			WHERE c.usuario2=43 AND c.lido=0;")->fetchAll();
+		return $data;
+	}
+
+	public function verifica_log($usuario_id)
+	{
+		$mes = date("m");
+		$ano = date("Y");
+		$condicao1 = $ano."-".$mes."-01 00:00:00";
+		$condicao2 = $ano."-".$mes."-31 23:59:59";
+
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM log
+			WHERE usuario_id='".$usuario_id."' AND data_cadastro>='".$condicao1."' AND data_cadastro<='".$condicao2."';")->fetchAll();
+		return $data;
+	}
+
+	public function verifica_log_relatorios($usuario_id)
+	{
+		$mes = date("m");
+		$ano = date("Y");
+		$condicao1 = $ano."-".$mes."-01 00:00:00";
+		$condicao2 = $ano."-".$mes."-31 23:59:59";
+
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM log
+			WHERE acao LIKE '%Gerou relatorio%' AND usuario_id='".$usuario_id."' AND data_cadastro>='".$condicao1."' AND data_cadastro<='".$condicao2."';")->fetchAll();
+		//echo count($data);exit;
 		return $data;
 	}
 }
