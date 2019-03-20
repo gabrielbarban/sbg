@@ -198,7 +198,7 @@ header('Location: ../index.php');
               //salto =  + 15920 - 350
               $id = $row['id'] + 15920 - 350;
               echo "<td>
-                <a href='enviar_campanha_clientes.php?id=".$id."?id_campanha=".$var_hash."'><i class='fas fa fa-rocket' title='Enviar para a base'></i></a>
+                <a href='enviar_campanha.php?id=".$id."?id_campanha=".$var_hash."'><i class='fas fa fa-rocket' title='Enviar para a base'></i></a>
                 <a href='editar_campanha.php?id=".$id."?id_campanha=".$var_hash."'><i class='fas fa fa-edit' title='Editar texto'></i></a>
                 <a href='apagar_campanha.php?id=".$id."?id_campanha=".$var_hash."'><i class='fas fa fa-times' title='Excluir'></i></a>
               </td></tr></tbody>";   

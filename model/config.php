@@ -1548,7 +1548,7 @@ class config
 	{
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
-		$data = $pdo->query("SELECT nome, texto, tipo, DATE_FORMAT(data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro'  FROM campanhas WHERE tipo='".$tipo."' AND empresa_id='".$empresa_id."';")->fetchAll();
+		$data = $pdo->query("SELECT id, nome, texto, tipo, DATE_FORMAT(data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro'  FROM campanhas WHERE tipo='".$tipo."' AND empresa_id='".$empresa_id."';")->fetchAll();
 		return $data;
 	}
 
