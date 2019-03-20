@@ -188,22 +188,26 @@ header('Location: ../index.php');
 
       <a class="btn btn-primary" href="campanhas_clientes.php" ><i class="fas fa-fw fa fa-envelope-open"></i>
             <span>Campanhas - Clientes </span></a><br><br><br><br><br><br>
+
+      <a class="btn btn-primary" href="companhia.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+            <span>Voltar</span></a>
+      <a class="btn btn-primary" href="nova_campanha.php" ><i class="fas fa-fw fa fa  fa fa-envelope-open"></i>
+            <span>Nova campanha</span></a>
       <?php } ?>
 
 
 
       <?php if($flag_crm==0){ ?>
       <i>Desculpe, sem acesso. Entre em contato com a nossa equipe comercial: barbangabriel@gmail.com - (11) 939261285</i><br><br><br><br><br><br>
+      <a class="btn btn-primary" href="companhia.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+            <span>Voltar</span></a>
       <?php } ?>
 
 
 
 
 
-      <a class="btn btn-primary" href="companhia.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
-            <span>Voltar</span></a>
-      <a class="btn btn-primary" href="nova_campanha.php" ><i class="fas fa-fw fa fa  fa fa-envelope-open"></i>
-            <span>Nova campanha</span></a>
+      
 
 
 
