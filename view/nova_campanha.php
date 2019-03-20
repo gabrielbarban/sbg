@@ -100,7 +100,7 @@ header('Location: ../index.php');
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <?php
+     <?php
      include("../model/config.php");
         $config = new Config();
         
@@ -109,7 +109,7 @@ header('Location: ../index.php');
         $permissao3=$config->verifica_permissao($usuario_id, 3); //relatorios
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
-        $permissao11=$config->verifica_permissao($usuario_id, 11); //finanças
+        $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
       ?>
 
 
@@ -173,30 +173,44 @@ header('Location: ../index.php');
 
       </ul>
 
-      <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw fa fa-bicycle"></i> Atualização de forma de entrega: </h3>
-       <?php 
-       //SALTO: +150-11+18-78
+     <div id='content-wrapper' style='margin-left: 15px'>
+      <h3><i class="fas fa-fw fa fa-paper-plane"></i> Nova campanha</h3><br>
 
-       $id_entrega = $_GET['id'];
-       //salto =  + 15920 - 350
-       $id_entrega = $id_entrega - 15920 + 350;
-       $data = array();
-       $data = $config->pega_entrega($id_entrega);
+      <form method="post" action="../controller/nova_campanha.php">
 
-       foreach ($data as $row) {
-       ?>
-       <form action="../controller/editar_entrega.php" method="POST">
-          <input type="hidden" value=<?= $row['id']?> name="id">
-          Nome: <input type="text" class="form-control" value='<?= $row['nome']?>' name="nome" placeholder="Nome" required="required">
-          <br>
-          <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
-        </form>
-         <br>
-          <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
-                  <span>Voltar</span></a>
+        Título: <input type="text" name="nome" size="58"><br><br>
+        <textarea name="texto" style="width: 600px; height: 250px"></textarea><br><br>
+
+        Tipo:
+        <select name="tipo" class="form-control" style="width: 300px">
+          <option value="1">Parceiro</option>
+          <option value="2">Cliente</option>
+        </select><br><br>
+
+        <!-- <?php
+          $empresa_id = $_SESSION["empresa_id"];
+          $data = $config->lista_parceiros($empresa_id);
+        
+          foreach ($data as $d) {
+            echo $d['nome']." <input type='checkbox' name='caixas[]' checked=checked value=".$d['email']."><br>";
+          }
+        ?>
+        <br><br> -->
+
+
+        <input type="submit" class="form-control" value="Enviar" style="background-color: #ced4da; width: 600px">
+
+
+      </form>
+      
+
+
+
+
+      <br><Br><br><br><a class="btn btn-primary" href="crm.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+            <span>Voltar</span></a>
+
       </div>
-    <?php } ?>
       <!-- /.content-wrapper -->
 
     </div>

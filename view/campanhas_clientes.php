@@ -100,7 +100,7 @@ header('Location: ../index.php');
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <?php
+     <?php
      include("../model/config.php");
         $config = new Config();
         
@@ -109,7 +109,7 @@ header('Location: ../index.php');
         $permissao3=$config->verifica_permissao($usuario_id, 3); //relatorios
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
-        $permissao11=$config->verifica_permissao($usuario_id, 11); //finanças
+        $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
       ?>
 
 
@@ -173,30 +173,51 @@ header('Location: ../index.php');
 
       </ul>
 
-      <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw fa fa-bicycle"></i> Atualização de forma de entrega: </h3>
-       <?php 
-       //SALTO: +150-11+18-78
+     <div id='content-wrapper' style='margin-left: 15px'>
+      <h3><i class="fas fa-fw fa fa-envelope-open"></i> Campanhas - Clientes</h3><br>
 
-       $id_entrega = $_GET['id'];
-       //salto =  + 15920 - 350
-       $id_entrega = $id_entrega - 15920 + 350;
-       $data = array();
-       $data = $config->pega_entrega($id_entrega);
 
-       foreach ($data as $row) {
-       ?>
-       <form action="../controller/editar_entrega.php" method="POST">
-          <input type="hidden" value=<?= $row['id']?> name="id">
-          Nome: <input type="text" class="form-control" value='<?= $row['nome']?>' name="nome" placeholder="Nome" required="required">
-          <br>
-          <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
-        </form>
-         <br>
-          <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
-                  <span>Voltar</span></a>
+      <div class="table-responsive">
+              <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Data de cadastro</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+          <?php
+
+            $empresa_id = $_SESSION["empresa_id"];
+            $data = array();
+            $data=$config->lista_campanhas($empresa_id, 2);
+
+            foreach ($data as $row) {
+              echo "<tbody><tr><td><i class='fas fa fa fa-check-circle'></i> ".$row['nome']."</td>";
+              echo "<td>".$row['data_cadastro']."</td>";
+              //salto =  + 15920 - 350
+              $id = $row['id'] + 15920 - 350;
+              echo "<td>
+                <a href='enviar_campanha_clientes.php?id=".$id."?id_campanha=".$var_hash."'><i class='fas fa fa-rocket' title='Enviar para a base'></i></a>
+                <a href='editar_campanha.php?id=".$id."?id_campanha=".$var_hash."'><i class='fas fa fa-edit' title='Editar texto'></i></a>
+                <a href='apagar_campanha.php?id=".$id."?id_campanha=".$var_hash."'><i class='fas fa fa-times' title='Excluir'></i></a>
+              </td></tr></tbody>";   
+
+            }
+          ?>
+                </table>
+     </div>
+     
+
+
+
+      <br><br><br><br><br>
+      <a class="btn btn-primary" href="crm.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+            <span>Voltar</span></a>
+
+
+
       </div>
-    <?php } ?>
       <!-- /.content-wrapper -->
 
     </div>

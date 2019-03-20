@@ -176,7 +176,7 @@ header('Location: ../index.php');
       </ul>
 
       <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw fa fa-paper-plane"></i> Formas de entrega:</h3><br>
+        <h3><i class="fas fa-fw fa fa-bicycle"></i> Formas de entrega:</h3><br>
         <div class="container-fluid">
           <div class="table-responsive">
               <table class="table table-bordered" width="100%" cellspacing="0">

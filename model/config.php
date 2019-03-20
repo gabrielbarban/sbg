@@ -1543,5 +1543,71 @@ class config
 		//echo count($data);exit;
 		return $data;
 	}
+
+	public function lista_campanhas($empresa_id, $tipo)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT nome, texto, tipo, DATE_FORMAT(data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro'  FROM campanhas WHERE tipo='".$tipo."' AND empresa_id='".$empresa_id."';")->fetchAll();
+		return $data;
+	}
+
+	public function verifica_crm($empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM companhia WHERE id='".$empresa_id."';")->fetchAll();
+		foreach ($data as $d){
+			$flag_crm = $d['flag_crm'];
+		}
+		return $flag_crm;
+	}
+
+	public function nova_campanha($nome, $texto, $tipo, $empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "INSERT INTO campanhas (nome, texto, tipo, empresa_id) 
+		VALUES('".$nome."', '".$texto."', '".$tipo."', '".$empresa_id."')";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
+		$this->gera_log("Cadastrou nova campanha", "Nome: ".$nome);
+	}
+
+	public function pega_campanha($id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM campanhas WHERE id='".$id."';")->fetchAll();
+		return $data;
+	}
+
+	public function atualiza_campanha($nome, $texto, $tipo, $id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "UPDATE campanhas SET nome='".$nome."', texto='".$texto."', tipo='".$tipo."' WHERE id='".$id."';";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
+		$this->gera_log("Atualizou dados da campanha", "ID da campanha: ".$id);
+	}
+
+	public function deleta_campanha($id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "DELETE FROM campanhas WHERE id='".$id."';";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
+		$this->gera_log("Deletou campanha", "-------");
+	}
+
+	public function lista_clientes($empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM clientes WHERE empresa_id='".$empresa_id."';")->fetchAll();
+		return $data;
+	}
 }
 ?>

@@ -100,7 +100,7 @@ header('Location: ../index.php');
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <?php
+     <?php
      include("../model/config.php");
         $config = new Config();
         
@@ -109,7 +109,7 @@ header('Location: ../index.php');
         $permissao3=$config->verifica_permissao($usuario_id, 3); //relatorios
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
-        $permissao11=$config->verifica_permissao($usuario_id, 11); //finanças
+        $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
       ?>
 
 
@@ -173,30 +173,41 @@ header('Location: ../index.php');
 
       </ul>
 
-      <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw fa fa-bicycle"></i> Atualização de forma de entrega: </h3>
-       <?php 
-       //SALTO: +150-11+18-78
+     <div id='content-wrapper' style='margin-left: 15px'>
+      <h3><i class="fas fa-fw fa fa-paper-plane"></i> Campanhas e relacionamento</h3><br>
 
-       $id_entrega = $_GET['id'];
-       //salto =  + 15920 - 350
-       $id_entrega = $id_entrega - 15920 + 350;
-       $data = array();
-       $data = $config->pega_entrega($id_entrega);
+      <?php
+        $empresa_id = $_SESSION["empresa_id"];
+        $flag_crm=$config->verifica_crm($empresa_id);
+      ?>
 
-       foreach ($data as $row) {
-       ?>
-       <form action="../controller/editar_entrega.php" method="POST">
-          <input type="hidden" value=<?= $row['id']?> name="id">
-          Nome: <input type="text" class="form-control" value='<?= $row['nome']?>' name="nome" placeholder="Nome" required="required">
-          <br>
-          <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
-        </form>
-         <br>
-          <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
-                  <span>Voltar</span></a>
+
+      <?php if($flag_crm==1){ ?>
+      <a class="btn btn-primary" href="campanhas_parceiros.php" ><i class="fas fa-fw fa fa-envelope-open"></i>
+            <span>Campanhas - Parceiros </span></a><br><br>
+
+      <a class="btn btn-primary" href="campanhas_clientes.php" ><i class="fas fa-fw fa fa-envelope-open"></i>
+            <span>Campanhas - Clientes </span></a><br><br><br><br><br><br>
+      <?php } ?>
+
+
+
+      <?php if($flag_crm==0){ ?>
+      <i>Desculpe, sem acesso. Entre em contato com a nossa equipe comercial: barbangabriel@gmail.com - (11) 939261285</i><br><br><br><br><br><br>
+      <?php } ?>
+
+
+
+
+
+      <a class="btn btn-primary" href="companhia.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+            <span>Voltar</span></a>
+      <a class="btn btn-primary" href="nova_campanha.php" ><i class="fas fa-fw fa fa  fa fa-envelope-open"></i>
+            <span>Nova campanha</span></a>
+
+
+
       </div>
-    <?php } ?>
       <!-- /.content-wrapper -->
 
     </div>

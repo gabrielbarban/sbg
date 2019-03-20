@@ -74,7 +74,7 @@ header('Location: ../index.php');
         </div>
       </form>
 
-      <!-- Navbar -->
+     <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <div id="canto" style="border-radius: 8px; float: right; background-color: #FFFFFF"></div>
         <li class="nav-item dropdown no-arrow">
@@ -174,22 +174,34 @@ header('Location: ../index.php');
       </ul>
 
       <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw fa fa-bicycle"></i> Atualização de forma de entrega: </h3>
+        <h3><i class="fas fa fa fa-envelope-open"></i> Atualização de campanha: </h3>
        <?php 
        //SALTO: +150-11+18-78
 
-       $id_entrega = $_GET['id'];
+       $id_parceiro = $_GET['id'];
        //salto =  + 15920 - 350
-       $id_entrega = $id_entrega - 15920 + 350;
+       $id_parceiro = $id_parceiro - 15920 + 350;
        $data = array();
-       $data = $config->pega_entrega($id_entrega);
+       $data = $config->pega_campanha($id_parceiro);
 
        foreach ($data as $row) {
        ?>
-       <form action="../controller/editar_entrega.php" method="POST">
+       <form action="../controller/editar_campanha.php" method="POST">
           <input type="hidden" value=<?= $row['id']?> name="id">
           Nome: <input type="text" class="form-control" value='<?= $row['nome']?>' name="nome" placeholder="Nome" required="required">
           <br>
+          Texto: <textarea class="form-control" name="texto"><?= $row['texto']?></textarea><br>
+
+          Tipo: <select class="form-control" name="tipo">
+            <?php
+            if($row['tipo']=='1')
+              echo "<option value='1'>Parceiro</option> <option value='2'>Cliente</option>";
+
+            if($row['tipo']=='2')
+              echo "<option value='2'>Cliente</option> <option value='1'>Parceiro</option>";
+            ?>
+          </select><br>
+
           <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
         </form>
          <br>

@@ -175,7 +175,7 @@ header('Location: ../index.php');
 
       <div id="content-wrapper" style="margin-left: 15px">
         <div class="container-fluid">
-          <h3><i class="fas fa-fw fa fa-paper-plane"></i> Nova forma de entrega:</h3>
+          <h3><i class="fas fa-fw fa fa-bicycle"></i> Nova forma de entrega:</h3>
           <form action="../controller/nova_entrega.php" method="POST">
             <input type="text" class="form-control" name="nome" placeholder="Nome" required="required">
             <br>

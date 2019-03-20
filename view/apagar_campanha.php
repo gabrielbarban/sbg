@@ -13,27 +13,6 @@ header('Location: ../index.php');
 
   <head>
 
-    <script type="text/javascript">
-      function verifica_chat()
-      {
-        $.ajax({
-                url: "../controller/verifica_chat.php",
-                dataType: "json",
-                data: {
-                $usuario_id: 1
-            },
-                success: function(data)
-                {
-                  if(data[0]['lido'] == '0')
-                  {
-                    $id =  Number(data[0]['id_usuario']) +  15920 - 350; //salto
-                    document.getElementById('canto').innerHTML = "<b><i class='fas fa-envelope'></i> "+data[0]['nome_usuario']+" </b><a href='chat_conversa.php?id="+$id+"'><br><center><i class='fas fa-eye'></i>Visualizar</a></center>";
-                  }
-                }
-          });
-      }
-    </script>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -76,7 +55,6 @@ header('Location: ../index.php');
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <div id="canto" style="border-radius: 8px; float: right; background-color: #FFFFFF"></div>
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="tutoriais.php"><i class="fas fa-question-circle" title="Central de ajuda"></i></a>
         </li>
@@ -109,7 +87,7 @@ header('Location: ../index.php');
         $permissao3=$config->verifica_permissao($usuario_id, 3); //relatorios
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
-        $permissao11=$config->verifica_permissao($usuario_id, 11); //finanças
+        $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
       ?>
 
 
@@ -173,30 +151,27 @@ header('Location: ../index.php');
 
       </ul>
 
-      <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw fa fa-bicycle"></i> Atualização de forma de entrega: </h3>
-       <?php 
-       //SALTO: +150-11+18-78
+      <div id="content-wrapper">
+        
+        <div style="margin-left: 400px; margin-top: 100px;">
+            <h3>Exclusão de campanha </h3>
+           <?php 
+             $id_campanha = $_GET['id'];
+             //salto =  + 15920 - 350
+             $id_campanha = $id_campanha - 15920 + 350;
+           ?>
+           <h5>Tem certeza que deseja excluir?</h5>
 
-       $id_entrega = $_GET['id'];
-       //salto =  + 15920 - 350
-       $id_entrega = $id_entrega - 15920 + 350;
-       $data = array();
-       $data = $config->pega_entrega($id_entrega);
+           <a class="nav-link" href="../controller/apaga_campanha.php?id=<?= $id_campanha ?>">
+            <i class="fas fa-fw fa fa-check"></i>
+           <span>Sim</span></a>
 
-       foreach ($data as $row) {
-       ?>
-       <form action="../controller/editar_entrega.php" method="POST">
-          <input type="hidden" value=<?= $row['id']?> name="id">
-          Nome: <input type="text" class="form-control" value='<?= $row['nome']?>' name="nome" placeholder="Nome" required="required">
-          <br>
-          <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
-        </form>
-         <br>
-          <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
-                  <span>Voltar</span></a>
+           <a class="nav-link" href="crm.php">
+            <i class="fas fa fa-times"></i>
+           <span>&nbsp;&nbsp;Não</span></a>
+       </div>
+
       </div>
-    <?php } ?>
       <!-- /.content-wrapper -->
 
     </div>
@@ -241,11 +216,10 @@ header('Location: ../index.php');
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin.min.js"></script>
 
-    <script type="text/javascript">
-      window.onload = function () {
-        setInterval("verifica_chat();", 500);
-      }
-    </script>
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
+
 
   </body>
 

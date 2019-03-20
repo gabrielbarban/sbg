@@ -175,7 +175,10 @@ header('Location: ../index.php');
 
       <div id="content-wrapper" style="margin-left: 15px">
         <div style="float: right; width: 40% !important">
-            <a class="btn btn-primary" href="config-entrega.php" ><i class="fas fa-fw fa fa-paper-plane"></i>
+            <a class="btn btn-primary" href="crm.php" ><i class="fas fa-fw fa fa-paper-plane"></i>
+            <span>Campanhas e relacionamento</span></a><br><br>
+
+            <a class="btn btn-primary" href="config-entrega.php" ><i class="fas fa-fw fa fa-bicycle"></i>
             <span>Configurar formas de entrega</span></a><br><br>
 
             <a class="btn btn-primary" href="config-etiqueta-individual.php" ><i class="fas fa-fw fa fa  fa-cube"></i>
