@@ -45,6 +45,14 @@
             </div>
             <input type="submit" class="form-control" value="Cadastrar" style="background-color: #ced4da;">
           </form><br>
+          <center><img src="images/logo-sbg.png" style="width: 90px"></center><br>
+          <b>
+            <i><ul>
+            <li>Gerencie seus clientes</li>
+            <li>Gere relatórios de forma fácil</li>
+            <li>Mantenha seu caixa organizado</li>
+          </ul></i>
+          </b>
         </div>
       </div>
 
