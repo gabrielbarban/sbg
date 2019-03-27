@@ -45,7 +45,7 @@
             <li>Controle de convênios e tabelas</li>
             <li>Relatórios e gráficos otimizados</li>
             <li>Chat interno</li>
-            <li>Usuários ilimitados com mensalidade única de R$ 100,00</li>
+            <li>Usuários ilimitados</li>
             <li>Controle de atendimento</li>
             <li>Prontuário do paciente</li>
           </ul></i>
