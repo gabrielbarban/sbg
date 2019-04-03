@@ -191,12 +191,14 @@ header('Location: ../index.php');
           <form action="../controller/novo_documento.php" method="POST">
             <input type="text" class="form-control" name="nome" placeholder="Nome" required="required">
             <br>
-            <textarea name="codigo" cols="100" rows="10" style="border-radius: 24px; border: 3px solid #888;"></textarea>
+            <textarea name="codigo" id="codigo" cols="100" rows="10" style="border-radius: 24px; border: 3px solid #888;"></textarea>
             <br><br>
             <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
-          </form>
-           <br>
-              <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+          </form><br>
+           <!-- <button style="border-radius: 7px;" onclick="negrito()">Negrito</button>
+            <button style="border-radius: 7px;" onclick="italico()">Italico</button>
+           <br><br> -->
+            <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
             <span>Voltar</span></a>
         </div>
         <!-- /.container-fluid -->
@@ -286,6 +288,41 @@ header('Location: ../index.php');
       window.onload = function () {
         setInterval("verifica_chat();", 500);
       }
+    </script>
+
+    <script type="text/javascript">
+        
+
+        function negrito()
+        {
+            var textArea = document.getElementById('codigo');
+            var selectedText;
+
+            if (textArea.selectionStart != undefined) { //Se tiver algo selecionado
+              var startPos = textArea.selectionStart; //Inicio da selecao
+              var endPos   = textArea.selectionEnd;     //Fim da selecao
+              selectedText = textArea.value.substring(startPos, endPos);
+                var novoTexto = "<b>"+textArea.value.substring(0, startPos) + selectedText + textArea.value.substring(endPos)+"</b>";
+                textArea.value = novoTexto;
+            }
+        }
+
+
+        function italico()
+        {
+            var textArea = document.getElementById('codigo');
+            var selectedText;
+
+            if (textArea.selectionStart != undefined) { //Se tiver algo selecionado
+              var startPos = textArea.selectionStart; //Inicio da selecao
+              var endPos   = textArea.selectionEnd;     //Fim da selecao
+              selectedText = textArea.value.substring(startPos, endPos);
+                var novoTexto = "<i>"+textArea.value.substring(0, startPos) + selectedText + textArea.value.substring(endPos)+"</i>";
+                textArea.value = novoTexto;
+            }
+        }
+
+
     </script>
   </body>
 
