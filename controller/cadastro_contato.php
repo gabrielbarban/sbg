@@ -41,7 +41,7 @@ if($Mailer->Send()){
 
 echo ("<SCRIPT LANGUAGE='JavaScript'>
 	window.alert('Obrigado por se cadastrar, em breve nossa equipe entrará em contato com você :)')
-	window.location.href='../index.php';
+	window.location.href='../site';
 	</SCRIPT>");
 
 ?>

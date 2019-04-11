@@ -51,8 +51,8 @@
           </ul></i>
           <br>
 
-          <i class="fa fa-phone"> (11) 93926-1285 / (11) 95320-1402</i><Br>
-          <i class="fa fa-envelope-open"> barbangabriel@gmail.com / kadu.doro@gmail.com</i><Br>
+          <i class="fa fa-phone"> (11) 93926-1285 / (11) 97084-1241</i><Br>
+          <i class="fa fa-envelope-open"> barbangabriel@gmail.com</i><Br>
           
           <br><br>
           <i class="fa fa-unlock-alt" style="font-size: 25px;"><br>Segurança</i>
