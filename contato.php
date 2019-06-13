@@ -54,10 +54,10 @@
           <center><img src="images/logo-sbg.png" style="width: 90px"></center><br>
           <b>
             <i><ul>
-            <li>Controle de caixa e Financeiro</li>
-            <li>Chat interno</li>
-            <li>Prontuário Online</li>
-            <li>E muito mais!</li>
+            <li>Controle de caixa e Financeiro <i class='fas fa-check'></i></li>
+            <li>Chat interno <i class='fas fa-check'></i></li>
+            <li>Prontuário Online <i class='fas fa-check'></i></li>
+            <li>E muito mais! <i class='fas fa-check'></i></li>
           </ul></i>
           </b>
         </div>

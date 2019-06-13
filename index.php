@@ -54,11 +54,11 @@
             <input type="submit" class="form-control" value="Login" style="background-color: #ced4da;">
           </form><br>
           <b><i><ul>
-            <li>Gerencie seus clientes</li>
-            <li>Gere relatórios de forma fácil</li>
-            <li>Mantenha seu caixa organizado</li>
+            <li>Gerencie seus clientes <i class='fas fa-check'></i></li>
+            <li>Gere relatórios de forma fácil <i class='fas fa-check'></i></li>
+            <li>Mantenha seu caixa organizado <i class='fas fa-check'></i></li>
           </ul></i></b>
-	         Quer experimentar gratuitamente? <a href="contato.php">Clique aqui</a>
+	         Quer experimentar gratuitamente? <a href="contato.php">Clique aqui <i class='fas fa-bolt'></i></a>
           <br><br>
           <?php  
           //mensagem de erro ao usuario
