@@ -31,7 +31,7 @@
 
     <div class="container">
 	<div class="card card-login mx-auto mt-5">
-        <div class="card-header"><center><b>Comece a gerenciar o seu negócio agora mesmo!</b></center></div>
+        <div class="card-header"><center><b>Faça um teste grátis da plataforma:</b></center></div>
         <div class="card-body">
           <form action="controller/cadastro_contato.php" method='POST'>
             <div class="form-group">
