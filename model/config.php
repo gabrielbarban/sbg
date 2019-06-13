@@ -13,6 +13,9 @@ class config
 		$empresa_id = $_SESSION["empresa_id"];
 		$ip_acesso = $_SERVER['REMOTE_ADDR'];
 
+		if(!$usuario_id) $usuario_id = 1;
+		if(!$empresa_id) $empresa_id = 1;
+
 		$conexao = new Conexao();
                 $pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
                 $sql = "INSERT INTO log (acao, dados, usuario_id, empresa_id, ip_acesso)
@@ -1608,6 +1611,17 @@ class config
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
 		$data = $pdo->query("SELECT * FROM clientes WHERE empresa_id='".$empresa_id."';")->fetchAll();
 		return $data;
+	}
+
+	public function pega_ultimo_usuario($empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT MAX(id) as 'id' FROM usuarios WHERE empresa_id='".$empresa_id."';")->fetchAll();
+		foreach ($data as $d){
+			$id = $d['id'];
+		}
+		return $id;
 	}
 }
 ?>

@@ -43,6 +43,12 @@
      	    <div class="form-group">
                 <input type="text" name="telefone" class="form-control" placeholder="Telefone" required="required" autofocus="autofocus">
             </div>
+          <div class="form-group">
+                <input type="text" name="senha" class="form-control" placeholder="Senha" required="required" autofocus="autofocus">
+            </div>
+          <div class="form-group">
+                <input type="text" name="senha2" class="form-control" placeholder="Senha novamente" required="required" autofocus="autofocus">
+            </div>
             <input type="submit" class="form-control" value="Cadastrar" style="background-color: #ced4da;">
           </form><br>
           <center><img src="images/logo-sbg.png" style="width: 90px"></center><br>
