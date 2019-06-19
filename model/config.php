@@ -724,8 +724,8 @@ class config
 	{
 		$conexao = new Conexao();
                 $pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
-                $sql = "INSERT INTO contato_lead (nome, email, telefone)
-                VALUES('".$nome."', '".$email."', '".$telefone."')";
+                $sql = "INSERT INTO contato_lead (nome, email, telefone, status)
+                VALUES('".$nome."', '".$email."', '".$telefone."', 'Novo')";
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->exec($sql);
 	}
@@ -1622,6 +1622,23 @@ class config
 			$id = $d['id'];
 		}
 		return $id;
+	}
+
+	public function lista_leads()
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM contato_lead")->fetchAll();
+		return $data;
+	}
+
+	public function atualiza_status_lead($id, $status)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "UPDATE contato_lead SET status='".$status."' WHERE id='".$id."';";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
 	}
 }
 ?>
