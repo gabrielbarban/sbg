@@ -4,8 +4,21 @@ session_start();
 $nome_usuario = $_SESSION["nome_usuario"];
 $username_usuario = $_SESSION["username_usuario"];
 $id_usuario = $_SESSION["usuario_id"];
+$email_usuario = $_SESSION["email_usuario"];
+
 if(!$nome_usuario)
-header('Location: ../index.php');
+echo ("<SCRIPT LANGUAGE='JavaScript'>
+	window.alert('Desculpe, você não tem acesso a essas informações.')
+	window.location.href='../index.php';
+	</SCRIPT>");
+
+//BLOQUEANDO O ACESSO A TELA DE GERENCIAMENTO DE LEADS SOMENTE PARA O EMAIL E O EMAIL DO KADU
+if( ($email_usuario != "kadu.doro@gmail.com") && ($email_usuario != "barbangabriel@gmail.com"))
+	echo ("<SCRIPT LANGUAGE='JavaScript'>
+	window.alert('Acesso bloqueado :)')
+	window.location.href='../view/".$_SESSION["url_inicial"].".php';
+	</SCRIPT>");
+
 ?>
 
 <!DOCTYPE html>

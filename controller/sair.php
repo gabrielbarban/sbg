@@ -14,7 +14,7 @@ unset($_SESSION["empresa_id"]);
 unset($_SESSION["msg_erro"]);
 unset($_SESSION["msg_cadastro"]);
 unset($_SESSION["flag_cadastro"]);
-
+unset($_SESSION["email_usuario"]);
 
 header('Location: ../index.php');
 ?>

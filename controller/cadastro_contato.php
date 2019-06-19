@@ -98,7 +98,8 @@ if(!$verifica && ($senha == $senha2) )
 	$texto = "<b>Eaí, tudo bem?</b><br>Segue abaixo as informacoes do novo LEAD que acabou de se cadastrar:<br><br><br>Nome: ".$nome."<br>E-mail: ".$email."<br>Telefone: ".$telefone."<br><br><br><i>E-mail enviado através do Assistente inteligente da Plataforma</i>";
 	$Mailer->Body = $texto;
 	$Mailer->addAddress('barbangabriel@gmail.com');
-	$Mailer->addAddress('leguedesmello@gmail.com ');
+	$Mailer->addAddress('leguedesmello@gmail.com');
+	$Mailer->addAddress('kadu.doro@gmail.com');
 
 	if($Mailer->Send()){
 		echo "E-mail enviado com sucesso";

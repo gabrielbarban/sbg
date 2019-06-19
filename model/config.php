@@ -266,6 +266,7 @@ class config
 			$_SESSION["username_usuario"] = $row['usuario'];
 			$_SESSION["usuario_id"] = $row['id'];
 			$_SESSION["url_inicial"] = $row['url_inicial'];
+			$_SESSION["email_usuario"] = $row['email'];
 			$this->gera_log("Logou no sistema", "---");
 			return 1;			
 		}
