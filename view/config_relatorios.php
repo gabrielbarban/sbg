@@ -185,7 +185,7 @@ header('Location: ../index.php');
         <center><img src="../images/logo-sbg.png"></center>
         <br>
         <b><i>
-                  <center>Versão 3.0.1 (Fevereiro/2019)</center>
+                  <center>Versão 3.0.2 (Junho/2019)</center>
         </i></b>
       </div>
       <!-- /.content-wrapper -->
