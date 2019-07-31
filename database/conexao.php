@@ -2,10 +2,10 @@
 
 class Conexao
 {
-        public $host='localhost';
+        public $host='db';
         public $port='3306';
-        public $user='gabriel';
-        public $password='gabriel';
+        public $user='root';
+        public $password='root';
         public $dbname="controle";
 }
 
