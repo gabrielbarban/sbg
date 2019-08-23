@@ -713,14 +713,6 @@ class config
 		return $data;
 	}
 
-	public function lista_relatorios($empresa_id)
-	{
-		$conexao = new Conexao();
-		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
-		$data = $pdo->query("SELECT * FROM relatorios WHERE empresa_id='".$empresa_id."';")->fetchAll();
-		return $data;
-	}
-
 	public function novo_contato($nome, $email, $telefone)
 	{
 		$conexao = new Conexao();
@@ -1640,6 +1632,35 @@ class config
 		$sql = "UPDATE contato_lead SET status='".$status."' WHERE id='".$id."';";
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$pdo->exec($sql);
+	}
+
+	public function lista_relatorios($empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT id, nome, query, DATE_FORMAT(data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro'  FROM relatorio_custom WHERE empresa_id='".$empresa_id."';")->fetchAll();
+		return $data;
+	}
+
+	public function pega_campos_relatorio($id_relatorio)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT id, nome, query FROM relatorio_custom WHERE id='".$id_relatorio."';")->fetchAll();
+		$campos = $data[0]['query'];
+		return $campos;
+	}
+
+	public function gera_relatorio_generalista($campos, $condicao1, $condicao2, $empresa_id)
+	{
+		$query = "SELECT ".$campos." FROM registro r
+		JOIN clientes c ON (r.cliente_id = c.id) JOIN  registro_itens ri ON (r.id = ri.registro_id) JOIN valores v ON (ri.valor_empresa_id = v.id) JOIN empresas em ON (v.empresas_id = em.id)";
+		$query = $query." WHERE r.data_cadastro >= '".$condicao1."' AND r.data_cadastro <= '".$condicao2."' AND r.empresa_id = '".$empresa_id."';";
+		//echo $query;exit;
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query($query)->fetchAll();
+		return $data;
 	}
 }
 ?>

@@ -60,13 +60,13 @@ header('Location: ../index.php');
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-     <a class="navbar-brand mr-1" href="#">SBG<br><span style="font-size: 12px;"><b><?= $nome_usuario ?></b></span></a>
+      <a class="navbar-brand mr-1" href="#"><img src="../images/logo2-sbg.png" style="width: 45px;"><br><span style="font-size: 10px;"><b><?= $nome_usuario ?></b></span></a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
 
-      <!-- Navbar Search -->
+     <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
           <div class="input-group-append">  
@@ -102,21 +102,17 @@ header('Location: ../index.php');
       <!-- Sidebar -->
      <?php
      include("../model/config.php");
+     include("../model/firewall.php");
         $config = new Config();
+        $firewall = new Firewall();
+        $var_hash = $firewall->gera_random();
         
         $permissao1=$config->verifica_permissao($usuario_id, 1); //registros
         $permissao2=$config->verifica_permissao($usuario_id, 2); //dashboard
         $permissao3=$config->verifica_permissao($usuario_id, 3); //relatorios
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
-        $permissao6=$config->verifica_permissao($usuario_id, 6); //config companhia
-        $permissao7=$config->verifica_permissao($usuario_id, 7); //config usuários
-        $permissao8=$config->verifica_permissao($usuario_id, 8); //config formas de pgto
-        $permissao9=$config->verifica_permissao($usuario_id, 9); //config empresas
-        $permissao10=$config->verifica_permissao($usuario_id, 10); //config status
-        $permissao11=$config->verifica_permissao($usuario_id, 11); //finanças
-        $permissao12=$config->verifica_permissao($usuario_id, 12); //categorias financeiras
-        $permissao13=$config->verifica_permissao($usuario_id, 13); //parcerias
+        $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
       ?>
 
 
@@ -180,77 +176,68 @@ header('Location: ../index.php');
 
       </ul>
 
-      <div id="content-wrapper" style="margin-left: 15px">
+     <div id="content-wrapper" style="margin-left: 15px">
+        <?php 
+           $empresa_id = $_SESSION["empresa_id"];
+           $id_relatorio = $_POST['id_relatorio'];
+           $dataInicio = $_POST['dataInicio'];
+           $dataFim = $_POST['dataFim'];
 
-        <h3><i class="fas fa-fw fa fa fa-cogs"></i> Configurações:</h3><br><Br>
-        
-        <?php if($permissao6){ ?>
-        <a class="nav-link" href="companhia.php">
-            <i class="fas fa fa fa-industry"></i>
-            <span>Companhia</span>
-        </a>
-        <?php } ?>
+           $diaInicio = substr($dataInicio, 0, 2);
+           $mesInicio = substr($dataInicio, 3, 2);
+           $anoInicio = substr($dataInicio, 6, 4);
 
-        <?php if($permissao13){ ?>
-        <a class="nav-link" href="parcerias.php">
-            <i class="fas fa fa fa-handshake"></i>
-            <span>Parceiros</span>
-        </a>
-        <?php } ?>
+           $diaFim = substr($dataFim, 0, 2);
+           $mesFim = substr($dataFim, 3, 2);
+           $anoFim = substr($dataFim, 6, 4);
 
-        <?php if($permissao5){ ?>
-        <a class="nav-link" href="config_monitor.php">
-            <i class="fas fa fa   fa fa-rocket"></i>
-            <span>Monitor</span>
-        </a>
-        <?php } ?>
+           $condicao1 = $anoInicio."-".$mesInicio."-".$diaInicio." 00:00:00";
+           $condicao2 = $anoFim."-".$mesFim."-".$diaFim." 23:59:59";
 
-        <?php if($permissao5){ ?>
-        <a class="nav-link" href="customer_report.php">
-            <i class="fa fa-database"></i>
-            <span>BI</span>
-        </a>
-        <?php } ?>
+           $campos=$config->pega_campos_relatorio($id_relatorio, $empresa_id);
+           $data=$config->gera_relatorio_generalista($campos, $condicao1, $condicao2, $empresa_id);
+          ?>
 
-        <?php if($permissao7){ ?>
-        <a class="nav-link" href="usuarios.php">
-            <i class="fas fa fa fa-id-card"></i>
-            <span>Usuários</span>
-        </a>
-        <?php } ?>
+          <?php
+           //calculando a quantidade de colunas
+           $vetor = [];
+           $vetor = explode(",", $campos);
+           $total_colunas = count($vetor);
+          ?>
 
-        <?php if($permissao8){ ?>
-        <a class="nav-link" href="formas_pagamento.php">
-            <i class="fas fa fa fa-credit-card"></i>
-            <span>Formas de pagamento</span>
-        </a>
-        <?php } ?>
+          <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <?php
+                  for($i=0 ; $i<$total_colunas ; $i++)
+                  {
+                    echo "<th>".$vetor[$i]."</th>";
+                  }
+                  ?>
+                </tr>
+              </thead>
+              <?php
+                  foreach ($data as $row)
+                  {
+                    echo "<tbody><tr><td>".$row['nome']."</td></tr></tbody>";
+                  }
+              ?>
+            </table>
+          </div>
 
-        <?php if($permissao12){ ?>
-        <a class="nav-link" href="categorias.php">
-            <i class="fas fa fa fa-tags"></i>
-            <span>Categorias financeiras</span>
-        </a>
-        <?php } ?>
 
-        <?php if($permissao9){ ?>
-        <a class="nav-link" href="empresas.php">
-            <i class="fas fa-fw fa fa fa  fa fa-building"></i>
-            <span>Empresas</span>
-        </a>
-        <?php } ?>
 
-        <?php if($permissao10){ ?>
-        <a class="nav-link" href="status.php">
-            <i class="fas fa-fw   fa fa-clone"></i>
-            <span>Status</span>
-        </a>
-        <?php } ?>
+        <!-- /.container-fluid -->
 
-        <a class="nav-link" href="config_relatorios.php">
-            <i class="fas fa-fw fa fa-server"></i>
-            <span>Sobre</span>
-        </a>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Barban 2019</span>
+            </div>
+          </div>
+        </footer>
       </div>
       <!-- /.content-wrapper -->
 
@@ -301,7 +288,6 @@ header('Location: ../index.php');
         setInterval("verifica_chat();", 500);
       }
     </script>
-
 
   </body>
 

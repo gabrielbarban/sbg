@@ -34,6 +34,12 @@ header('Location: ../index.php');
       }
     </script>
 
+    <script>
+      function setDadosModal(valor) {
+         $('#id_registro').val(valor);
+      }
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -60,13 +66,13 @@ header('Location: ../index.php');
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-     <a class="navbar-brand mr-1" href="#">SBG<br><span style="font-size: 12px;"><b><?= $nome_usuario ?></b></span></a>
+      <a class="navbar-brand mr-1" href="#">SBG<br><span style="font-size: 12px;"><b><?= $nome_usuario ?></b></span></a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
 
-      <!-- Navbar Search -->
+     <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
           <div class="input-group-append">  
@@ -102,21 +108,17 @@ header('Location: ../index.php');
       <!-- Sidebar -->
      <?php
      include("../model/config.php");
+     include("../model/firewall.php");
         $config = new Config();
+        $firewall = new Firewall();
+        $var_hash = $firewall->gera_random();
         
         $permissao1=$config->verifica_permissao($usuario_id, 1); //registros
         $permissao2=$config->verifica_permissao($usuario_id, 2); //dashboard
         $permissao3=$config->verifica_permissao($usuario_id, 3); //relatorios
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
-        $permissao6=$config->verifica_permissao($usuario_id, 6); //config companhia
-        $permissao7=$config->verifica_permissao($usuario_id, 7); //config usuários
-        $permissao8=$config->verifica_permissao($usuario_id, 8); //config formas de pgto
-        $permissao9=$config->verifica_permissao($usuario_id, 9); //config empresas
-        $permissao10=$config->verifica_permissao($usuario_id, 10); //config status
-        $permissao11=$config->verifica_permissao($usuario_id, 11); //finanças
-        $permissao12=$config->verifica_permissao($usuario_id, 12); //categorias financeiras
-        $permissao13=$config->verifica_permissao($usuario_id, 13); //parcerias
+        $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
       ?>
 
 
@@ -180,77 +182,58 @@ header('Location: ../index.php');
 
       </ul>
 
-      <div id="content-wrapper" style="margin-left: 15px">
+     <div id="content-wrapper" style="margin-left: 15px">
+        <h3><i class="fa fa-database"></i> BI</h3><br>
+        <div class="container-fluid">
+          <div class="table-responsive">
+              <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Campos</th>
+                      <th>Data de cadastro</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+          <?php
+            $empresa_id = $_SESSION["empresa_id"];
+            $data = array();
+            $data=$config->lista_relatorios($empresa_id);
 
-        <h3><i class="fas fa-fw fa fa fa-cogs"></i> Configurações:</h3><br><Br>
-        
-        <?php if($permissao6){ ?>
-        <a class="nav-link" href="companhia.php">
-            <i class="fas fa fa fa-industry"></i>
-            <span>Companhia</span>
-        </a>
-        <?php } ?>
+            foreach ($data as $row) {
+              echo "<tbody><tr><td><i class='fas fa fa fa-check-circle'></i> ".$row['nome']."</td>";
+              echo "<td>".$row['query']."</td>";
+              echo "<td>".$row['data_cadastro']."</td>";
+              //salto =  + 15920 - 350
+              $id = $row['id'] + 15920 - 350;
+              echo "<td>
+                <a href='#' data-toggle='modal' data-target='#documentoModal' target='_blank' onclick='setDadosModal(".$row['id'].")'><i class='fa fa-filter' title='Gerar relatório'></i></a>
+                <a href='editar_relatorio.php?id=".$id."?id_relatorio=".$var_hash."'><i class='fas fa fa-edit' title='Editar campos'></i></a>
+                <a href='apagar_relatorio.php?id=".$id."?id_relatorio=".$var_hash."'><i class='fas fa fa-times' title='Excluir relatório'></i></a>
+              </td></tr></tbody>";   
 
-        <?php if($permissao13){ ?>
-        <a class="nav-link" href="parcerias.php">
-            <i class="fas fa fa fa-handshake"></i>
-            <span>Parceiros</span>
-        </a>
-        <?php } ?>
+            }
+          ?>
+                </table>
+            </div>
 
-        <?php if($permissao5){ ?>
-        <a class="nav-link" href="config_monitor.php">
-            <i class="fas fa fa   fa fa-rocket"></i>
-            <span>Monitor</span>
-        </a>
-        <?php } ?>
+            <br><br>
+            <a class="btn btn-primary" href="configuracoes.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+            <span>Voltar</span></a>
+            <a class="btn btn-primary" href="new_customer_report.php" >Cadastrar novo relatório <i class='fas fa fa fa-plus'></i></a>
 
-        <?php if($permissao5){ ?>
-        <a class="nav-link" href="customer_report.php">
-            <i class="fa fa-database"></i>
-            <span>BI</span>
-        </a>
-        <?php } ?>
+        </div>
+        <!-- /.container-fluid -->
 
-        <?php if($permissao7){ ?>
-        <a class="nav-link" href="usuarios.php">
-            <i class="fas fa fa fa-id-card"></i>
-            <span>Usuários</span>
-        </a>
-        <?php } ?>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Barban 2019</span>
+            </div>
+          </div>
+        </footer>
 
-        <?php if($permissao8){ ?>
-        <a class="nav-link" href="formas_pagamento.php">
-            <i class="fas fa fa fa-credit-card"></i>
-            <span>Formas de pagamento</span>
-        </a>
-        <?php } ?>
-
-        <?php if($permissao12){ ?>
-        <a class="nav-link" href="categorias.php">
-            <i class="fas fa fa fa-tags"></i>
-            <span>Categorias financeiras</span>
-        </a>
-        <?php } ?>
-
-        <?php if($permissao9){ ?>
-        <a class="nav-link" href="empresas.php">
-            <i class="fas fa-fw fa fa fa  fa fa-building"></i>
-            <span>Empresas</span>
-        </a>
-        <?php } ?>
-
-        <?php if($permissao10){ ?>
-        <a class="nav-link" href="status.php">
-            <i class="fas fa-fw   fa fa-clone"></i>
-            <span>Status</span>
-        </a>
-        <?php } ?>
-
-        <a class="nav-link" href="config_relatorios.php">
-            <i class="fas fa-fw fa fa-server"></i>
-            <span>Sobre</span>
-        </a>
       </div>
       <!-- /.content-wrapper -->
 
@@ -261,6 +244,9 @@ header('Location: ../index.php');
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
+
+
+
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -280,6 +266,48 @@ header('Location: ../index.php');
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+    <!-- MODAL FILTRO DE DATA-->
+    <div class="modal fade" id="documentoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Selecione o período&nbsp;&nbsp;<i class='fa fa-filter'></i></h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <!-- Modal Body !-->
+          <div class="modal-body">       
+            <form action="gerar_relatorio.php" method="POST">
+            <input type="hidden" name="id_relatorio" id="id_registro" value="">
+            
+            <input type="text" name="dataInicio" placeholder="dd/mm/yyyy">&nbsp;&nbsp;Início<Br>
+            <input type="text" name="dataFim" placeholder="dd/mm/yyyy">&nbsp;&nbsp;Fim<br><br>
+
+            <input type="submit" class="form-control" value="Carregar" style="background-color: #ced4da;">
+            </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -301,7 +329,6 @@ header('Location: ../index.php');
         setInterval("verifica_chat();", 500);
       }
     </script>
-
 
   </body>
 
