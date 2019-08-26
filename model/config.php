@@ -1638,7 +1638,7 @@ class config
 	{
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
-		$data = $pdo->query("SELECT id, nome, query, DATE_FORMAT(data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro'  FROM relatorio_custom WHERE empresa_id='".$empresa_id."';")->fetchAll();
+		$data = $pdo->query("SELECT id, nome, query, apelidos, DATE_FORMAT(data_cadastro,'%d/%m/%Y %H:%H') as 'data_cadastro'  FROM relatorio_custom WHERE empresa_id='".$empresa_id."';")->fetchAll();
 		return $data;
 	}
 
@@ -1660,6 +1660,68 @@ class config
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
 		$data = $pdo->query($query)->fetchAll();
+		return $data;
+	}
+
+	public function valida_campo_relatorio($nome_campo)
+	{
+		if($nome_campo == "c.nome")
+			return "Nome do cliente";
+
+		if($nome_campo == "c.data_nasc")
+			return "Nascimento";
+
+		if($nome_campo == "c.email")
+			return "E-mail cliente";
+
+		if($nome_campo == "c.telefone")
+			return "Telefone cliente";
+
+		if($nome_campo == "r.valor")
+			return "Valor";
+
+		if($nome_campo == "r.data_cadastro")
+			return "Data do registro";
+
+		if($nome_campo == "em.nome")
+			return "Empresa";
+	}
+
+	public function novo_custom_report($nome, $query, $apelidos, $empresa_id, $usuario_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "INSERT INTO relatorio_custom (nome, query, apelidos, empresa_id, usuario_id) 
+		VALUES('".$nome."', '".$query."', '".$apelidos."', '".$empresa_id."', '".$usuario_id."')";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
+		$this->gera_log("Cadastrou novo relatório customizado", "Nome do relatório customizado: ".$nome);
+	}
+
+	public function pega_apelidos_relatorio($id_relatorio)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT id, nome, query, apelidos FROM relatorio_custom WHERE id='".$id_relatorio."';")->fetchAll();
+		$apelidos = $data[0]['apelidos'];
+		return $apelidos;
+	}
+
+	public function deleta_report($id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "DELETE FROM relatorio_custom WHERE id='".$id."';";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
+		$this->gera_log("Deletou relatório customizado", "ID do relatório customizado: ".$id);
+	}
+
+	public function pega_relatorio($id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM relatorio_custom WHERE id='".$id."';")->fetchAll();
 		return $data;
 	}
 }

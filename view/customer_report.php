@@ -133,6 +133,14 @@ header('Location: ../index.php');
         </li>
       <?php } ?>
 
+      <?php if($permissao3){ ?>
+        <li class="nav-item">
+          <a class="nav-link" href="customer_report.php">
+            <i class="fa fa-database"></i>
+            <span>BI</span></a>
+        </li>
+        <?php } ?>
+
         <?php if($permissao5){ ?>
         <li class="nav-item active">
           <a class="nav-link" href="monitor.php">
@@ -202,13 +210,12 @@ header('Location: ../index.php');
 
             foreach ($data as $row) {
               echo "<tbody><tr><td><i class='fas fa fa fa-check-circle'></i> ".$row['nome']."</td>";
-              echo "<td>".$row['query']."</td>";
+              echo "<td>".$row['apelidos']."</td>";
               echo "<td>".$row['data_cadastro']."</td>";
               //salto =  + 15920 - 350
               $id = $row['id'] + 15920 - 350;
               echo "<td>
                 <a href='#' data-toggle='modal' data-target='#documentoModal' target='_blank' onclick='setDadosModal(".$row['id'].")'><i class='fa fa-filter' title='Gerar relatório'></i></a>
-                <a href='editar_relatorio.php?id=".$id."?id_relatorio=".$var_hash."'><i class='fas fa fa-edit' title='Editar campos'></i></a>
                 <a href='apagar_relatorio.php?id=".$id."?id_relatorio=".$var_hash."'><i class='fas fa fa-times' title='Excluir relatório'></i></a>
               </td></tr></tbody>";   
 

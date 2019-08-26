@@ -127,6 +127,14 @@ header('Location: ../index.php');
         </li>
       <?php } ?>
 
+      <?php if($permissao3){ ?>
+        <li class="nav-item">
+          <a class="nav-link" href="customer_report.php">
+            <i class="fa fa-database"></i>
+            <span>BI</span></a>
+        </li>
+        <?php } ?>
+
         <?php if($permissao5){ ?>
         <li class="nav-item active">
           <a class="nav-link" href="monitor.php">
@@ -195,17 +203,34 @@ header('Location: ../index.php');
            $condicao2 = $anoFim."-".$mesFim."-".$diaFim." 23:59:59";
 
            $campos=$config->pega_campos_relatorio($id_relatorio, $empresa_id);
+           $apelidos=$config->pega_apelidos_relatorio($id_relatorio, $empresa_id);
            $data=$config->gera_relatorio_generalista($campos, $condicao1, $condicao2, $empresa_id);
         ?>
 
           <?php
            //calculando a quantidade de colunas
            $vetor = [];
-           $vetor = explode(",", $campos);
+           $vetor = explode(",", $apelidos);
            $total_colunas = count($vetor);
           ?>
 
-          <div class="table-responsive">
+          <script type="text/javascript">
+
+            function impressao()
+            {
+              var conteudo = document.getElementById('resultado_relatorio').innerHTML,
+              tela_impressao = window.open('about:blank');
+              tela_impressao.document.write(conteudo);
+              tela_impressao.window.print();
+              tela_impressao.window.close();  
+            }
+          </script>
+
+
+           <input type="button" class="form-control" value="Imprimir" onclick="impressao()" style="width: 100px; float: right;">
+           <Br>
+
+          <div id="resultado_relatorio" class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
               <thead>
                 <tr>
@@ -217,12 +242,19 @@ header('Location: ../index.php');
                   ?>
                 </tr>
               </thead>
+              <tbody>
               <?php
-                  for($i=0 ; $i<$total_colunas ; $i++)
+                  for($i=0 ; $i<count($data) ; $i++)
                   {
-                    echo "<tbody><tr><td>".$data[$i]."</td></tr></tbody>";
+                    echo "<tr>";
+                        for($j=0 ; $j<count($vetor) ; $j++)
+                        {
+                          echo "<td>".$data[$i][$j]."</td>";
+                        }
+                    echo "</tr>";
                   }
               ?>
+              </tbody>
             </table>
           </div>
 

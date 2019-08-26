@@ -60,7 +60,7 @@ header('Location: ../index.php');
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="#"><img src="../images/logo2-sbg.png" style="width: 45px;"><br><span style="font-size: 10px;"><b><?= $nome_usuario ?></b></span></a>
+    <a class="navbar-brand mr-1" href="#"><img src="../images/logo2-sbg.png" style="width: 45px;"><br><span style="font-size: 10px;"><b><?= $nome_usuario ?></b></span></a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -74,7 +74,7 @@ header('Location: ../index.php');
         </div>
       </form>
 
-     <!-- Navbar -->
+      <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <div id="canto" style="border-radius: 8px; float: right; background-color: #FFFFFF"></div>
         <li class="nav-item dropdown no-arrow">
@@ -100,7 +100,7 @@ header('Location: ../index.php');
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <?php
+     <?php
      include("../model/config.php");
         $config = new Config();
         
@@ -109,7 +109,7 @@ header('Location: ../index.php');
         $permissao3=$config->verifica_permissao($usuario_id, 3); //relatorios
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
-        $permissao11=$config->verifica_permissao($usuario_id, 11); //finanças
+        $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
       ?>
 
 
@@ -182,40 +182,73 @@ header('Location: ../index.php');
       </ul>
 
       <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class='fas fa-fw fa fa fa  fa fa-building'></i> Atualização de Empresa: </h3>
-       <?php 
-       //SALTO: +150-11+18-78
+        <div class="container-fluid">
+          <h3><i class="fas fa-fw   fa fa-clone"></i> Novo relatório customizado:</h3>
+          <form action="../controller/customer_report.php" method="POST">
 
-       $id_empresas = $_GET['id'];
-       $tipo = $_GET['tipo'];
-       //salto =  + 15920 - 350
-       $id_empresas = $id_empresas - 15920 + 350;
-       $data = array();
-       $data = $config->pega_empresas($id_empresas);
+            <br>
+            Nome do relatório:
+            <input type="text" name="nome_relatorio" class="form-control">
+            <br>
 
-       foreach ($data as $row) {
-       ?>
-       <form action="../controller/editar_empresa.php" method="POST">
-          <input type="hidden" value=<?= $row['id']?> name="id">
-          <input type="hidden" value=<?= $tipo?> name="tipo">
-          Nome: <input type="text" class="form-control" value='<?= $row['nome']?>' name="nome" placeholder="Nome" required="required">
-          <br>
-          Razão Social: <input type="text" class="form-control" value='<?= $row['razao_social']?>' name="razao_social" placeholder="Razão Social">
-          <br>
-          CNPJ: <input type="text" class="form-control" value='<?= $row['cnpj']?>' name="cnpj" placeholder="CNPJ">
-          <br>
-          Telefone: <input type="text" class="form-control" value='<?= $row['telefone']?>' name="telefone" placeholder="Telefone">
-          <br>
-          E-mail: <input type="text" class="form-control" value='<?= $row['email']?>' name="email" placeholder="E-mail">
-          <br>
-          <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
-        </form>
-    <br>
-    <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+            Campo 1:
+            <select name="campo1" class="form-control">
+              <option value="c.nome">Nome do cliente</option>
+              <option value="c.data_nasc">Nascimento</option>
+              <option value="c.data_nasc">E-mail cliente</option>
+              <option value="c.telefone">Telefone cliente</option>
+
+              <option value="r.valor">Valor</option>
+              <option value="r.data_cadastro">Data do registro</option>
+              <option value="em.nome">Empresa</option>
+            </select>
+
+            <Br>
+
+            Campo 2:
+            <select name="campo2" class="form-control">
+              <option value="c.nome">Nome do cliente</option>
+              <option value="c.data_nasc">Nascimento</option>
+              <option value="c.email">E-mail cliente</option>
+              <option value="c.telefone">Telefone cliente</option>
+
+              <option value="r.valor">Valor</option>
+              <option value="r.data_cadastro">Data do registro</option>
+              <option value="em.nome">Empresa</option>
+            </select>
+            <Br>
+
+            Campo 3:
+            <select name="campo3" class="form-control">
+              <option value="c.nome">Nome do cliente</option>
+              <option value="c.data_nasc">Nascimento</option>
+              <option value="c.data_nasc">E-mail cliente</option>
+              <option value="c.telefone">Telefone cliente</option>
+
+              <option value="r.valor">Valor</option>
+              <option value="r.data_cadastro">Data do registro</option>
+              <option value="em.nome">Empresa</option>
+            </select>
+
+            <br>
+            <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
+          </form>
+           <br>
+              <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
             <span>Voltar</span></a>
-      </div>
-    <?php } ?>
+        </div>
+        <!-- /.container-fluid -->
 
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Barban 2019</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
       <!-- /.content-wrapper -->
 
     </div>
@@ -245,6 +278,32 @@ header('Location: ../index.php');
       </div>
     </div>
 
+    <!-- tentativa de criar um modal para cadastrar usuário !-->
+    <div class="modal fade" id="novoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Novo Usuário</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="cadastro" id="cadastro" method="post" action="">
+              <input style="border-radius: 8px" type="text" name="nome" placeholder="Nome">(*)<br>
+              <input style="border-radius: 8px" type="text" name="username" placeholder="Username">(*)<br>
+              <input style="border-radius: 8px" type="text" name="email" placeholder="E-mail"><br>
+              <input style="border-radius: 8px" type="password" name="senha" placeholder="Senha"><br>
+              <input style="border-radius: 8px" type="password" name="senha2" placeholder="Senha novamente"><br>
+              <input style="border-radius: 8px" type="submit" value="Salvar">
+            </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -260,12 +319,12 @@ header('Location: ../index.php');
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin.min.js"></script>
 
-    <script type="text/javascript">
+    <!-- Demo scripts for this page-->
+   <script type="text/javascript">
       window.onload = function () {
         setInterval("verifica_chat();", 500);
       }
     </script>
-
 
   </body>
 

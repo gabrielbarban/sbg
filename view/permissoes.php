@@ -133,6 +133,14 @@ header('Location: ../index.php');
         </li>
         <?php } ?>
 
+        <?php if($permissao3){ ?>
+        <li class="nav-item">
+          <a class="nav-link" href="customer_report.php">
+            <i class="fa fa-database"></i>
+            <span>BI</span></a>
+        </li>
+        <?php } ?>
+
         <?php if($permissao1){ ?>
         <li class="nav-item">
           <a class="nav-link" href="registros.php">
