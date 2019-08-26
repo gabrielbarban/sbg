@@ -72,7 +72,7 @@ header('Location: ../index.php');
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="#">SBG<br><span style="font-size: 12px;"><b><?= $nome_usuario ?></b></span></a>
+    <a class="navbar-brand mr-1" href="#"><img src="../images/logo2-sbg.png" style="width: 45px;"><br><span style="font-size: 10px;"><b><?= $nome_usuario ?></b></span></a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>

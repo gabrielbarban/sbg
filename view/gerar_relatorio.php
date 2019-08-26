@@ -196,7 +196,7 @@ header('Location: ../index.php');
 
            $campos=$config->pega_campos_relatorio($id_relatorio, $empresa_id);
            $data=$config->gera_relatorio_generalista($campos, $condicao1, $condicao2, $empresa_id);
-          ?>
+        ?>
 
           <?php
            //calculando a quantidade de colunas
@@ -218,9 +218,9 @@ header('Location: ../index.php');
                 </tr>
               </thead>
               <?php
-                  foreach ($data as $row)
+                  for($i=0 ; $i<$total_colunas ; $i++)
                   {
-                    echo "<tbody><tr><td>".$row['nome']."</td></tr></tbody>";
+                    echo "<tbody><tr><td>".$data[$i]."</td></tr></tbody>";
                   }
               ?>
             </table>
