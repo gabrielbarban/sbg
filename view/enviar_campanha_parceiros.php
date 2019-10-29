@@ -2,9 +2,9 @@
 
 	session_start();
 
-	require("../PHPMailer/src/PHPMailer.php");
-    require("../PHPMailer/src/SMTP.php");
-    require("../PHPMailer/src/Exception.php");
+	require("../vendor/PHPMailer/src/PHPMailer.php");
+    require("../vendor/PHPMailer/src/SMTP.php");
+    require("../vendor/PHPMailer/src/Exception.php");
     include("../model/config.php");
     $config = new Config();
     //SALTO: +150-11+18-78
