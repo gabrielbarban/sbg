@@ -14,6 +14,10 @@ header('Location: ../index.php');
 
   <head>
 
+    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> <script type="text/javascript">
+        bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+    </script>
+
     <script type="text/javascript">
       function verifica_chat()
       {
@@ -203,7 +207,7 @@ header('Location: ../index.php');
         <i><b>Campos disponíveis: </b>nome, nascimento, rg, cpf, nome_empresas, data_cadastro, valor e descricao</i><Br><br><br>
         <form action="../controller/altera_etiqueta_pimaco.php" method="post">
         <input type="hidden" name="id" value="<?= $id ?>">
-        <textarea name="codigo" cols="85" rows="25" style="border-radius: 24px; border: 6px solid #888;"><?= $conteudo?></textarea>
+        <textarea name="codigo" cols="85" rows="25" style="border-radius: 24px; border: 6px solid #888;"><?= $conteudo?></textarea><br>
         <input type="submit" style="width: 83% !important; background-color: #ced4da;" class="form-control" value="Salvar">
         </form>
         </i></b>
