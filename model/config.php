@@ -1069,21 +1069,21 @@ class config
 
 	public function gera_txt_recibo($conteudo)
 	{
-				$arquivo = "/tmp/recibo.txt";
-                $f = fopen($arquivo, 'a'); 
-                fwrite($f, $conteudo); 
-                fclose($f);
+		$arquivo = "/tmp/recibo.txt";
+        $f = fopen($arquivo, 'a'); 
+        fwrite($f, $conteudo); 
+        fclose($f);
 
-                // Configuramos os headers que serão enviados para o browser
-                header('Content-Type: "application/zip"');
-                header('Content-Disposition: attachment; filename="'.basename($arquivo).'"');
-                header("Content-Transfer-Encoding: binary");
-                header('Expires: 0');
-                header('Pragma: no-cache');
-                // Envia o arquivo para o cliente
-                ob_clean();
-                flush();
-                readfile($arquivo);
+        // Configuramos os headers que serão enviados para o browser
+        header('Content-Type: "application/zip"');
+        header('Content-Disposition: attachment; filename="'.basename($arquivo).'"');
+        header("Content-Transfer-Encoding: binary");
+        header('Expires: 0');
+        header('Pragma: no-cache');
+        // Envia o arquivo para o cliente
+         ob_clean();
+        flush();
+        readfile($arquivo);
 	}
 
 	public function pega_etiqueta_individual($empresa_id)
@@ -1134,8 +1134,7 @@ class config
 	{
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
-		$sql = "INSERT INTO documentos (nome, codigo, empresa_id) 
-		VALUES('".$nome."', '".$codigo."','".$empresa_id."')";
+		$sql = "INSERT INTO documentos (nome, codigo, empresa_id) VALUES('".$nome."', '".$codigo."','".$empresa_id."')";
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$pdo->exec($sql);
 		$this->gera_log("Cadastrou novo novo documento", "Nome do documento: ".$nome);
@@ -1319,13 +1318,11 @@ class config
 			WHERE u.empresa_id='".$empresa_id."' AND f.data_cadastro >= '".$condicao1."' AND f.data_cadastro <= '".$condicao2."'";
 
 
-			if($categoria != '*')
-				$query = $query." AND categoria_id=".$categoria;
+		if($categoria != '*')
+			$query = $query." AND categoria_id=".$categoria;
 
-			if($empresa != '*')
-				$query = $query." AND empresas_id=".$empresa;
-
-
+		if($empresa != '*')
+			$query = $query." AND empresas_id=".$empresa;
 
 		$data = $pdo->query($query)->fetchAll();
 		$this->gera_log("Gerou relatorio de saídas", "---");
@@ -1353,18 +1350,17 @@ class config
 			JOIN formas_pagamento fp ON (rp.forma_id = fp.id)
 			WHERE r.ativo=1 AND r.empresa_id='".$empresa_id."' AND r.data_cadastro >= '".$condicao1."' AND r.data_cadastro <= '".$condicao2."'";
 
-			if($status != '*')
-				$query = $query." AND r.status_id='".$status."'";
+		if($status != '*')
+			$query = $query." AND r.status_id='".$status."'";
 
-			if($forma_pagamento != '*')
-				$query = $query." AND rp.forma_id='".$forma_pagamento."'";
+		if($forma_pagamento != '*')
+			$query = $query." AND rp.forma_id='".$forma_pagamento."'";
 
-			if($forma_entrega != '*')
-				$query = $query." AND r.entrega_id='".$forma_entrega."'";
+		if($forma_entrega != '*')
+			$query = $query." AND r.entrega_id='".$forma_entrega."'";
 
-			if($empresas != '*')
-				$query = $query." AND ee.id='".$empresas."'";
-
+		if($empresas != '*')
+			$query = $query." AND ee.id='".$empresas."'";
 
 		$data = $pdo->query($query)->fetchAll();
 		$this->gera_log("Gerou relatorio de registros", "---");
@@ -1378,8 +1374,6 @@ class config
 		$ano = substr($data, 6, 4);
 		$condicao1 = $ano."-".$mes."-".$dia." 00:00:00";
 		$condicao2 = $ano."-".$mes."-".$dia." 23:59:59";
-
-		//echo $condicao1;exit;
 
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
@@ -1397,9 +1391,8 @@ class config
 			JOIN formas_pagamento fp ON (rp.forma_id = fp.id)
 			WHERE r.ativo=1 AND r.empresa_id='".$empresa_id."' AND r.data_cadastro >= '".$condicao1."' AND r.data_cadastro <= '".$condicao2."'";
 
-			if($forma != '*')
-				$query = $query." AND rp.forma_id='".$forma."'";
-
+		if($forma != '*')
+			$query = $query." AND rp.forma_id='".$forma."'";
 
 		$data = $pdo->query($query)->fetchAll();
 		$this->gera_log("Gerou relatorio de caixa", "---");
@@ -1425,8 +1418,8 @@ class config
 			LEFT JOIN financas_categorias fc ON (fc.id = f.categoria_id)
 			WHERE u.empresa_id='".$empresa_id."' AND f.data_cadastro >= '".$condicao1."' AND f.data_cadastro <= '".$condicao2."'";
 
-			if($forma != '*')
-				$query = $query." AND rp.forma_id='".$forma."'";
+		if($forma != '*')
+			$query = $query." AND rp.forma_id='".$forma."'";
 
 
 		$data = $pdo->query($query)->fetchAll();
@@ -1474,8 +1467,7 @@ class config
 	{
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
-		foreach ($data as $d)
-		{
+		foreach ($data as $d) {
 			$sql = "INSERT INTO parceiros (nome, email, telefone, empresa_id) 
 			VALUES('".$d['nome']."', '".$d['email']."', '".$d['telefone']."', '".$d['empresa_id']."')";
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -1536,7 +1528,6 @@ class config
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
 		$data = $pdo->query("SELECT * FROM log
 			WHERE acao LIKE '%Gerou relatorio%' AND usuario_id='".$usuario_id."' AND data_cadastro>='".$condicao1."' AND data_cadastro<='".$condicao2."';")->fetchAll();
-		//echo count($data);exit;
 		return $data;
 	}
 
