@@ -62,7 +62,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 
 .scroll-to-top:hover {
-  background: #343a40;
+  background: #ADD8E6 !important;
 }
 
 .scroll-to-top i {
@@ -128,7 +128,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 
 .sidebar {
   width: 90px !important;
-  background-color: #212529;
+  background-color: #ADD8E6 !important;
   min-height: calc(100vh - 56px);
 }
 
@@ -165,11 +165,11 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 
 .sidebar .nav-item .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: black !important;
 }
 
 .sidebar .nav-item .nav-link:active, .sidebar .nav-item .nav-link:focus, .sidebar .nav-item .nav-link:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: black !important;
 }
 
 .sidebar.toggled {

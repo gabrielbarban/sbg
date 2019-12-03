@@ -66,9 +66,9 @@ header('Location: ../index.php');
 
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top" style="background: #ADD8E6 !important;">
 
-      <a class="navbar-brand mr-1" href="#"><img src="../images/logo2-sbg.png" style="width: 45px;"><br><span style="font-size: 10px;"><b><?= $nome_usuario ?></b></span></a>
+      <a class="navbar-brand mr-1" href="#"><img src="../images/sugestao1.png" style="width: 110px; border-radius: 30px;"><br><span style="color: black; font-size: 14px;"><b><?= $nome_usuario ?></b></span></a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -82,18 +82,19 @@ header('Location: ../index.php');
         </div>
       </form>
 
+
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <div id="canto" style="border-radius: 8px; float: right; background-color: #FFFFFF"></div>
         <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="tutoriais.php"><i class="fas fa-question-circle" title="Central de ajuda"></i></a>
+          <a class="nav-link dropdown-toggle" href="tutoriais.php"><font color="black"><i class="fas fa-question-circle" title="Central de ajuda"></i></font></a>
         </li>
         <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="chat.php"><i class="fas fa-envelope" title="Chat"></i></a>
+          <a class="nav-link dropdown-toggle" href="chat.php"><font color="black"><i class="fas fa-envelope" title="Chat"></i></font></a>
         </li>
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
+            <font color="black"><i class="fas fa-user-circle fa-fw"></i></font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <a class="dropdown-item" href="alterar_cadastro.php">Alterar cadastro</a>
