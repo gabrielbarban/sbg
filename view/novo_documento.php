@@ -78,9 +78,7 @@ header('Location: ../index.php');
 
       <a class="navbar-brand mr-1" href="#"><img src="../images/sugestao1.png" style="width: 110px; border-radius: 30px;"><br><span style="color: black; font-size: 14px;"><b><?= $nome_usuario ?></b></span></a>
 
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
+      
 
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -132,63 +130,61 @@ header('Location: ../index.php');
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        <?php if($permissao2){ ?>
-        <li class="nav-item active">
-          <a class="nav-link" href="inicial.php">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+
+
+
+
+        <!-- OPERAÇÃO -->
+      <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <font color="black"><i class="fas fa-check"></i> Atendimento</font>
           </a>
-        </li>
-      <?php } ?>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <?php if($permissao1){ ?>
+              <a class="nav-link" href="novo_registro.php"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao1){ ?>
+              <a class="nav-link" href="registros.php"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar registros</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao4){ ?>
+              <a class="nav-link" href="clientes.php"><i class="fas fa-fw   fa  fa fa-search"></i><span> Buscar clientes</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao5){ ?>
+              <a class="nav-link" href="monitor.php"><i class="fas fa-fw fa fa-desktop"></i><span> Monitor</span></a>
+            <?php } ?>
+          </div>
+      </li>
 
-      <?php if($permissao3){ ?>
-        <li class="nav-item">
-          <a class="nav-link" href="customer_report.php">
-            <i class="fa fa-database"></i>
-            <span>BI</span></a>
-        </li>
-        <?php } ?>
 
-        <?php if($permissao5){ ?>
-        <li class="nav-item active">
-          <a class="nav-link" href="monitor.php">
-            <i class="fas fa-fw fa fa-desktop"></i>
-            <span>Monitor</span>
+
+      <!-- GERENCIAMENTO -->
+      <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <font color="black"><i class="fas fa-check"></i> Gerenciamento</font>
           </a>
-        </li>
-        <?php } ?>
 
-        <?php if($permissao1){ ?>
-        <li class="nav-item">
-          <a class="nav-link" href="registros.php">
-            <i class="fas fa-fw fa fa-check"></i>
-            <span>Registros</span></a>
-        </li>
-        <?php } ?>
-
-        <?php if($permissao4){ ?>
-        <li class="nav-item">
-          <a class="nav-link" href="clientes.php">
-            <i class="fas fa-fw   fa  fa fa-child"></i>
-            <span>Clientes</span></a>
-        </li>
-        <?php } ?>
-
-        <?php if($permissao11){ ?>
-        <li class="nav-item">
-          <a class="nav-link" href="financas.php">
-            <i class="fas fa-fw fa fa-cart-plus"></i>
-            <span>Saídas</span></a>
-        </li>
-        <?php } ?>
-
-        <?php if($permissao3){ ?>
-        <li class="nav-item">
-          <a class="nav-link" href="relatorios.php">
-            <i class="fas fa-fw fa-chart-line"></i>
-            <span>Relatórios</span></a>
-        </li>
-        <?php } ?>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <?php if($permissao2){ ?>
+              <a class="nav-link" href="inicial.php"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao3){ ?>
+              <a class="nav-link" href="customer_report.php"><i class="fa fa-database"></i><span> BI</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao3){ ?>
+              <a class="nav-link" href="relatorios.php"><i class="fas fa-fw fa-chart-line"></i><span> Relatórios</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao11){ ?>
+              <a class="nav-link" href="financas.php"><i class="fas fa-fw fa fa-folder-open"></i><span> Financeiro</span></a>
+            <?php } ?>
+          </div>
+      </li>
+        
 
         <li class="nav-item">
           <a class="nav-link" href="configuracoes.php">
