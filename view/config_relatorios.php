@@ -191,10 +191,10 @@ header('Location: ../index.php');
       <i><a href="tutoriais.php"><i class="fas fa-fw fa fa-graduation-cap"></i> Central de ajuda</a></i>
         <br><br>
            <!--   <p style="font-family: 'Laila', serif;">Gabriel Barban Rocha</p> -->
-        <center><img src="../images/logo-sbg.png"></center>
+        <center><img src="../images/sugestao1.png"></center>
         <br>
         <b><i>
-                  <center>Versão 3.0.3 (Novembro/2019)</center>
+                  <center>Versão 4.0.1 (Janeiro/2020)</center>
         </i></b>
       </div>
       <!-- /.content-wrapper -->
