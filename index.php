@@ -54,9 +54,9 @@
             <input type="submit" class="form-control" value="Login" style="background-color: #ced4da;">
           </form><br>
           <b><i><ul>
-            <li>Gerencie seus clientes <i class='fas fa-check'></i></li>
-            <li>Gere relatórios de forma fácil <i class='fas fa-check'></i></li>
-            <li>Mantenha seu caixa organizado <i class='fas fa-check'></i></li>
+            <li>Controle de atendimento <i class='fas fa-check'></i></li>
+            <li>Customização de documentos <i class='fas fa-check'></i></li>
+            <li>Relatórios e gráficos <i class='fas fa-check'></i></li>
           </ul></i></b>
 	         Quer experimentar gratuitamente? <a href="contato.php">Clique aqui <i class='fas fa-bolt'></i></a>
           <br><br>
