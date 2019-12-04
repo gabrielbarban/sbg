@@ -12,13 +12,13 @@ if($config->logar($email, $senha))
 {
 	session_start();
 	$url_inicial = $_SESSION["url_inicial"];
-	header('Location: ../view/'.$url_inicial.'.php');
+	header('Location: ../view/'.$url_inicial);
 }
 else
 {
 	session_start();
 	$_SESSION["msg_erro"] = "Usuário e/ou senha errado. Tente novamente por favor.";
-	header('Location: ../index.php');
+	header('Location: ../index');
 }
 
 ?>

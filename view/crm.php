@@ -87,7 +87,7 @@ header('Location: ../index.php');
             <font color="black"><i class="fas fa-user-circle fa-fw"></i></font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="alterar_cadastro.php">Alterar cadastro</a>
+            <a class="dropdown-item" href="alterar_cadastro">Alterar cadastro</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair <i class="fas fa fa-power-off fa-fw"></i></a>
           </div>
@@ -125,19 +125,19 @@ header('Location: ../index.php');
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao1){ ?>
-              <a class="nav-link" href="novo_registro.php"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
+              <a class="nav-link" href="novo_registro"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao1){ ?>
-              <a class="nav-link" href="registros.php"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar registros</span></a>
+              <a class="nav-link" href="registros"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar registros</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao4){ ?>
-              <a class="nav-link" href="clientes.php"><i class="fas fa-fw   fa  fa fa-search"></i><span> Buscar clientes</span></a>
+              <a class="nav-link" href="clientes"><i class="fas fa-fw   fa  fa fa-search"></i><span> Buscar clientes</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao5){ ?>
-              <a class="nav-link" href="monitor.php"><i class="fas fa-fw fa fa-desktop"></i><span> Monitorar espera</span></a>
+              <a class="nav-link" href="monitor"><i class="fas fa-fw fa fa-desktop"></i><span> Monitorar espera</span></a>
             <?php } ?>
           </div>
       </li>
@@ -152,26 +152,26 @@ header('Location: ../index.php');
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao2){ ?>
-              <a class="nav-link" href="inicial.php"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
+              <a class="nav-link" href="inicial"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao3){ ?>
-              <a class="nav-link" href="customer_report.php"><i class="fa fa-database"></i><span> BI</span></a>
+              <a class="nav-link" href="customer_report"><i class="fa fa-database"></i><span> BI</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao3){ ?>
-              <a class="nav-link" href="relatorios.php"><i class="fas fa-fw fa-chart-line"></i><span> Relatórios</span></a>
+              <a class="nav-link" href="relatorios"><i class="fas fa-fw fa-chart-line"></i><span> Relatórios</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao11){ ?>
-              <a class="nav-link" href="financas.php"><i class="fas fa-fw fa fa-folder-open"></i><span> Financeiro</span></a>
+              <a class="nav-link" href="financas"><i class="fas fa-fw fa fa-folder-open"></i><span> Financeiro</span></a>
             <?php } ?>
           </div>
       </li>
         
 
         <li class="nav-item">
-          <a class="nav-link" href="configuracoes.php">
+          <a class="nav-link" href="configuracoes">
             <i class="fas fa-fw fa fa fa-cogs"></i>
             <span>Configurações</span></a>
         </li>
@@ -188,15 +188,15 @@ header('Location: ../index.php');
 
 
       <?php if($flag_crm==1){ ?>
-      <a class="btn btn-primary" href="campanhas_parceiros.php" ><i class="fas fa-fw fa fa-envelope-open"></i>
+      <a class="btn btn-primary" href="campanhas_parceiros" ><i class="fas fa-fw fa fa-envelope-open"></i>
             <span>Campanhas - Parceiros </span></a><br><br>
 
-      <a class="btn btn-primary" href="campanhas_clientes.php" ><i class="fas fa-fw fa fa-envelope-open"></i>
+      <a class="btn btn-primary" href="campanhas_clientes" ><i class="fas fa-fw fa fa-envelope-open"></i>
             <span>Campanhas - Clientes </span></a><br><br><br><br><br><br>
 
-      <a class="btn btn-primary" href="companhia.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+      <a class="btn btn-primary" href="companhia" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
             <span>Voltar</span></a>
-      <a class="btn btn-primary" href="nova_campanha.php" ><i class="fas fa-fw fa fa  fa fa-envelope-open"></i>
+      <a class="btn btn-primary" href="nova_campanha" ><i class="fas fa-fw fa fa  fa fa-envelope-open"></i>
             <span>Nova campanha</span></a>
       <?php } ?>
 
@@ -204,7 +204,7 @@ header('Location: ../index.php');
 
       <?php if($flag_crm==0){ ?>
       <i>Desculpe, sem acesso. Entre em contato com a nossa equipe comercial: barbangabriel@gmail.com - (11) 939261285</i><br><br><br><br><br><br>
-      <a class="btn btn-primary" href="companhia.php" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+      <a class="btn btn-primary" href="companhia" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
             <span>Voltar</span></a>
       <?php } ?>
 

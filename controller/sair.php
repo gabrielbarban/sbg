@@ -16,5 +16,5 @@ unset($_SESSION["msg_cadastro"]);
 unset($_SESSION["flag_cadastro"]);
 unset($_SESSION["email_usuario"]);
 
-header('Location: ../index.php');
+header('Location: ../index');
 ?>

@@ -87,7 +87,7 @@ header('Location: ../index.php');
             <font color="black"><i class="fas fa-user-circle fa-fw"></i></font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="alterar_cadastro.php">Alterar cadastro</a>
+            <a class="dropdown-item" href="alterar_cadastro">Alterar cadastro</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair <i class="fas fa fa-power-off fa-fw"></i></a>
           </div>
@@ -125,19 +125,19 @@ header('Location: ../index.php');
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao1){ ?>
-              <a class="nav-link" href="novo_registro.php"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
+              <a class="nav-link" href="novo_registro"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao1){ ?>
-              <a class="nav-link" href="registros.php"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar registros</span></a>
+              <a class="nav-link" href="registros"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar registros</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao4){ ?>
-              <a class="nav-link" href="clientes.php"><i class="fas fa-fw   fa  fa fa-search"></i><span> Buscar clientes</span></a>
+              <a class="nav-link" href="clientes"><i class="fas fa-fw   fa  fa fa-search"></i><span> Buscar clientes</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao5){ ?>
-              <a class="nav-link" href="monitor.php"><i class="fas fa-fw fa fa-desktop"></i><span> Monitorar espera</span></a>
+              <a class="nav-link" href="monitor"><i class="fas fa-fw fa fa-desktop"></i><span> Monitorar espera</span></a>
             <?php } ?>
           </div>
       </li>
@@ -152,26 +152,26 @@ header('Location: ../index.php');
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao2){ ?>
-              <a class="nav-link" href="inicial.php"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
+              <a class="nav-link" href="inicial"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao3){ ?>
-              <a class="nav-link" href="customer_report.php"><i class="fa fa-database"></i><span> BI</span></a>
+              <a class="nav-link" href="customer_report"><i class="fa fa-database"></i><span> BI</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao3){ ?>
-              <a class="nav-link" href="relatorios.php"><i class="fas fa-fw fa-chart-line"></i><span> Relatórios</span></a>
+              <a class="nav-link" href="relatorios"><i class="fas fa-fw fa-chart-line"></i><span> Relatórios</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao11){ ?>
-              <a class="nav-link" href="financas.php"><i class="fas fa-fw fa fa-folder-open"></i><span> Financeiro</span></a>
+              <a class="nav-link" href="financas"><i class="fas fa-fw fa fa-folder-open"></i><span> Financeiro</span></a>
             <?php } ?>
           </div>
       </li>
         
 
         <li class="nav-item">
-          <a class="nav-link" href="configuracoes.php">
+          <a class="nav-link" href="configuracoes">
             <i class="fas fa-fw fa fa fa-cogs"></i>
             <span>Configurações</span></a>
         </li>
@@ -348,7 +348,7 @@ header('Location: ../index.php');
                   if(data[0]["email"]) var email = data[0]["email"]; else var email = '';
                   if(data[0]["endereco"]) var endereco = data[0]["endereco"]; else var endereco = '';
 
-                  document.getElementById('info').innerHTML = "<b>Nome: </b>"+nome_cliente+"<br><b>RG: </b>"+rg+"<br><b>CPF: </b>"+cpf+"<br><b>Nascimento: </b>"+data_nasc+"<br><b>Telefone: </b>"+telefone+"<br><b>Celular: </b>"+celular+"<br><b>E-mail: </b>"+email+"<br><b>Endereço: </b>"+endereco+"<br><br> <a class='btn btn-primary' id='editar_info' href='edita_cliente.php'>Editar informações&nbsp;&nbsp;<i class='fa   fa fa-bars'></i></a><br><br><a class='btn btn-primary' id='imprimir' onclick='impressao()'>Imprimir&nbsp;&nbsp;&nbsp;<i class='fa fa fa-print'></i></a>";
+                  document.getElementById('info').innerHTML = "<b>Nome: </b>"+nome_cliente+"<br><b>RG: </b>"+rg+"<br><b>CPF: </b>"+cpf+"<br><b>Nascimento: </b>"+data_nasc+"<br><b>Telefone: </b>"+telefone+"<br><b>Celular: </b>"+celular+"<br><b>E-mail: </b>"+email+"<br><b>Endereço: </b>"+endereco+"<br><br> <a class='btn btn-primary' id='editar_info' href='edita_cliente'>Editar informações&nbsp;&nbsp;<i class='fa   fa fa-bars'></i></a><br><br><a class='btn btn-primary' id='imprimir' onclick='impressao()'>Imprimir&nbsp;&nbsp;&nbsp;<i class='fa fa fa-print'></i></a>";
 
                   var i=0;
                   document.getElementById('dados_historico').innerHTML = "<h4><center>Prontuário&nbsp;&nbsp;<i class='fa  fa fa-folder-open'></i></center></h4><br><div class='table-responsive'><table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'><thead><tr><th>Descrição</th><th>Data</th><th>Empresa</th><th>Status</th><th>Ativo?</th><th> </th></tr></thead>";

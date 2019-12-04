@@ -84,7 +84,7 @@ header('Location: ../index.php');
             <font color="black"><i class="fas fa-user-circle fa-fw"></i></font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="alterar_cadastro.php">Alterar cadastro</a>
+            <a class="dropdown-item" href="alterar_cadastro">Alterar cadastro</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair <i class="fas fa fa-power-off fa-fw"></i></a>
           </div>
@@ -129,19 +129,19 @@ header('Location: ../index.php');
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao1){ ?>
-              <a class="nav-link" href="novo_registro.php"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
+              <a class="nav-link" href="novo_registro"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao1){ ?>
-              <a class="nav-link" href="registros.php"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar registros</span></a>
+              <a class="nav-link" href="registros"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar registros</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao4){ ?>
-              <a class="nav-link" href="clientes.php"><i class="fas fa-fw   fa  fa fa-search"></i><span> Buscar clientes</span></a>
+              <a class="nav-link" href="clientes"><i class="fas fa-fw   fa  fa fa-search"></i><span> Buscar clientes</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao5){ ?>
-              <a class="nav-link" href="monitor.php"><i class="fas fa-fw fa fa-desktop"></i><span> Monitorar espera</span></a>
+              <a class="nav-link" href="monitor"><i class="fas fa-fw fa fa-desktop"></i><span> Monitorar espera</span></a>
             <?php } ?>
           </div>
       </li>
@@ -156,26 +156,26 @@ header('Location: ../index.php');
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao2){ ?>
-              <a class="nav-link" href="inicial.php"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
+              <a class="nav-link" href="inicial"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao3){ ?>
-              <a class="nav-link" href="customer_report.php"><i class="fa fa-database"></i><span> BI</span></a>
+              <a class="nav-link" href="customer_report"><i class="fa fa-database"></i><span> BI</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao3){ ?>
-              <a class="nav-link" href="relatorios.php"><i class="fas fa-fw fa-chart-line"></i><span> Relatórios</span></a>
+              <a class="nav-link" href="relatorios"><i class="fas fa-fw fa-chart-line"></i><span> Relatórios</span></a>
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao11){ ?>
-              <a class="nav-link" href="financas.php"><i class="fas fa-fw fa fa-folder-open"></i><span> Financeiro</span></a>
+              <a class="nav-link" href="financas"><i class="fas fa-fw fa fa-folder-open"></i><span> Financeiro</span></a>
             <?php } ?>
           </div>
       </li>
         
 
         <li class="nav-item">
-          <a class="nav-link" href="configuracoes.php">
+          <a class="nav-link" href="configuracoes">
             <i class="fas fa-fw fa fa fa-cogs"></i>
             <span>Configurações</span></a>
         </li>
@@ -187,62 +187,62 @@ header('Location: ../index.php');
         <h3><i class="fas fa-fw fa fa fa-cogs"></i> Configurações:</h3><br><Br>
         
         <?php if($permissao6){ ?>
-        <a class="nav-link" href="companhia.php">
+        <a class="nav-link" href="companhia">
             <i class="fas fa fa fa-industry"></i>
             <span>Companhia</span>
         </a>
         <?php } ?>
 
         <?php if($permissao13){ ?>
-        <a class="nav-link" href="parcerias.php">
+        <a class="nav-link" href="parcerias">
             <i class="fas fa fa fa-handshake"></i>
             <span>Parceiros</span>
         </a>
         <?php } ?>
 
         <?php if($permissao5){ ?>
-        <a class="nav-link" href="config_monitor.php">
+        <a class="nav-link" href="config_monitor">
             <i class="fas fa fa   fa fa-rocket"></i>
             <span>Monitor</span>
         </a>
         <?php } ?>
 
         <?php if($permissao7){ ?>
-        <a class="nav-link" href="usuarios.php">
+        <a class="nav-link" href="usuarios">
             <i class="fas fa fa fa-id-card"></i>
             <span>Usuários</span>
         </a>
         <?php } ?>
 
         <?php if($permissao8){ ?>
-        <a class="nav-link" href="formas_pagamento.php">
+        <a class="nav-link" href="formas_pagamento">
             <i class="fas fa fa fa-credit-card"></i>
             <span>Formas de pagamento</span>
         </a>
         <?php } ?>
 
         <?php if($permissao12){ ?>
-        <a class="nav-link" href="categorias.php">
+        <a class="nav-link" href="categorias">
             <i class="fas fa fa fa-tags"></i>
             <span>Categorias financeiras</span>
         </a>
         <?php } ?>
 
         <?php if($permissao9){ ?>
-        <a class="nav-link" href="empresas.php">
+        <a class="nav-link" href="empresas">
             <i class="fas fa-fw fa fa fa  fa fa-building"></i>
             <span>Empresas</span>
         </a>
         <?php } ?>
 
         <?php if($permissao10){ ?>
-        <a class="nav-link" href="status.php">
+        <a class="nav-link" href="status">
             <i class="fas fa-fw   fa fa-clone"></i>
             <span>Status</span>
         </a>
         <?php } ?>
 
-        <a class="nav-link" href="config_relatorios.php">
+        <a class="nav-link" href="config_relatorios">
             <i class="fas fa-fw fa fa-server"></i>
             <span>Sobre</span>
         </a>
