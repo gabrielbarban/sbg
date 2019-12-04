@@ -187,7 +187,7 @@ header('Location: ../index.php');
        ?>
        <form action="../controller/edita_dados_usuario.php" method="POST">
           <input type="hidden" value=<?= $row['id']?> name="id">
-          <h3>Alteração de cadastro:</h3><br><br>
+          <h3><i class="fas fa-fw fa fa fa-user-circle"></i> Alteração de cadastro:</h3><br><br>
 
           Nome:
           <input type="text" class="form-control" value='<?= $row['nome']?>' name="nome" placeholder="Nome" required="required">
