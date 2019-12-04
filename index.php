@@ -35,7 +35,7 @@
 <!-- <body class="bg-dark"> !-->
   
     <div class="container">
-      <div class="card card-login mx-auto mt-5">
+      <div class="card card-login mx-auto mt-5" style="border-radius: 32px !important;">
         <div class="card-header"><center><b>SBG</b></center></div>
         <div class="card-body">
           <form action="controller/login.php" method='POST'>
