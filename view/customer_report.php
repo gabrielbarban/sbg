@@ -130,7 +130,7 @@ header('Location: ../index.php');
         <!-- OPERAÇÃO -->
       <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <font color="black"><i class="fas fa-check"></i> Atendimento</font>
+            <font color="black"><i class="fas fa-chevron-down"></i> Atendimento</font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao1){ ?>
@@ -146,7 +146,7 @@ header('Location: ../index.php');
             <?php } ?>
             <div class="dropdown-divider"></div>
             <?php if($permissao5){ ?>
-              <a class="nav-link" href="monitor.php"><i class="fas fa-fw fa fa-desktop"></i><span> Monitor</span></a>
+              <a class="nav-link" href="monitor.php"><i class="fas fa-fw fa fa-desktop"></i><span> Monitorar espera</span></a>
             <?php } ?>
           </div>
       </li>
@@ -156,7 +156,7 @@ header('Location: ../index.php');
       <!-- GERENCIAMENTO -->
       <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <font color="black"><i class="fas fa-check"></i> Gerenciamento</font>
+            <font color="black"><i class="fas fa-chevron-down"></i> Gerenciamento</font>
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
