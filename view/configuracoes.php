@@ -120,9 +120,24 @@ header('Location: ../index.php');
       <ul class="sidebar navbar-nav">
 
 
+      <!-- AGENDAMENTO -->
+      <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon1"></i> Agendamento</font>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <?php if($permissao1){ ?>
+              <a class="nav-link" href="novo_agendamento"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao1){ ?>
+              <a class="nav-link" href="agendamentos"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar agendamentos</span></a>
+            <?php } ?>
+          </div>
+      </li>
 
 
-        <!-- OPERAÇÃO -->
+      <!-- OPERAÇÃO -->
       <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
             <font color="black"><i class="fas fa-chevron-down" id="icon1"></i> Atendimento</font>
@@ -145,7 +160,6 @@ header('Location: ../index.php');
             <?php } ?>
           </div>
       </li>
-
 
 
       <!-- GERENCIAMENTO -->
@@ -197,6 +211,13 @@ header('Location: ../index.php');
         <a class="nav-link" href="parcerias">
             <i class="fas fa fa fa-handshake"></i>
             <span>Parceiros</span>
+        </a>
+        <?php } ?>
+
+        <?php if($permissao13){ ?>
+        <a class="nav-link" href="agendas">
+            <i class="far fa-calendar-alt"></i>
+            <span>Agendas</span>
         </a>
         <?php } ?>
 

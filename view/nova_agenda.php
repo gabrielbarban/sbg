@@ -20,7 +20,7 @@ header('Location: ../index.php');
                 url: "../controller/verifica_chat.php",
                 dataType: "json",
                 data: {
-                $usuario_id: <?= $usuario_id ?>
+                $usuario_id: 1
             },
                 success: function(data)
                 {
@@ -33,7 +33,6 @@ header('Location: ../index.php');
           });
       }
     </script>
-
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -99,12 +98,10 @@ header('Location: ../index.php');
 
     <div id="wrapper">
 
-      <?php
+      <!-- Sidebar -->
+     <?php
      include("../model/config.php");
-     include("../model/firewall.php");
         $config = new Config();
-        $firewall = new Firewall();
-        $var_hash = $firewall->gera_random();
         
         $permissao1=$config->verifica_permissao($usuario_id, 1); //registros
         $permissao2=$config->verifica_permissao($usuario_id, 2); //dashboard
@@ -117,7 +114,6 @@ header('Location: ../index.php');
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-
 
       <!-- AGENDAMENTO -->
       <li class="nav-item dropdown no-arrow">
@@ -134,8 +130,6 @@ header('Location: ../index.php');
             <?php } ?>
           </div>
       </li>
-
-
 
         <!-- OPERAÇÃO -->
       <li class="nav-item dropdown no-arrow">
@@ -198,41 +192,16 @@ header('Location: ../index.php');
       </ul>
 
       <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw   fa fa-clone"></i> Status</h3><br>
         <div class="container-fluid">
-          <div class="table-responsive">
-              <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                      <th>Nome</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-          <?php
-
-            $empresa_id = $_SESSION["empresa_id"];
-            $data = array();
-            $data=$config->lista_status($empresa_id);
-
-            foreach ($data as $row) {
-              echo "<tbody><tr><td><i class='fas fa fa fa-check-circle'></i> ".$row['nome']."</td>";
-              //salto =  + 15920 - 350
-              $id = $row['id'] + 15920 - 350;
-              echo "<td>
-                <a href='editar_status.php?id=".$id."?id_status=".$var_hash."'><i class='fas fa fa-edit' title='Editar'></i></a>
-                <a href='apagar_status.php?id=".$id."?id_status=".$var_hash."'><i class='fas fa fa-times' title='Excluir'></i></a>
-              </td></tr></tbody>";   
-
-            }
-          ?>
-                </table>
-            </div>
-
-            <br><br>
-            <a class="btn btn-primary" href="configuracoes" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
+          <h3><i class="far fa-calendar-alt"></i> Nova agenda:</h3>
+          <form action="../controller/nova_agenda.php" method="POST">
+            <input type="text" class="form-control" name="nome" placeholder="Nome" required="required">
+            <br>
+            <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
+          </form>
+           <br>
+              <a class="btn btn-primary" href="javascript:history.back(1)" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
             <span>Voltar</span></a>
-            <a class="btn btn-primary" href="novo_status.php" >Cadastrar novo status <i class='fas fa fa fa-plus'></i></a>
-
         </div>
         <!-- /.container-fluid -->
 
@@ -267,25 +236,6 @@ header('Location: ../index.php');
             </button>
           </div>
           <div class="modal-body">Tem certeza que deseja sair?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
-            <a class="btn btn-primary" href="../controller/sair.php">Sim</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="modal fade" id="atualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Excluir usuário</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Tem certeza que deseja excluir?</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
             <a class="btn btn-primary" href="../controller/sair.php">Sim</a>
@@ -336,14 +286,12 @@ header('Location: ../index.php');
     <script src="../js/sb-admin.min.js"></script>
 
     <!-- Demo scripts for this page-->
-    <script src="../js/demo/datatables-demo.js"></script>
-
-     <script type="text/javascript">
+   <script type="text/javascript">
       window.onload = function () {
         setInterval("verifica_chat();", 500);
       }
     </script>
-    
+
   </body>
 
 </html>

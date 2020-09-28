@@ -2,6 +2,7 @@
 //validando a session
 session_start();
 $nome_usuario = $_SESSION["nome_usuario"];
+$empresa_id = $_SESSION["empresa_id"];
 $username_usuario = $_SESSION["username_usuario"];
 $usuario_id = $_SESSION["usuario_id"];
 if(!$nome_usuario)
@@ -34,6 +35,12 @@ header('Location: ../index.php');
       }
     </script>
 
+
+    <script>
+      function setDadosModal(valor) {
+         $('#id_registro').val(valor);
+      }
+    </script>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -99,12 +106,10 @@ header('Location: ../index.php');
 
     <div id="wrapper">
 
-      <?php
+      <!-- Sidebar -->
+     <?php
      include("../model/config.php");
-     include("../model/firewall.php");
         $config = new Config();
-        $firewall = new Firewall();
-        $var_hash = $firewall->gera_random();
         
         $permissao1=$config->verifica_permissao($usuario_id, 1); //registros
         $permissao2=$config->verifica_permissao($usuario_id, 2); //dashboard
@@ -112,6 +117,20 @@ header('Location: ../index.php');
         $permissao4=$config->verifica_permissao($usuario_id, 4); //clientes
         $permissao5=$config->verifica_permissao($usuario_id, 5); //monitor
         $permissao11=$config->verifica_permissao($usuario_id, 11); //financas
+
+
+        if(!$permissao1)
+        {
+          session_start();
+          $url = $_SESSION["url_inicial"];
+
+          echo ("<SCRIPT LANGUAGE='JavaScript'>
+                window.alert('Você não tem permissão para acessar essa funcionalidade.')
+                window.location.href='../view/".$url.".php';
+                </SCRIPT>");
+        }
+
+        
       ?>
 
 
@@ -198,64 +217,32 @@ header('Location: ../index.php');
       </ul>
 
       <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw   fa fa-clone"></i> Status</h3><br>
-        <div class="container-fluid">
-          <div class="table-responsive">
-              <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                      <th>Nome</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-          <?php
+        <br>
+        <a class="btn btn-primary" href="novo_registro">Cadastrar novo agendamento&nbsp;&nbsp;&nbsp;<i class="fa fa fa-bolt"></i></a>
+        <br><br><br>
 
-            $empresa_id = $_SESSION["empresa_id"];
-            $data = array();
-            $data=$config->lista_status($empresa_id);
+        <?php
+          $dia = date('d');
+          $mes = date('m');
+          $ano = date('Y');
+        
+          $data = array();
+          $data=$config->lista_agendamentos($dia, $mes, $ano, $empresa_id);
 
-            foreach ($data as $row) {
-              echo "<tbody><tr><td><i class='fas fa fa fa-check-circle'></i> ".$row['nome']."</td>";
-              //salto =  + 15920 - 350
-              $id = $row['id'] + 15920 - 350;
-              echo "<td>
-                <a href='editar_status.php?id=".$id."?id_status=".$var_hash."'><i class='fas fa fa-edit' title='Editar'></i></a>
-                <a href='apagar_status.php?id=".$id."?id_status=".$var_hash."'><i class='fas fa fa-times' title='Excluir'></i></a>
-              </td></tr></tbody>";   
+          var_dump($data);
+        ?>
 
-            }
-          ?>
-                </table>
+        
+                <!-- <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#filtroModal">Filtrar &nbsp;&nbsp;&nbsp;<i class="fa fa  fa fa-database"></i></a> -->
             </div>
-
-            <br><br>
-            <a class="btn btn-primary" href="configuracoes" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
-            <span>Voltar</span></a>
-            <a class="btn btn-primary" href="novo_status.php" >Cadastrar novo status <i class='fas fa fa fa-plus'></i></a>
-
-        </div>
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Barban 2019</span>
-            </div>
-          </div>
-        </footer>
-
       </div>
       <!-- /.content-wrapper -->
-
     </div>
     <!-- /#wrapper -->
-
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -276,42 +263,34 @@ header('Location: ../index.php');
     </div>
 
 
-    <div class="modal fade" id="atualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Excluir usuário</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Tem certeza que deseja excluir?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
-            <a class="btn btn-primary" href="../controller/sair.php">Sim</a>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- tentativa de criar um modal para cadastrar usuário !-->
-    <div class="modal fade" id="novoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+    
+    <!-- MODAL DOCUMENTO-->
+    <div class="modal fade" id="documentoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Novo Usuário</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Documentos&nbsp;&nbsp;<i class='fas fa fa  fa-sticky-note'></i></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form name="cadastro" id="cadastro" method="post" action="">
-              <input style="border-radius: 8px" type="text" name="nome" placeholder="Nome">(*)<br>
-              <input style="border-radius: 8px" type="text" name="username" placeholder="Username">(*)<br>
-              <input style="border-radius: 8px" type="text" name="email" placeholder="E-mail"><br>
-              <input style="border-radius: 8px" type="password" name="senha" placeholder="Senha"><br>
-              <input style="border-radius: 8px" type="password" name="senha2" placeholder="Senha novamente"><br>
-              <input style="border-radius: 8px" type="submit" value="Salvar">
+          <!-- Modal Body !-->
+          <div class="modal-body">       
+            <form action="gera_documento.php" method="POST">
+            <input type="hidden" name="id_registro" id="id_registro" value="">
+            Selecione:
+            <select class="form-control" name="documento" placeholder="Status" >
+              <?php
+                foreach ($lista_documentos as $data) {
+                  echo "<option value='".$data['id']."'> ".$data['nome']." </option>";
+                }
+              ?>
+            </select><br>
+
+            <input type="submit" class="form-control" value="Carregar" style="background-color: #ced4da;">
             </form>
           </div>
           <div class="modal-footer">
@@ -319,6 +298,52 @@ header('Location: ../index.php');
         </div>
       </div>
     </div>
+
+
+
+
+
+    <script type="text/javascript">
+      function busca_registro() 
+      {
+        //requisição json para buscar pelo ID do registro figitado pelo usuário... deve funcionar utilizando o method
+            var busca = $("#busca").val();
+            $.ajax({
+                type: 'POST',
+                url: "../controller/busca_registro.php",
+                dataType: "json",
+                data: {
+                busca: busca
+            },
+                success: function(data) {
+                  document.getElementById('tabela_de_busca').innerHTML = "";
+
+
+                  $('#tabela_de_busca').append("<table class='table table-bordered' id='dataTable' width='100%'' cellspacing='0'>");
+                  $('#dataTable').append("<thead><tr><th>Cliente</th><th>Data</th><th>Descrição</th><th>Status</th> <th>Empresa</th></tr></thead>");
+
+                  if(data.length == 0)
+                  document.getElementById('tabela_de_busca').innerHTML = "<br><i>Não existem registros com esse código</i>";
+
+                  //$('#dataTable').append("<tbody><tr><td>");
+                  $('#dataTable').append("<td>"+data[0]['nome_cliente']+"</td>");
+                  $('#dataTable').append("<td>"+data[0]['data_cadastro']+"</td>");
+                  $('#dataTable').append("<td>"+data[0]['descricao']+"</td>");
+                  $('#dataTable').append("<td>"+data[0]['nome_status']+"</td>");
+                  $('#dataTable').append("<td>"+data[0]['nome_empresa']+"</td>");
+
+                  //salto =  + 15920 - 350
+                  $id = +data[0]['id']+ + 15920 - 350;
+                  $('#dataTable').append("<td><a target='_blank' href=etiqueta-individual.php?id="+$id+"><i class='fas fa fa fa-cube' title='Etiqueta Individual'></i></a>  <a target='_blank' href=etiqueta-pimaco.php?id="+$id+"><i class='fas fa fa fa-cubes' title='Etiqueta PIMACO'></i></a>  <a href=ficha_registro.php?id="+$id+" target='_blank'><i class='fas fa fa   fa fa-barcode' title='Ficha de Registro'></i></a>  <a href='#' data-toggle='modal' data-target='#documentoModal' target='_blank' onclick='setDadosModal("+data[0]['id']+")'><i class='fas fa fa  fa-sticky-note' title='Documentos'></i></a>  <a href='../controller/editar_cliente.php?id="+data[0]['id_cliente']+"' target='_blank'><i class='fas fa fa fa-child' title='Dados do cliente'></i></a>  <a href='editar_registro.php?id="+$id+"'><i class='fas fa fa-edit' title='Editar'></i></a>  <a href='apagar_registro.php?id="+$id+"'><i class='fas fa fa-times' title='Excluir'></i></a>  </td></tr></tbody></table></div>");
+
+                }
+            });
+      }
+    </script>
+
+
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -334,11 +359,9 @@ header('Location: ../index.php');
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
 
-    <!-- Demo scripts for this page-->
-    <script src="../js/demo/datatables-demo.js"></script>
-
-     <script type="text/javascript">
+    <script type="text/javascript">
       window.onload = function () {
         setInterval("verifica_chat();", 500);
       }

@@ -136,7 +136,6 @@ header('Location: ../index.php');
       </li>
 
 
-
         <!-- OPERAÇÃO -->
       <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
@@ -198,7 +197,7 @@ header('Location: ../index.php');
       </ul>
 
       <div id="content-wrapper" style="margin-left: 15px">
-        <h3><i class="fas fa-fw   fa fa-clone"></i> Status</h3><br>
+        <h3><i class="far fa-calendar-alt"></i> Agendas</h3><br>
         <div class="container-fluid">
           <div class="table-responsive">
               <table class="table table-bordered" width="100%" cellspacing="0">
@@ -212,7 +211,7 @@ header('Location: ../index.php');
 
             $empresa_id = $_SESSION["empresa_id"];
             $data = array();
-            $data=$config->lista_status($empresa_id);
+            $data=$config->lista_agendas($empresa_id);
 
             foreach ($data as $row) {
               echo "<tbody><tr><td><i class='fas fa fa fa-check-circle'></i> ".$row['nome']."</td>";
@@ -231,7 +230,7 @@ header('Location: ../index.php');
             <br><br>
             <a class="btn btn-primary" href="configuracoes" ><i class="fas fa-fw fa fa  fa fa-reply"></i>
             <span>Voltar</span></a>
-            <a class="btn btn-primary" href="novo_status.php" >Cadastrar novo status <i class='fas fa fa fa-plus'></i></a>
+            <a class="btn btn-primary" href="nova_agenda" >Cadastrar nova agenda <i class='fas fa fa fa-plus'></i></a>
 
         </div>
         <!-- /.container-fluid -->

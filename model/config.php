@@ -128,6 +128,17 @@ class config
 		$this->gera_log("Cadastrou novo status", "Nome do status: ".$nome);
 	}
 
+	public function nova_agenda($nome, $empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "INSERT INTO agenda (nome, empresa_id) 
+		VALUES('".$nome."', '".$empresa_id."')";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
+		$this->gera_log("Cadastrou nova agenda", "Nome da agenda: ".$nome);
+	}
+
 	public function atualiza_status($id, $nome)
 	{
 		$conexao = new Conexao();
@@ -163,6 +174,25 @@ class config
 			JOIN valores v  ON (ri.valor_empresa_id = v.id)
 			JOIN empresas ee  ON (v.empresas_id = ee.id)
 			WHERE r.empresa_id='".$empresa_id."' AND r.tipo='".$tipo."' AND r.ativo=1 ORDER BY r.data_cadastro ASC LIMIT 0,5")->fetchAll();
+		return $data;
+	}
+
+	public function lista_agendamentos($dia, $mes, $ano, $empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$query = "SELECT 
+			ag.*, v.nome as 'procedimento', ag.data_criacao as 'data_criacao', cc.id as 'id_cliente', cc.nome as 'nome_cliente', ee.nome as 'nome_empresa'
+			FROM agendamento ag
+			JOIN clientes cc ON (cc.id = ag.cliente_id)
+			JOIN usuarios u  ON (u.id = ag.usuario_id)
+			JOIN valores v  ON (v.id = ag.valor_id)
+			JOIN empresas ee  ON (ee.id = v.empresas_id)
+			WHERE ag.empresa_id='".$empresa_id."' AND ag.dia_inicio=".$dia." AND ag.mes_inicio=".$mes." AND ag.ano_inicio=".$ano."
+											      AND v.ativo=1 ORDER BY ag.data_criacao ASC;";
+		$data = $pdo->query($query)->fetchAll();
+		//echo "TESTEEEE:";
+		//var_dump($data);exit;
 		return $data;
 	}
 
@@ -281,6 +311,14 @@ class config
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
 		$data = $pdo->query("SELECT * FROM status WHERE empresa_id='".$empresa_id."';")->fetchAll();
+		return $data;
+	}
+
+	public function lista_agendas($empresa_id)
+	{
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$data = $pdo->query("SELECT * FROM agenda WHERE empresa_id='".$empresa_id."';")->fetchAll();
 		return $data;
 	}
 
