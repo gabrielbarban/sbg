@@ -1632,7 +1632,7 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/219. SEO/HTML/scss/_features.scss */
 .features_area {
-  padding-top: 100px;
+  padding-top: 60px;
   padding-bottom: 140px;
 }
 
@@ -3053,11 +3053,12 @@ h3 {
   line-height: 28px;
   margin-bottom: 30px;
   margin-top: 12px;
+
 }
 
 /* line 1, ../../Arafath/CL/CL October/219. SEO/HTML/scss/_service.scss */
 .service_area {
-  padding-top: 200px;
+  padding-top: 60px;
   padding-bottom: 70px;
 }
 
@@ -3070,7 +3071,7 @@ h3 {
   /* line 1, ../../Arafath/CL/CL October/219. SEO/HTML/scss/_service.scss */
   .service_area {
     padding-bottom: 30px;
-    padding-top: 80px;
+    padding-top: 30px;
   }
 }
 
@@ -4152,7 +4153,10 @@ h3 {
 }
 
 /* line 85, ../../Arafath/CL/CL October/219. SEO/HTML/scss/_elements.scss */
-b,
+/* b{
+  color:;
+} */
+
 sup,
 sub,
 u,
