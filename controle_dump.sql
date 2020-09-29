@@ -1,44 +1,107 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
+-- version 4.0.4.2
+-- http://www.phpmyadmin.net
 --
--- Host: db
--- Generation Time: Dec 20, 2019 at 07:16 PM
--- Server version: 5.7.26
--- PHP Version: 7.2.19
+-- Máquina: localhost
+-- Data de Criação: 28-Set-2020 às 22:48
+-- Versão do servidor: 5.6.13
+-- versão do PHP: 5.4.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `controle`
+-- Base de Dados: `controle`
 --
+CREATE DATABASE IF NOT EXISTS `controle` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `controle`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campanhas`
+-- Estrutura da tabela `agenda`
 --
 
-CREATE TABLE `campanhas` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `agenda` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(200) NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `empresa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `agenda`
+--
+
+INSERT INTO `agenda` (`id`, `nome`, `data_criacao`, `empresa_id`) VALUES
+(1, 'Dr. Teste', '2020-09-28 19:38:13', 1),
+(3, 'teste teste', '2020-09-28 19:38:16', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `agendamento`
+--
+
+CREATE TABLE IF NOT EXISTS `agendamento` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `valor_id` int(11) NOT NULL,
+  `agenda_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `cliente_id` int(11) NOT NULL,
+  `empresa_id` int(11) NOT NULL,
+  `hora_inicio` varchar(11) NOT NULL,
+  `minuto_inicio` varchar(11) NOT NULL,
+  `segundo_inicio` varchar(11) NOT NULL,
+  `dia_inicio` varchar(11) NOT NULL,
+  `mes_inicio` varchar(11) NOT NULL,
+  `ano_inicio` varchar(11) NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `hora_fim` text NOT NULL,
+  `minuto_fim` varchar(11) NOT NULL,
+  `segundo_fim` varchar(11) NOT NULL,
+  `dia_fim` varchar(11) NOT NULL,
+  `mes_fim` varchar(11) NOT NULL,
+  `ano_fim` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Extraindo dados da tabela `agendamento`
+--
+
+INSERT INTO `agendamento` (`id`, `valor_id`, `agenda_id`, `usuario_id`, `cliente_id`, `empresa_id`, `hora_inicio`, `minuto_inicio`, `segundo_inicio`, `dia_inicio`, `mes_inicio`, `ano_inicio`, `data_criacao`, `hora_fim`, `minuto_fim`, `segundo_fim`, `dia_fim`, `mes_fim`, `ano_fim`) VALUES
+(1, 20, 1, 1, 2, 1, '9', '00', '00', '28', '9', '2020', '2020-09-28 20:49:37', '10', '00', '00', '28', '9', '2020'),
+(2, 23, 1, 1, 2, 1, '10', '30', '00', '27', '9', '2020', '2020-09-28 20:49:38', '11', '00', '00', '27', '9', '2020'),
+(3, 20, 1, 1, 2, 1, '08', '00', '00', '01', '01', '2020', '2020-09-29 01:13:42', '9', '00', '00', '01', '01', '2020'),
+(4, 22, 1, 1, 2, 1, '17', '00', '00', '28', '09', '2020', '2020-09-29 01:14:29', '18', '30', '00', '28', '09', '2020'),
+(5, 20, 1, 1, 3, 1, '15', '30', '00', '28', '09', '2020', '2020-09-29 01:16:27', '16', '00', '00', '28', '09', '2020');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `campanhas`
+--
+
+CREATE TABLE IF NOT EXISTS `campanhas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
   `texto` varchar(3000) NOT NULL,
   `tipo` int(11) NOT NULL,
   `empresa_id` int(11) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `campanhas`
+-- Extraindo dados da tabela `campanhas`
 --
 
 INSERT INTO `campanhas` (`id`, `nome`, `texto`, `tipo`, `empresa_id`, `data_cadastro`) VALUES
@@ -47,21 +110,22 @@ INSERT INTO `campanhas` (`id`, `nome`, `texto`, `tipo`, `empresa_id`, `data_cada
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat`
+-- Estrutura da tabela `chat`
 --
 
-CREATE TABLE `chat` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `chat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario1` int(11) NOT NULL,
   `usuario2` int(11) NOT NULL,
   `empresa_id` int(11) NOT NULL,
   `texto` varchar(6000) NOT NULL,
   `lido` int(11) NOT NULL DEFAULT '0',
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
--- Dumping data for table `chat`
+-- Extraindo dados da tabela `chat`
 --
 
 INSERT INTO `chat` (`id`, `usuario1`, `usuario2`, `empresa_id`, `texto`, `lido`, `data_cadastro`) VALUES
@@ -83,16 +147,20 @@ INSERT INTO `chat` (`id`, `usuario1`, `usuario2`, `empresa_id`, `texto`, `lido`,
 (39, 61, 63, 1, 'Essa URL tem 2 bloqueios... somente se estiver com usuario logado e se usuario for eu ou voce, pra garantir', 0, '2019-06-20 13:47:39'),
 (40, 61, 53, 1, 'OlÃ¡ Aleandro', 0, '2019-07-12 21:24:43'),
 (41, 61, 53, 1, 'td bem?', 0, '2019-07-12 21:24:50'),
-(42, 61, 67, 1, 'eai', 0, '2019-07-22 17:03:13');
+(42, 61, 67, 1, 'eai', 0, '2019-07-22 17:03:13'),
+(43, 1, 68, 1, 'Eai', 1, '2020-09-24 19:57:02'),
+(44, 68, 1, 1, 'EaÃ­, tudo bem?', 1, '2020-09-24 19:57:37'),
+(45, 1, 68, 1, 'vc ainda esta trabalhando?', 1, '2020-09-24 19:58:15'),
+(46, 68, 1, 1, 'nao porra', 1, '2020-09-24 19:58:31');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clientes`
+-- Estrutura da tabela `clientes`
 --
 
-CREATE TABLE `clientes` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(250) DEFAULT NULL,
   `data_nasc` varchar(60) DEFAULT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -102,11 +170,12 @@ CREATE TABLE `clientes` (
   `telefone` varchar(50) DEFAULT NULL,
   `celular` varchar(50) DEFAULT NULL,
   `email` varchar(150) DEFAULT NULL,
-  `endereco` varchar(300) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `endereco` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
--- Dumping data for table `clientes`
+-- Extraindo dados da tabela `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `data_nasc`, `data_cadastro`, `empresa_id`, `rg`, `cpf`, `telefone`, `celular`, `email`, `endereco`) VALUES
@@ -132,16 +201,17 @@ INSERT INTO `clientes` (`id`, `nome`, `data_nasc`, `data_cadastro`, `empresa_id`
 (22, 'Pedro Augusto Nunes', '02/04/1955', '2019-01-29 20:40:20', 1, '1232143254', '544235324555', '', '', '', ''),
 (23, 'paciente teste', '', '2019-02-06 20:51:23', 3, '', '', NULL, NULL, NULL, NULL),
 (24, 'Alessandra Guedes', '15/03/1994', '2019-02-14 13:59:26', 1, '12345678', '123456784', NULL, NULL, NULL, NULL),
-(25, 'Rafael Basquens', '19//07/1988', '2019-08-23 21:26:43', 1, '12345', '67890', NULL, NULL, NULL, NULL);
+(25, 'Rafael Basquens', '19//07/1988', '2019-08-23 21:26:43', 1, '12345', '67890', NULL, NULL, NULL, NULL),
+(26, 'Otavio Frias Filho', '01/01/1952', '2020-07-28 14:50:47', 1, '46546171654', '8148145445178', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `companhia`
+-- Estrutura da tabela `companhia`
 --
 
-CREATE TABLE `companhia` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `companhia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `inicio_funcionamento` int(11) NOT NULL,
   `fim_funcionamento` int(11) NOT NULL,
@@ -153,15 +223,16 @@ CREATE TABLE `companhia` (
   `responsavel` varchar(150) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `salto` int(11) NOT NULL,
-  `flag_crm` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `flag_crm` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `companhia`
+-- Extraindo dados da tabela `companhia`
 --
 
 INSERT INTO `companhia` (`id`, `nome`, `inicio_funcionamento`, `fim_funcionamento`, `razao_social`, `cnpj`, `email`, `celular`, `telefone`, `responsavel`, `data_cadastro`, `salto`, `flag_crm`) VALUES
-(1, 'Barban Softwares', 0, 23, 'Barban Softwares LTDA', '12345678901234', 'barbangabriel@gmail.com', '11 939261285', '11 22648903', 'Gabriel Barban Rocha', '2019-08-23 21:27:07', 3, 1),
+(1, 'Barban Softwares', 0, 23, 'Barban Softwares LTDA', '12345678901234', 'barbangabriel@gmail.com', '11 939261285', '11 22648903', 'Gabriel Barban Rocha', '2020-09-24 23:02:30', 5, 1),
 (2, 'Empresa de teste', 0, 23, 'EMPRESA TESTE LTDA', '43243223423432', 'bonoro@planalto.gov', '11 939261285', '11 22648903', 'Jair Bonoro', '2019-03-20 16:45:21', 0, 1),
 (3, 'Empresa teste', 0, 23, 'Empresa teste', '0', 'rodrigodevcode@gmail.com', '', '', 'Rodrigo', '2019-03-20 16:45:24', 0, 1),
 (4, 'CLINICA TESTE', 0, 23, 'CLINICA TESTE', '0', 'jorgepaulo_paulo@hotmail.com', '(19)981600049', '0', 'Ricardo Mello', '2019-04-22 14:52:33', 0, 0),
@@ -170,17 +241,17 @@ INSERT INTO `companhia` (`id`, `nome`, `inicio_funcionamento`, `fim_funcionament
 -- --------------------------------------------------------
 
 --
--- Table structure for table `config_monitor`
+-- Estrutura da tabela `config_monitor`
 --
 
-CREATE TABLE `config_monitor` (
+CREATE TABLE IF NOT EXISTS `config_monitor` (
   `status_principal_id` int(11) NOT NULL,
   `tipo_principal` int(11) NOT NULL,
   `empresa_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `config_monitor`
+-- Extraindo dados da tabela `config_monitor`
 --
 
 INSERT INTO `config_monitor` (`status_principal_id`, `tipo_principal`, `empresa_id`) VALUES
@@ -191,78 +262,61 @@ INSERT INTO `config_monitor` (`status_principal_id`, `tipo_principal`, `empresa_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contato_lead`
+-- Estrutura da tabela `contato_lead`
 --
 
-CREATE TABLE `contato_lead` (
+CREATE TABLE IF NOT EXISTS `contato_lead` (
   `nome` varchar(250) NOT NULL,
   `email` varchar(250) NOT NULL,
   `telefone` varchar(250) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id` int(11) NOT NULL,
-  `status` varchar(80) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 --
--- Dumping data for table `contato_lead`
+-- Extraindo dados da tabela `contato_lead`
 --
 
 INSERT INTO `contato_lead` (`nome`, `email`, `telefone`, `data_cadastro`, `id`, `status`) VALUES
-('MARCIO', 'mlvcataldo@gmail.com', '21964264689', '2019-06-19 15:12:20', 1, 'Emperrado'),
-('Miguel Campos', 'campos_dentista@hotmail.com', '19 988711766', '2019-06-19 15:12:28', 6, 'Emperrado'),
-('Antonio', 'montafacilgesso@gmail.com', '11958963892', '2019-06-19 15:12:33', 7, 'Emperrado'),
-('clinica odontologica', 'clinicacotia10@gmail.com', '1142439263', '2019-06-19 15:12:37', 8, 'Emperrado'),
-('Cristina Brocchi ', 'Campinas@drmatheusarantes.com.br', '19981945654', '2019-06-19 15:12:42', 9, 'Emperrado'),
-('Maria Doraci ', 'alvesnathalia759@gmail.com', '11991514714', '2019-06-19 15:12:46', 11, 'Emperrado'),
-('Ricardo Mello', 'ricko_mello@hotmail.com', '19981600049', '2019-06-19 15:12:54', 12, 'Emperrado'),
-('jorge', 'jorgepaulo_paulo@hotmail.com', '(11) 9714-50880', '2019-06-19 15:13:06', 13, 'Emperrado'),
-('Reginaldo Daniel de Godoi ', 'rwconsultoria10@gmail.com', '19907479289', '2019-06-19 15:13:11', 15, 'Emperrado'),
-('adriana', 'adriana030681@gmail.com', '11 97481-1186', '2019-06-19 15:13:00', 17, 'Emperrado'),
-('Ana pailq da silva foli', 'paula_foli@hotmail.com', '19 995261735', '2019-06-19 15:13:15', 18, 'Emperrado'),
-('Aleandro jesus da silva', 'dr.aleandrojesus@gmail.com', '11942284700', '2019-06-21 20:43:21', 19, 'Conversas iniciais'),
-('fabia andrade', 'drafabiaandrade@gmail.com', '11 954797775', '2019-06-19 15:14:28', 21, 'Conversas iniciais'),
-('wilson', 'tecnico@jmmedical.com.br', '1147559292', '2019-06-19 15:14:32', 24, 'Conversas iniciais'),
-('Marina de Almeida Cunzolo', 'marinacunzolo@gmail.com', '12982536006', '2019-06-19 15:14:16', 25, 'Conversas iniciais'),
-('Eduardo GonÃ§alves', 'admin@geradox.com.br', '(31) 8888-8565', '2019-06-19 15:26:50', 26, 'Novo'),
-('Eduardo GonÃ§alves', 'admin@grdoc.com.br', '(31) 8888-8565', '2019-06-19 15:26:53', 27, 'Novo'),
-('Mariana Gomes do nascimento ', 'Marygomesrebeca@gmail.com ', '11964529863', '2019-06-21 20:38:32', 28, 'Emperrado'),
-('Eunice de Jesus Carneiro', 'nissejc23@gmail.com', '11948105071', '2019-06-21 20:35:39', 29, 'Emperrado'),
-('Testa tudo', 'SU@gmail.com', '1999365478', '2019-06-21 01:17:07', 30, 'Novo'),
-('vdvvdv', 'admin@admin.com', '123213321', '2019-07-04 00:13:52', 31, 'Novo');
+('Gabriel Barban', 'barbangabriel@gmail.com', '11939261285', '2020-07-27 17:52:44', 32, 'Novo'),
+('', '', '', '2020-09-11 07:39:59', 33, 'Novo');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `documentos`
+-- Estrutura da tabela `documentos`
 --
 
-CREATE TABLE `documentos` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `documentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
   `codigo` varchar(7000) NOT NULL,
   `empresa_id` int(11) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `documentos`
+-- Extraindo dados da tabela `documentos`
 --
 
 INSERT INTO `documentos` (`id`, `nome`, `codigo`, `empresa_id`, `data_cadastro`) VALUES
-(1, 'Atestado', '<div id=\"documento\">\r\n<center><b><i><font size=\"5\">CLÃNICA DE RADIOLOGIA BARBAN LTDA</font></i></b></center><center><b><i><font size=\"5\">________________________________________________________________</font></i></b></center><center><b><i><br></i></b></center><center><b><i><br></i></b></center><center><b><i>ATESTADO</i></b></center>\r\n<br>\r\nDeclaro que o paciente <span id=\"nome\"></span> (CPF: <span id=\"cpf\"></span>) realizou exame <span id=\"descricao\"></span>, no dia <span id=\"data_cadastro\"></span>.\r\n<br><br>\r\n</div>', 1, '2019-12-04 14:49:23'),
-(4, 'Termo de responsabilidade', '<div id=\"documento\"><center><span style=\"font-weight: bolder;\"><i><font size=\"5\">CLÃNICA DE RADIOLOGIA BARBAN LTDA</font></i></span></center><center><span style=\"font-weight: bolder;\"><i><font size=\"5\">________________________________________________________________</font></i></span></center><center><span style=\"font-weight: bolder;\"><i><font size=\"5\"><br></font></i></span></center><center><span style=\"font-weight: bolder;\"><i><font size=\"5\"><br></font></i></span></center><center><b><i>TERMO DE RESPONSABILIDADE</i></b></center>\r\n<br>\r\nPaciente <span id=\"nome\"></span> (CPF: <span id=\"cpf\"></span>) estÃ¡ ciente da utilizaÃ§Ã£o de piercing e dos riscos e eventuais erros de diagnÃ³sticos que isso pode acarretar no resultado do exame.\r\n<br><br>\r\n<i>SÃ£o Paulo, __ de ________________ de 20</i>\r\n<br><br>\r\n<center><img style=\"width: 80px; height: 90px\" src=\"../uploads/logo-1.png\"></center>\r\n</div>', 1, '2019-12-04 14:51:49'),
-(5, 'Atestado escolar', '<div id=\"documento\">\r\n<img src=\"../uploads/logo-5.png\" style=\"float: left\"/>\r\n<br><br><br><br><br><br><br><b><center>Atestado</center></b><br><br>\r\nAtesto para fins escolares que o paciente <span id=\"nome\"></span>, esteve sob meus cuidados profissionais nesta data, no perÃ­odo de ____ atÃ© Ã s ____.<br><br><br>\r\nCampinas, <span id=\"dia\"></span> de <span id=\"mes\"></span> de <span id=\"ano\"></span><br><br><br><br><br>\r\n<font style=\"float: right\"><b>_________________________________<br>Dr. JosÃ© Maria Castanho Silveira</b><br><i>CRO-SP 102201 â€“ Especialista Radiologia<br>cpf 056.842.868-44</i></font>\r\n<br><br>\r\n</div>', 5, '2019-02-22 19:04:47'),
-(6, 'Atestado trabalhista', '<div id=\"documento\">\r\n<img src=\"../uploads/logo-5.png\" style=\"float: left\"/>\r\n<br><br><br><br><br><br><br><b><center>Atestado</center></b><br><br>\r\nAtesto para fins trabalhistas que o paciente <span id=\"nome\"></span>, esteve sob meus cuidados profissionais nesta data, no perÃ­odo de ____ atÃ© Ã s ____.<br><br><br>\r\nCampinas, <span id=\"dia\"></span> de <span id=\"mes\"></span> de <span id=\"ano\"></span><br><br><br><br><br>\r\n<font style=\"float: right\"><b>_________________________________<br>Dr. JosÃ© Maria Castanho Silveira</b><br><i>CRO-SP 102201 â€“ Especialista Radiologia<br>cpf 056.842.868-44</i></font>\r\n<br><br>\r\n</div>', 5, '2019-02-22 19:04:32'),
-(7, 'Recibo', '<div id=\"documento\">\r\n<img src=\"../uploads/logo-5.png\" style=\"float: left\"/>\r\n<br><br><br><br><br><br><br><b><center>Recibo</center></b><br><br>\r\nRecebi do paciente <span id=\"nome\"></span> CPF: <span id=\"cpf\"></span>, a quantia supra de R$ <span id=\"valor\"></span> referente ao pagamento do seu exame radiogrÃ¡fico.<br><br><br>\r\nCampinas, <span id=\"dia\"></span> de <span id=\"mes\"></span> de <span id=\"ano\"></span><br><br><br><br><br>\r\n<font style=\"float: right\"><b>_________________________________<br>Dr. JosÃ© Maria Castanho Silveira</b><br><i>CRO-SP 102201 â€“ Especialista Radiologia<br>cpf 056.842.868-44</i></font>\r\n<br><br>\r\n</div>', 5, '2019-02-22 19:04:21');
+(1, 'Atestado', '<div id="documento">\r\n<center><b><i><font size="5">CLÃNICA DE RADIOLOGIA BARBAN LTDA</font></i></b></center><center><b><i><font size="5">________________________________________________________________</font></i></b></center><center><b><i><br></i></b></center><center><b><i><br></i></b></center><center><b><i>ATESTADO</i></b></center>\r\n<br>\r\nDeclaro que o paciente <span id="nome"></span> (CPF: <span id="cpf"></span>) realizou exame <span id="descricao"></span>, no dia <span id="data_cadastro"></span>.\r\n<br><br>\r\n<center><b>____________________________</b></center>\r\n<br><br>\r\n<center>SÃ£o Paulo, ____ de ____________ de _______.</center>\r\n</div>', 1, '2020-07-27 19:34:10'),
+(4, 'Termo de responsabilidade', '<div id="documento"><center><span style="font-weight: bolder;"><i><font size="5">CLÃNICA DE RADIOLOGIA BARBAN LTDA</font></i></span></center><center><span style="font-weight: bolder;"><i><font size="5">________________________________________________________________</font></i></span></center><center><span style="font-weight: bolder;"><i><font size="5"><br></font></i></span></center><center><span style="font-weight: bolder;"><i><font size="5"><br></font></i></span></center><center><b><i>TERMO DE RESPONSABILIDADE</i></b></center>\r\n<br>\r\nPaciente <span id="nome"></span> (CPF: <span id="cpf"></span>) estÃ¡ ciente da utilizaÃ§Ã£o de piercing e dos riscos e eventuais erros de diagnÃ³sticos que isso pode acarretar no resultado do exame.\r\n<br><br>\r\n<i>SÃ£o Paulo, __ de ________________ de 20</i>\r\n<br><br>\r\n<center><img style="width: 80px; height: 90px" src="../uploads/logo-1.png"></center>\r\n</div>', 1, '2019-12-04 14:51:49'),
+(5, 'Atestado escolar', '<div id="documento">\r\n<img src="../uploads/logo-5.png" style="float: left"/>\r\n<br><br><br><br><br><br><br><b><center>Atestado</center></b><br><br>\r\nAtesto para fins escolares que o paciente <span id="nome"></span>, esteve sob meus cuidados profissionais nesta data, no perÃ­odo de ____ atÃ© Ã s ____.<br><br><br>\r\nCampinas, <span id="dia"></span> de <span id="mes"></span> de <span id="ano"></span><br><br><br><br><br>\r\n<font style="float: right"><b>_________________________________<br>Dr. JosÃ© Maria Castanho Silveira</b><br><i>CRO-SP 102201 â€“ Especialista Radiologia<br>cpf 056.842.868-44</i></font>\r\n<br><br>\r\n</div>', 5, '2019-02-22 19:04:47'),
+(6, 'Atestado trabalhista', '<div id="documento">\r\n<img src="../uploads/logo-5.png" style="float: left"/>\r\n<br><br><br><br><br><br><br><b><center>Atestado</center></b><br><br>\r\nAtesto para fins trabalhistas que o paciente <span id="nome"></span>, esteve sob meus cuidados profissionais nesta data, no perÃ­odo de ____ atÃ© Ã s ____.<br><br><br>\r\nCampinas, <span id="dia"></span> de <span id="mes"></span> de <span id="ano"></span><br><br><br><br><br>\r\n<font style="float: right"><b>_________________________________<br>Dr. JosÃ© Maria Castanho Silveira</b><br><i>CRO-SP 102201 â€“ Especialista Radiologia<br>cpf 056.842.868-44</i></font>\r\n<br><br>\r\n</div>', 5, '2019-02-22 19:04:32'),
+(7, 'Recibo', '<div id="documento">\r\n<img src="../uploads/logo-5.png" style="float: left"/>\r\n<br><br><br><br><br><br><br><b><center>Recibo</center></b><br><br>\r\nRecebi do paciente <span id="nome"></span> CPF: <span id="cpf"></span>, a quantia supra de R$ <span id="valor"></span> referente ao pagamento do seu exame radiogrÃ¡fico.<br><br><br>\r\nCampinas, <span id="dia"></span> de <span id="mes"></span> de <span id="ano"></span><br><br><br><br><br>\r\n<font style="float: right"><b>_________________________________<br>Dr. JosÃ© Maria Castanho Silveira</b><br><i>CRO-SP 102201 â€“ Especialista Radiologia<br>cpf 056.842.868-44</i></font>\r\n<br><br>\r\n</div>', 5, '2019-02-22 19:04:21');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `empresas`
+-- Estrutura da tabela `empresas`
 --
 
-CREATE TABLE `empresas` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `empresas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
   `razao_social` varchar(300) NOT NULL,
   `cnpj` varchar(50) NOT NULL,
@@ -271,11 +325,13 @@ CREATE TABLE `empresas` (
   `tipo` int(11) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `empresa_id` int(11) NOT NULL,
-  `ativo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `ativo` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_fk_empresas_companhia` (`empresa_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
--- Dumping data for table `empresas`
+-- Extraindo dados da tabela `empresas`
 --
 
 INSERT INTO `empresas` (`id`, `nome`, `razao_social`, `cnpj`, `telefone`, `email`, `tipo`, `data_cadastro`, `empresa_id`, `ativo`) VALUES
@@ -317,10 +373,10 @@ INSERT INTO `empresas` (`id`, `nome`, `razao_social`, `cnpj`, `telefone`, `email
 -- --------------------------------------------------------
 
 --
--- Table structure for table `empresas_tipo`
+-- Estrutura da tabela `empresas_tipo`
 --
 
-CREATE TABLE `empresas_tipo` (
+CREATE TABLE IF NOT EXISTS `empresas_tipo` (
   `id` int(11) NOT NULL,
   `nome` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -328,18 +384,19 @@ CREATE TABLE `empresas_tipo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entrega`
+-- Estrutura da tabela `entrega`
 --
 
-CREATE TABLE `entrega` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `entrega` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(150) NOT NULL,
   `ativo` int(11) NOT NULL DEFAULT '1',
-  `empresa_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `empresa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `entrega`
+-- Extraindo dados da tabela `entrega`
 --
 
 INSERT INTO `entrega` (`id`, `nome`, `ativo`, `empresa_id`) VALUES
@@ -357,94 +414,100 @@ INSERT INTO `entrega` (`id`, `nome`, `ativo`, `empresa_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etiqueta_individual`
+-- Estrutura da tabela `etiqueta_individual`
 --
 
-CREATE TABLE `etiqueta_individual` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `etiqueta_individual` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(5000) NOT NULL,
-  `empresa_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `empresa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `etiqueta_individual`
+-- Extraindo dados da tabela `etiqueta_individual`
 --
 
 INSERT INTO `etiqueta_individual` (`id`, `codigo`, `empresa_id`) VALUES
-(1, '<div id=\"etiqueta-individual\" style=\"width: 300px; height: 100px; border: 2px solid; border-radius: 8px;\">\r\n          Nome: <span id=\"nome\"></span><br>\r\n          Nascimento: <span id=\"nascimento\"></span><br>\r\n          Data de Cadastro: <span id=\"data_cadastro\"></span><br>\r\n          DescriÃ§Ã£o: <span id=\"descricao\"></span>\r\n</div>', 1),
-(2, '<div id=\"etiqueta-individual\" style=\"width: 300px; height: 100px; border: 2px solid; border-radius: 8px;\">\r\n          Nome: <span id=\"nome\"></span><br>\r\n          Nascimento: <span id=\"nascimento\"></span><br>\r\n          Data de Cadastro: <span id=\"data_cadastro\"></span><br>\r\n          CPF: <span id=\"cpf\"></span>\r\n</div>', 3);
+(1, '<div id="etiqueta-individual" style="width: 300px; height: 100px; border: 2px solid; border-radius: 8px;">\r\n          Nome: <span id="nome"></span><br>\r\n          Nascimento: <span id="nascimento"></span><br>\r\n          Data de Cadastro: <span id="data_cadastro"></span><br>\r\n          DescriÃ§Ã£o: <span id="descricao"></span>\r\n</div>', 1),
+(2, '<div id="etiqueta-individual" style="width: 300px; height: 100px; border: 2px solid; border-radius: 8px;">\r\n          Nome: <span id="nome"></span><br>\r\n          Nascimento: <span id="nascimento"></span><br>\r\n          Data de Cadastro: <span id="data_cadastro"></span><br>\r\n          CPF: <span id="cpf"></span>\r\n</div>', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etiqueta_pimaco`
+-- Estrutura da tabela `etiqueta_pimaco`
 --
 
-CREATE TABLE `etiqueta_pimaco` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `etiqueta_pimaco` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(16000) NOT NULL,
-  `empresa_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `empresa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `etiqueta_pimaco`
+-- Extraindo dados da tabela `etiqueta_pimaco`
 --
 
 INSERT INTO `etiqueta_pimaco` (`id`, `codigo`, `empresa_id`) VALUES
-(1, '<div id=\"etiqueta-individual\" style=\"width: 210mm; height: 297mm; border: 2px solid; border-radius: 8px;\">\r\n<div style=\"margin-top: 5mm; margin-left: 4mm; margin-right: 4mm; margin-bottom: 15mm\">\r\n\r\n<div id=\"a1\" style=\"width: 100mm; height: 38mm; border: 1px dashed;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"a2\" style=\"width: 100mm; height: 38mm; border: 1px dashed;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"a3\" style=\"width: 100mm; height: 38mm; border: 1px dashed;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"a4\" style=\"width: 100mm; height: 38mm; border: 1px dashed;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"a5\" style=\"width: 100mm; height: 38mm; border: 1px dashed;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"a6\" style=\"width: 100mm; height: 38mm; border: 1px dashed;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"a7\" style=\"width: 100mm; height: 38mm; border: 1px dashed;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"b1\" style=\"width: 100mm;height: 38mm;border: 1px dashed;margin-top: -1019px;margin-left: 380px;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"b2\" style=\"width: 100mm;height: 38mm;border: 1px dashed;margin-left: 380px;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"b3\" style=\"width: 100mm;height: 38mm;border: 1px dashed;margin-left: 380px;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"b4\" style=\"width: 100mm;height: 38mm;border: 1px dashed;margin-left: 380px;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"b5\" style=\"width: 100mm; height: 38mm; border: 1px dashed;margin-left: 380px;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"b6\" style=\"width: 100mm; height: 38mm; border: 1px dashed;margin-left: 380px;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n<div id=\"b7\" style=\"width: 100mm; height: 38mm; border: 1px dashed;margin-left: 380px;\" onclick=\"visualizar(this)\">\r\n  <span id=\"nome\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nascimento\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"descricao\" style=\"visibility: hidden;\"></span><br>\r\n  <span id=\"nome_empresas\" style=\"visibility: hidden;\"></span><br>\r\n</div>\r\n\r\n</div>\r\n</div>', 1);
+(1, '<div id="etiqueta-individual" style="width: 210mm; height: 297mm; border: 2px solid; border-radius: 8px;">\r\n<div style="margin-top: 5mm; margin-left: 4mm; margin-right: 4mm; margin-bottom: 15mm">\r\n\r\n<div id="a1" style="width: 100mm; height: 38mm; border: 1px dashed;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="a2" style="width: 100mm; height: 38mm; border: 1px dashed;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="a3" style="width: 100mm; height: 38mm; border: 1px dashed;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="a4" style="width: 100mm; height: 38mm; border: 1px dashed;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="a5" style="width: 100mm; height: 38mm; border: 1px dashed;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="a6" style="width: 100mm; height: 38mm; border: 1px dashed;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="a7" style="width: 100mm; height: 38mm; border: 1px dashed;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="b1" style="width: 100mm;height: 38mm;border: 1px dashed;margin-top: -1019px;margin-left: 380px;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="b2" style="width: 100mm;height: 38mm;border: 1px dashed;margin-left: 380px;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="b3" style="width: 100mm;height: 38mm;border: 1px dashed;margin-left: 380px;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="b4" style="width: 100mm;height: 38mm;border: 1px dashed;margin-left: 380px;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="b5" style="width: 100mm; height: 38mm; border: 1px dashed;margin-left: 380px;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="b6" style="width: 100mm; height: 38mm; border: 1px dashed;margin-left: 380px;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n<div id="b7" style="width: 100mm; height: 38mm; border: 1px dashed;margin-left: 380px;" onclick="visualizar(this)">\r\n  <span id="nome" style="visibility: hidden;"></span><br>\r\n  <span id="nascimento" style="visibility: hidden;"></span><br>\r\n  <span id="descricao" style="visibility: hidden;"></span><br>\r\n  <span id="nome_empresas" style="visibility: hidden;"></span><br>\r\n</div>\r\n\r\n</div>\r\n</div>', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `eventos`
+-- Estrutura da tabela `eventos`
 --
 
-CREATE TABLE `eventos` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `eventos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
-  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `financas`
+-- Estrutura da tabela `financas`
 --
 
-CREATE TABLE `financas` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `financas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(250) NOT NULL,
   `valor` float NOT NULL,
   `forma_id` int(11) NOT NULL,
   `empresas_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `categoria_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `categoria_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `financas`
+-- Extraindo dados da tabela `financas`
 --
 
 INSERT INTO `financas` (`id`, `descricao`, `valor`, `forma_id`, `empresas_id`, `usuario_id`, `data_cadastro`, `categoria_id`) VALUES
 (1, 'teste', 15.6, 4, 13, 1, '2019-02-06 18:06:13', 1),
-(8, 'teste', 45, 11, 21, 1, '2019-02-26 10:45:55', 2);
+(8, 'teste', 45, 11, 21, 1, '2019-02-26 10:45:55', 2),
+(9, 'despesa teste', 7, 4, 14, 1, '2020-07-27 21:55:51', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `financas_categorias`
+-- Estrutura da tabela `financas_categorias`
 --
 
-CREATE TABLE `financas_categorias` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `financas_categorias` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(150) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `empresa_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `empresa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `financas_categorias`
+-- Extraindo dados da tabela `financas_categorias`
 --
 
 INSERT INTO `financas_categorias` (`id`, `nome`, `data_cadastro`, `empresa_id`) VALUES
@@ -457,18 +520,20 @@ INSERT INTO `financas_categorias` (`id`, `nome`, `data_cadastro`, `empresa_id`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `formas_pagamento`
+-- Estrutura da tabela `formas_pagamento`
 --
 
-CREATE TABLE `formas_pagamento` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `formas_pagamento` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(150) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `empresa_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `empresa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_fk_empresa_formas` (`empresa_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
--- Dumping data for table `formas_pagamento`
+-- Extraindo dados da tabela `formas_pagamento`
 --
 
 INSERT INTO `formas_pagamento` (`id`, `nome`, `data_cadastro`, `empresa_id`) VALUES
@@ -488,21 +553,22 @@ INSERT INTO `formas_pagamento` (`id`, `nome`, `data_cadastro`, `empresa_id`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log`
+-- Estrutura da tabela `log`
 --
 
-CREATE TABLE `log` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `acao` varchar(200) NOT NULL,
   `dados` varchar(500) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `empresa_id` int(11) NOT NULL,
   `ip_acesso` varchar(100) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=720 ;
 
 --
--- Dumping data for table `log`
+-- Extraindo dados da tabela `log`
 --
 
 INSERT INTO `log` (`id`, `acao`, `dados`, `usuario_id`, `empresa_id`, `ip_acesso`, `data_cadastro`) VALUES
@@ -1019,11 +1085,11 @@ INSERT INTO `log` (`id`, `acao`, `dados`, `usuario_id`, `empresa_id`, `ip_acesso
 (559, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:25'),
 (560, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:27'),
 (561, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:29'),
-(562, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:32'),
+(562, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:32');
+INSERT INTO `log` (`id`, `acao`, `dados`, `usuario_id`, `empresa_id`, `ip_acesso`, `data_cadastro`) VALUES
 (563, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:34'),
 (564, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:36'),
-(565, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:57');
-INSERT INTO `log` (`id`, `acao`, `dados`, `usuario_id`, `empresa_id`, `ip_acesso`, `data_cadastro`) VALUES
+(565, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '172.17.0.1', '2019-12-03 22:09:57'),
 (566, 'Listou valores de uma empresa', 'ID da empresa: 11', 1, 1, '172.17.0.1', '2019-12-03 22:13:30'),
 (567, 'Logou no sistema', '---', 1, 1, '172.17.0.1', '2019-12-03 22:16:43'),
 (568, 'Logou no sistema', '---', 1, 1, '172.17.0.1', '2019-12-03 22:17:11'),
@@ -1081,26 +1147,123 @@ INSERT INTO `log` (`id`, `acao`, `dados`, `usuario_id`, `empresa_id`, `ip_acesso
 (620, 'Logou no sistema', '---', 1, 1, '172.17.0.1', '2019-12-16 14:49:42'),
 (621, 'Listou valores de uma empresa', 'ID da empresa: 24', 1, 1, '172.17.0.1', '2019-12-16 14:50:42'),
 (622, 'Logou no sistema', '---', 1, 1, '172.17.0.1', '2019-12-18 13:54:18'),
-(623, 'Listou valores de uma empresa', 'ID da empresa: 24', 1, 1, '172.17.0.1', '2019-12-18 13:55:27');
+(623, 'Listou valores de uma empresa', 'ID da empresa: 24', 1, 1, '172.17.0.1', '2019-12-18 13:55:27'),
+(624, 'Logou no sistema', '---', 1, 1, '191.39.91.51', '2020-07-24 21:13:14'),
+(625, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:05:24'),
+(626, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:10:12'),
+(627, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:10:21'),
+(628, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:10:48'),
+(629, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:11:10'),
+(630, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:12:29'),
+(631, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:13:53'),
+(632, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:17:54'),
+(633, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:33:22'),
+(634, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:45:12'),
+(635, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:50:04'),
+(636, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:52:17'),
+(637, 'Deletou usuÃ¡rio', 'ID do usuÃ¡rio: 61', 1, 1, '191.39.77.194', '2020-07-27 17:52:25'),
+(638, 'Cadastro novo usuÃ¡rio', 'Nome do novo usuÃ¡rio: Gabriel Barban', 1, 1, '191.39.77.194', '2020-07-27 17:52:44'),
+(639, 'Logou no sistema', '---', 68, 1, '191.39.77.194', '2020-07-27 17:53:32'),
+(640, 'Logou no sistema', '---', 1, 1, '191.39.77.194', '2020-07-27 17:53:52'),
+(641, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '191.39.77.194', '2020-07-27 17:54:04'),
+(642, 'Logou no sistema', '---', 68, 1, '191.39.34.81', '2020-07-27 19:04:03'),
+(643, 'Atualizou cadastro de usuÃ¡rio', 'Nome: Gabriel Barban, E-mail: barbangabriel@gmail.com, Username: barbangabriel@gmail.com', 68, 1, '191.39.34.81', '2020-07-27 19:04:14'),
+(644, 'Logou no sistema', '---', 1, 1, '191.39.34.81', '2020-07-27 19:29:16'),
+(645, 'Deletou usuÃ¡rio', 'ID do usuÃ¡rio: 52', 1, 1, '191.39.34.81', '2020-07-27 19:30:23'),
+(646, 'Deletou usuÃ¡rio', 'ID do usuÃ¡rio: 63', 1, 1, '191.39.34.81', '2020-07-27 19:30:31'),
+(647, 'Deletou usuÃ¡rio', 'ID do usuÃ¡rio: 67', 1, 1, '191.39.34.81', '2020-07-27 19:30:35'),
+(648, 'Deletou usuÃ¡rio', 'ID do usuÃ¡rio: 57', 1, 1, '191.39.34.81', '2020-07-27 19:30:41'),
+(649, 'Mudou status de registro', 'ID do registro: 69', 1, 1, '191.39.34.81', '2020-07-27 19:31:17'),
+(650, 'Atualizou documento', 'ID do documento: 1, Nome do documento: Atestado', 1, 1, '191.39.34.81', '2020-07-27 19:34:10'),
+(651, 'Puxou histÃ³rico de cliente', 'ID do cliente: 2', 1, 1, '191.39.34.81', '2020-07-27 19:34:46'),
+(652, 'Gerou relatorio de caixa', '---', 1, 1, '191.39.34.81', '2020-07-27 19:36:14'),
+(653, 'Gerou relatorio de registros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:36:36'),
+(654, 'Gerou relatorio de registros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:36:40'),
+(655, 'Gerou relatorio de registros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:36:44'),
+(656, 'Gerou relatorio de registros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:36:51'),
+(657, 'Gerou relatorio de registros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:36:54'),
+(658, 'Gerou relatorio de registros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:36:57'),
+(659, 'Gerou relatorio de registros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:00'),
+(660, 'Gerou relatorio de parceiros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:40'),
+(661, 'Gerou relatorio de parceiros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:43'),
+(662, 'Gerou relatorio de parceiros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:46'),
+(663, 'Gerou relatorio de parceiros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:48'),
+(664, 'Gerou relatorio de parceiros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:51'),
+(665, 'Gerou relatorio de parceiros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:54'),
+(666, 'Gerou relatorio de parceiros', '---', 1, 1, '191.39.34.81', '2020-07-27 19:37:56'),
+(667, 'Cadastrou novo parceiro', 'Nome do parceiro: Chico Mendes', 1, 1, '191.39.34.81', '2020-07-27 19:39:07'),
+(668, 'Cadastrou novo relatÃ³rio customizado', 'Nome do relatÃ³rio customizado: RelatÃ³rio consolidado 2', 1, 1, '191.39.34.81', '2020-07-27 19:40:27'),
+(669, 'Logou no sistema', '---', 1, 1, '191.39.34.81', '2020-07-27 20:05:01'),
+(670, 'Logou no sistema', '---', 1, 1, '191.39.34.81', '2020-07-27 20:05:15'),
+(671, 'Logou no sistema', '---', 1, 1, '191.39.34.81', '2020-07-27 21:55:08'),
+(672, 'Nova entrada em finanÃ§as', 'ID do registro: 9, ID do usuÃ¡rio: 1', 1, 1, '191.39.34.81', '2020-07-27 21:55:51'),
+(673, 'Logou no sistema', '---', 1, 1, '191.39.3.197', '2020-07-28 14:49:18'),
+(674, 'Cadastrou novo parceiro', 'Nome do parceiro: Antonio Carlos Brasileiro de Almeida Jobim', 1, 1, '191.39.3.197', '2020-07-28 14:50:00'),
+(675, 'Cadastrou novo cliente', 'Nome do cliente: Otavio Frias Filho', 1, 1, '191.39.3.197', '2020-07-28 14:50:47'),
+(676, 'Cadastrou novo registro', 'ID do registro: 70', 1, 1, '191.39.3.197', '2020-07-28 14:51:20'),
+(677, 'Cadastro novo usuÃ¡rio', 'Nome do novo usuÃ¡rio: ', 1, 1, '185.191.171.10', '2020-09-11 07:39:59'),
+(678, 'Logou no sistema', '---', 1, 1, '191.39.33.104', '2020-09-14 16:48:53'),
+(679, 'Logou no sistema', '---', 1, 1, '191.39.46.114', '2020-09-16 20:05:46'),
+(680, 'Gerou relatorio de registros', '---', 1, 1, '191.39.46.114', '2020-09-16 20:06:42'),
+(681, 'Logou no sistema', '---', 1, 1, '191.39.78.249', '2020-09-24 17:15:14'),
+(682, 'Logou no sistema', '---', 1, 1, '191.39.2.75', '2020-09-24 18:41:07'),
+(683, 'Logou no sistema', '---', 1, 1, '191.39.2.75', '2020-09-24 19:27:32'),
+(684, 'Logou no sistema', '---', 1, 1, '191.39.2.75', '2020-09-24 19:55:15'),
+(685, 'Enviou nova mensagem', 'Nome do documento: ', 1, 1, '191.39.2.75', '2020-09-24 19:56:12'),
+(686, 'Logou no sistema', '---', 68, 1, '191.39.2.75', '2020-09-24 19:56:39'),
+(687, 'Logou no sistema', '---', 68, 1, '191.39.2.75', '2020-09-24 19:56:56'),
+(688, 'Enviou nova mensagem', 'Nome do documento: ', 68, 1, '191.39.2.75', '2020-09-24 19:57:10'),
+(689, 'Logou no sistema', '---', 1, 1, '191.39.2.75', '2020-09-24 19:57:33'),
+(690, 'Enviou nova mensagem', 'Nome do documento: ', 1, 1, '191.39.2.75', '2020-09-24 19:57:57'),
+(691, 'Enviou nova mensagem', 'Nome do documento: ', 68, 1, '191.39.2.75', '2020-09-24 19:58:31'),
+(692, 'Logou no sistema', '---', 69, 1, '191.39.2.75', '2020-09-24 20:03:42'),
+(693, 'Logou no sistema', '---', 69, 1, '191.39.2.75', '2020-09-24 20:04:08'),
+(694, 'Logou no sistema', '---', 69, 1, '191.39.2.75', '2020-09-24 20:04:16'),
+(695, 'Logou no sistema', '---', 69, 1, '191.39.2.75', '2020-09-24 20:04:52'),
+(696, 'Logou no sistema', '---', 1, 1, '191.39.2.75', '2020-09-24 20:05:47'),
+(697, 'Puxou histÃ³rico de cliente', 'ID do cliente: 2', 1, 1, '191.39.2.75', '2020-09-24 20:06:17'),
+(698, 'Listou valores de uma empresa', 'ID da empresa: 11', 1, 1, '191.39.2.75', '2020-09-24 20:06:47'),
+(699, 'Logou no sistema', '---', 1, 1, '191.39.94.157', '2020-09-24 22:58:22'),
+(700, 'Cadastrou novo registro', 'ID do registro: 71', 1, 1, '191.39.94.157', '2020-09-24 23:02:30'),
+(701, 'Puxou histÃ³rico de cliente', 'ID do cliente: 2', 1, 1, '191.39.94.157', '2020-09-24 23:04:07'),
+(702, 'Gerou relatorio de caixa', '---', 1, 1, '191.39.94.157', '2020-09-24 23:07:58'),
+(703, 'Listou valores de uma empresa', 'ID da empresa: 2', 1, 1, '191.39.94.157', '2020-09-24 23:12:39'),
+(704, 'Listou valores de uma empresa', 'ID da empresa: 9', 1, 1, '191.39.94.157', '2020-09-24 23:12:54'),
+(705, 'Logou no sistema', '---', 1, 1, '191.39.89.70', '2020-09-25 17:41:32'),
+(706, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-28 01:32:19'),
+(707, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-28 01:39:10'),
+(708, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-28 02:10:52'),
+(709, 'Gerou relatorio de parceiros', '---', 1, 1, '::1', '2020-09-28 02:11:34'),
+(710, 'Gerou relatorio de parceiros', '---', 1, 1, '::1', '2020-09-28 02:11:36'),
+(711, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-28 02:13:57'),
+(712, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-28 04:05:55'),
+(713, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-28 18:41:20'),
+(714, 'Cadastrou nova agenda', 'Nome da agenda: teste teste', 1, 1, '::1', '2020-09-28 19:38:16'),
+(715, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-28 20:29:32'),
+(716, 'Logou no sistema', '---', 1, 1, '::1', '2020-09-29 00:07:59'),
+(717, 'Cadastrou novo status', 'Nome do status: ', 1, 1, '::1', '2020-09-29 01:13:42'),
+(718, 'Cadastrou novo status', 'Nome do status: ', 1, 1, '::1', '2020-09-29 01:14:29'),
+(719, 'Cadastrou novo status', 'Nome do status: ', 1, 1, '::1', '2020-09-29 01:16:27');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parceiros`
+-- Estrutura da tabela `parceiros`
 --
 
-CREATE TABLE `parceiros` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `parceiros` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(300) NOT NULL,
   `email` varchar(100) NOT NULL,
   `telefone` varchar(60) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `ativo` int(11) NOT NULL DEFAULT '1',
-  `empresa_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `empresa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=131 ;
 
 --
--- Dumping data for table `parceiros`
+-- Extraindo dados da tabela `parceiros`
 --
 
 INSERT INTO `parceiros` (`id`, `nome`, `email`, `telefone`, `data_cadastro`, `ativo`, `empresa_id`) VALUES
@@ -1231,16 +1394,18 @@ INSERT INTO `parceiros` (`id`, `nome`, `email`, `telefone`, `data_cadastro`, `at
 (125, 'Wellington Santos', '', '', '2019-02-21 19:32:11', 1, 5),
 (126, 'Wesley Silva ', '', '', '2019-02-21 19:32:11', 1, 5),
 (127, 'Willian Negreiros', '', '', '2019-02-21 19:32:11', 1, 5),
-(128, 'Wilson Victor', '', '', '2019-02-21 19:32:11', 1, 5);
+(128, 'Wilson Victor', '', '', '2019-02-21 19:32:11', 1, 5),
+(129, 'Chico Mendes', 'seringueiro@hotmail.com', '65 993244247', '2020-07-27 19:39:07', 1, 1),
+(130, 'Antonio Carlos Brasileiro de Almeida Jobim', 'tomjobim@hotmail.com', '21987445622', '2020-07-28 14:50:00', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registro`
+-- Estrutura da tabela `registro`
 --
 
-CREATE TABLE `registro` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `registro` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` int(11) NOT NULL,
   `descricao` varchar(300) NOT NULL,
   `valor` float NOT NULL,
@@ -1252,11 +1417,16 @@ CREATE TABLE `registro` (
   `cliente_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `empresa_id` int(11) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `id_fk_status` (`status_id`),
+  KEY `id_fk_usuario` (`usuario_id`),
+  KEY `id_fk_empresa` (`empresa_id`),
+  KEY `id_fk_cliente` (`cliente_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=72 ;
 
 --
--- Dumping data for table `registro`
+-- Extraindo dados da tabela `registro`
 --
 
 INSERT INTO `registro` (`id`, `codigo`, `descricao`, `valor`, `status_id`, `ativo`, `tipo`, `entrega_id`, `parceiro_id`, `cliente_id`, `usuario_id`, `empresa_id`, `data_cadastro`) VALUES
@@ -1276,24 +1446,27 @@ INSERT INTO `registro` (`id`, `codigo`, `descricao`, `valor`, `status_id`, `ativ
 (66, 0, 'Telerradiografia lateral', 80.76, 5, 0, 1, 3, 5, 14, 1, 1, '2019-02-19 14:53:35'),
 (67, 1, 'Telerradiografia lateral', 48, 4, 1, 1, 6, 1, 2, 1, 1, '2019-08-22 18:04:48'),
 (68, 2, 'Periapical bitewing', 5.45, 5, 1, 1, 4, 1, 2, 1, 1, '2019-08-23 21:21:28'),
-(69, 3, 'Panoramica Bitewing', 49.77, 5, 1, 1, 5, 5, 25, 1, 1, '2019-08-23 21:27:07');
+(69, 3, 'Panoramica Bitewing', 49.77, 4, 1, 1, 5, 5, 25, 1, 1, '2020-07-27 19:31:17'),
+(70, 4, 'Tomografia ATM', 95.8, 4, 1, 1, 3, 130, 26, 1, 1, '2020-07-28 14:51:20'),
+(71, 5, 'Telerradiografia Frontal', 44.9, 4, 1, 1, 5, 130, 2, 1, 1, '2020-09-24 23:02:30');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registro_itens`
+-- Estrutura da tabela `registro_itens`
 --
 
-CREATE TABLE `registro_itens` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `registro_itens` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `valor_empresa_id` int(11) NOT NULL,
   `quantidade` int(11) NOT NULL,
   `registro_id` int(11) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
 
 --
--- Dumping data for table `registro_itens`
+-- Extraindo dados da tabela `registro_itens`
 --
 
 INSERT INTO `registro_itens` (`id`, `valor_empresa_id`, `quantidade`, `registro_id`, `data_cadastro`) VALUES
@@ -1317,24 +1490,27 @@ INSERT INTO `registro_itens` (`id`, `valor_empresa_id`, `quantidade`, `registro_
 (33, 35, 1, 73, '2019-02-22 17:52:05'),
 (34, 21, 1, 67, '2019-08-22 18:04:48'),
 (35, 17, 1, 68, '2019-08-23 21:21:28'),
-(36, 10, 1, 69, '2019-08-23 21:27:07');
+(36, 10, 1, 69, '2019-08-23 21:27:07'),
+(37, 23, 1, 70, '2020-07-28 14:51:20'),
+(38, 13, 1, 71, '2020-09-24 23:02:30');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registro_pagametno`
+-- Estrutura da tabela `registro_pagametno`
 --
 
-CREATE TABLE `registro_pagametno` (
+CREATE TABLE IF NOT EXISTS `registro_pagametno` (
   `registro_id` int(11) NOT NULL,
   `forma_id` int(11) NOT NULL,
   `valor` float NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
--- Dumping data for table `registro_pagametno`
+-- Extraindo dados da tabela `registro_pagametno`
 --
 
 INSERT INTO `registro_pagametno` (`registro_id`, `forma_id`, `valor`, `data_cadastro`, `id`) VALUES
@@ -1363,60 +1539,67 @@ INSERT INTO `registro_pagametno` (`registro_id`, `forma_id`, `valor`, `data_cada
 (73, 19, 85, '2019-02-22 17:52:05', 43),
 (67, 4, 48, '2019-08-22 18:04:48', 44),
 (68, 4, 5.45, '2019-08-23 21:21:28', 45),
-(69, 13, 49.77, '2019-08-23 21:27:07', 46);
+(69, 13, 49.77, '2019-08-23 21:27:07', 46),
+(70, 13, 95.8, '2020-07-28 14:51:20', 47),
+(71, 15, 44.9, '2020-09-24 23:02:30', 48);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relatorios`
+-- Estrutura da tabela `relatorios`
 --
 
-CREATE TABLE `relatorios` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `relatorios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(250) NOT NULL,
   `empresa_id` int(11) NOT NULL,
   `codigo` int(11) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relatorio_custom`
+-- Estrutura da tabela `relatorio_custom`
 --
 
-CREATE TABLE `relatorio_custom` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `relatorio_custom` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `query` varchar(300) NOT NULL,
   `apelidos` varchar(300) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `empresa_id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `relatorio_custom`
+-- Extraindo dados da tabela `relatorio_custom`
 --
 
 INSERT INTO `relatorio_custom` (`id`, `nome`, `query`, `apelidos`, `data_cadastro`, `empresa_id`, `usuario_id`) VALUES
-(4, 'Relatorio consolidado', 'c.nome,r.data_cadastro,r.valor', 'Nome do cliente,Data do registro,Valor', '2019-08-26 20:54:25', 1, 1);
+(4, 'Relatorio consolidado', 'c.nome,r.data_cadastro,r.valor', 'Nome do cliente,Data do registro,Valor', '2019-08-26 20:54:25', 1, 1),
+(5, 'RelatÃ³rio consolidado 2', 'c.nome,em.nome,c.telefone', 'Nome do cliente,Empresa,Telefone cliente', '2020-07-27 19:40:27', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `status`
+-- Estrutura da tabela `status`
 --
 
-CREATE TABLE `status` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(150) NOT NULL,
   `empresa_id` int(11) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `id_fk_empresa_status` (`empresa_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data for table `status`
+-- Extraindo dados da tabela `status`
 --
 
 INSERT INTO `status` (`id`, `nome`, `empresa_id`, `data_cadastro`) VALUES
@@ -1435,16 +1618,16 @@ INSERT INTO `status` (`id`, `nome`, `empresa_id`, `data_cadastro`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipos`
+-- Estrutura da tabela `tipos`
 --
 
-CREATE TABLE `tipos` (
+CREATE TABLE IF NOT EXISTS `tipos` (
   `Nome` varchar(50) NOT NULL,
   `Identificação` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tipos`
+-- Extraindo dados da tabela `tipos`
 --
 
 INSERT INTO `tipos` (`Nome`, `Identificação`) VALUES
@@ -1454,16 +1637,17 @@ INSERT INTO `tipos` (`Nome`, `Identificação`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipos_permissao`
+-- Estrutura da tabela `tipos_permissao`
 --
 
-CREATE TABLE `tipos_permissao` (
+CREATE TABLE IF NOT EXISTS `tipos_permissao` (
   `nome` varchar(200) NOT NULL,
-  `codigo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `tipos_permissao`
+-- Extraindo dados da tabela `tipos_permissao`
 --
 
 INSERT INTO `tipos_permissao` (`nome`, `codigo`) VALUES
@@ -1484,11 +1668,11 @@ INSERT INTO `tipos_permissao` (`nome`, `codigo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estrutura da tabela `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `usuario` varchar(30) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1496,15 +1680,17 @@ CREATE TABLE `usuarios` (
   `url_inicial` varchar(150) NOT NULL,
   `empresa_id` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `flag_digitando` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `flag_digitando` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_fk_empresa_usuario` (`empresa_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
--- Dumping data for table `usuarios`
+-- Extraindo dados da tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `usuario`, `data_cadastro`, `senha`, `url_inicial`, `empresa_id`, `email`, `flag_digitando`) VALUES
-(1, 'UsuÃ¡rio teste', 'teste', '2019-12-03 22:16:58', 'teste', 'registros', 1, 'teste@teste.com.br', 0),
+(1, 'UsuÃ¡rio teste', 'teste', '2020-09-24 19:57:57', 'teste', 'inicial', 1, 'teste@teste.com.br', 0),
 (39, 'Rodrigo DEV', 'rodrigo', '2019-02-14 13:30:21', '123', 'inicial', 3, 'rodrigodevcode@gmail.com', 0),
 (42, 'Jose Silveira', 'jose', '2019-04-22 18:59:01', '123', 'inicial', 5, 'castanhosilveira@yahoo.com.br', 0),
 (43, 'Suporte SBG', 'suporte', '2019-03-08 13:18:50', 'suporte', 'configuracoes', 5, 'suporte@vision.com.br', 0),
@@ -1515,34 +1701,32 @@ INSERT INTO `usuarios` (`id`, `nome`, `usuario`, `data_cadastro`, `senha`, `url_
 (48, 'Jorge Paulo', 'jorge.paulo', '2019-04-22 14:53:07', '123', 'inicial', 4, 'jorgepaulo_paulo@hotmail.com', 0),
 (50, 'Reginaldo Daniel de Godoi ', 'reginaldo', '2019-04-23 15:05:04', '123', 'inicial', 1, 'rwconsultoria10@gmail.com', 0),
 (51, 'Ana pailq da silva foli', 'ana.pailq', '2019-05-30 17:01:00', '123', 'inicial', 1, 'paula_foli@hotmail.com', 0),
-(52, 'Adriana 03', 'adriana.03', '2019-05-30 17:01:42', '123', 'inicial', 1, 'adriana030681@gmail.com', 0),
 (53, 'Aleandro Jesus da Silva', 'aleandro.jesus', '2019-06-03 13:58:08', '123', 'inicial', 1, 'dr.aleandrojesus@gmail.com', 0),
 (54, 'Fabia Andrade', 'fabia.andrade', '2019-06-06 14:29:41', '123', 'inicial', 1, 'drafabiaandrade@gmail.com', 0),
-(57, 'wilson', 'tecnico@jmmedical.com.br', '2019-06-14 19:08:39', 'clinica290', 'novo_registro', 1, 'tecnico@jmmedical.com.br', 0),
 (58, 'Marina de Almeida Cunzolo', 'marinacunzolo@gmail.com', '2019-06-17 18:21:49', 'ma072325', 'novo_registro', 1, 'marinacunzolo@gmail.com', 0),
 (59, 'Eduardo GonÃ§alves', 'admin@geradox.com.br', '2019-06-18 17:09:05', 'ana070611', 'novo_registro', 1, 'admin@geradox.com.br', 0),
 (60, 'Eduardo GonÃ§alves', 'admin@grdoc.com.br', '2019-06-18 17:09:43', 'ana070611', 'novo_registro', 1, 'admin@grdoc.com.br', 0),
-(61, 'Gabriel Barban', 'gabriel.barban', '2019-12-04 14:45:10', 'gabriel1995', 'registros', 1, 'barbangabriel@gmail.com', 0),
-(63, 'Kadu Morais', 'kadu.doro', '2019-06-19 15:07:21', '123', 'registros', 1, 'kadu.doro@gmail.com', 0),
 (64, 'Mariana Gomes do nascimento ', 'Marygomesrebeca@gmail.com ', '2019-06-19 22:33:55', '556677', 'novo_registro', 1, 'Marygomesrebeca@gmail.com ', 0),
 (65, 'Eunice de Jesus Carneiro', 'nissejc23@gmail.com', '2019-06-21 00:16:38', '123456cl', 'novo_registro', 1, 'nissejc23@gmail.com', 0),
-(67, 'filhadaputa', 'admin@admin.com', '2019-07-04 00:37:22', '1234', 'novo_registro', 1, 'admin@admin.com', 0);
+(68, 'Gabriel Barban', 'barbangabriel@gmail.com', '2020-09-24 19:58:30', 'gabriel1995', 'registros', 1, 'barbangabriel@gmail.com', 0),
+(69, '', '', '2020-09-11 07:39:59', '', 'novo_registro', 1, '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios_permissoes`
+-- Estrutura da tabela `usuarios_permissoes`
 --
 
-CREATE TABLE `usuarios_permissoes` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuarios_permissoes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
   `codigo` int(11) NOT NULL,
-  `ativo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `ativo` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=493 ;
 
 --
--- Dumping data for table `usuarios_permissoes`
+-- Extraindo dados da tabela `usuarios_permissoes`
 --
 
 INSERT INTO `usuarios_permissoes` (`id`, `usuario_id`, `codigo`, `ativo`) VALUES
@@ -1961,26 +2145,54 @@ INSERT INTO `usuarios_permissoes` (`id`, `usuario_id`, `codigo`, `ativo`) VALUES
 (463, 67, 10, 1),
 (464, 67, 11, 1),
 (465, 67, 12, 1),
-(466, 67, 13, 1);
+(466, 67, 13, 1),
+(467, 68, 1, 1),
+(468, 68, 2, 1),
+(469, 68, 3, 1),
+(470, 68, 4, 1),
+(471, 68, 5, 1),
+(472, 68, 6, 1),
+(473, 68, 7, 1),
+(474, 68, 8, 1),
+(475, 68, 9, 1),
+(476, 68, 10, 1),
+(477, 68, 11, 1),
+(478, 68, 12, 1),
+(479, 68, 13, 1),
+(480, 69, 1, 1),
+(481, 69, 2, 1),
+(482, 69, 3, 1),
+(483, 69, 4, 1),
+(484, 69, 5, 1),
+(485, 69, 6, 1),
+(486, 69, 7, 1),
+(487, 69, 8, 1),
+(488, 69, 9, 1),
+(489, 69, 10, 1),
+(490, 69, 11, 1),
+(491, 69, 12, 1),
+(492, 69, 13, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `valores`
+-- Estrutura da tabela `valores`
 --
 
-CREATE TABLE `valores` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `valores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
   `valor` float NOT NULL,
   `tempo` int(11) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `empresas_id` int(11) NOT NULL,
-  `ativo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `ativo` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_fk_empresas_valor` (`empresas_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=142 ;
 
 --
--- Dumping data for table `valores`
+-- Extraindo dados da tabela `valores`
 --
 
 INSERT INTO `valores` (`id`, `nome`, `valor`, `tempo`, `data_cadastro`, `empresas_id`, `ativo`) VALUES
@@ -2127,375 +2339,45 @@ INSERT INTO `valores` (`id`, `nome`, `valor`, `tempo`, `data_cadastro`, `empresa
 (141, 'Exame teste', 1.5, 1, '2019-12-04 13:25:33', 9, 1);
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `campanhas`
---
-ALTER TABLE `campanhas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `chat`
---
-ALTER TABLE `chat`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `companhia`
---
-ALTER TABLE `companhia`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `contato_lead`
---
-ALTER TABLE `contato_lead`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `documentos`
---
-ALTER TABLE `documentos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `empresas`
---
-ALTER TABLE `empresas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_fk_empresas_companhia` (`empresa_id`);
-
---
--- Indexes for table `entrega`
---
-ALTER TABLE `entrega`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `etiqueta_individual`
---
-ALTER TABLE `etiqueta_individual`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `etiqueta_pimaco`
---
-ALTER TABLE `etiqueta_pimaco`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `eventos`
---
-ALTER TABLE `eventos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `financas`
---
-ALTER TABLE `financas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `financas_categorias`
---
-ALTER TABLE `financas_categorias`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `formas_pagamento`
---
-ALTER TABLE `formas_pagamento`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_fk_empresa_formas` (`empresa_id`);
-
---
--- Indexes for table `log`
---
-ALTER TABLE `log`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `parceiros`
---
-ALTER TABLE `parceiros`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `registro`
---
-ALTER TABLE `registro`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_fk_status` (`status_id`),
-  ADD KEY `id_fk_usuario` (`usuario_id`),
-  ADD KEY `id_fk_empresa` (`empresa_id`),
-  ADD KEY `id_fk_cliente` (`cliente_id`);
-
---
--- Indexes for table `registro_itens`
---
-ALTER TABLE `registro_itens`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `registro_pagametno`
---
-ALTER TABLE `registro_pagametno`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `relatorios`
---
-ALTER TABLE `relatorios`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `relatorio_custom`
---
-ALTER TABLE `relatorio_custom`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `status`
---
-ALTER TABLE `status`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_fk_empresa_status` (`empresa_id`);
-
---
--- Indexes for table `tipos_permissao`
---
-ALTER TABLE `tipos_permissao`
-  ADD PRIMARY KEY (`codigo`);
-
---
--- Indexes for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_fk_empresa_usuario` (`empresa_id`);
-
---
--- Indexes for table `usuarios_permissoes`
---
-ALTER TABLE `usuarios_permissoes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `valores`
---
-ALTER TABLE `valores`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_fk_empresas_valor` (`empresas_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `campanhas`
---
-ALTER TABLE `campanhas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `chat`
---
-ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
-
---
--- AUTO_INCREMENT for table `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT for table `companhia`
---
-ALTER TABLE `companhia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `contato_lead`
---
-ALTER TABLE `contato_lead`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT for table `documentos`
---
-ALTER TABLE `documentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `empresas`
---
-ALTER TABLE `empresas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
---
--- AUTO_INCREMENT for table `entrega`
---
-ALTER TABLE `entrega`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `etiqueta_individual`
---
-ALTER TABLE `etiqueta_individual`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `etiqueta_pimaco`
---
-ALTER TABLE `etiqueta_pimaco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `eventos`
---
-ALTER TABLE `eventos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `financas`
---
-ALTER TABLE `financas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `financas_categorias`
---
-ALTER TABLE `financas_categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `formas_pagamento`
---
-ALTER TABLE `formas_pagamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `log`
---
-ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=624;
-
---
--- AUTO_INCREMENT for table `parceiros`
---
-ALTER TABLE `parceiros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
-
---
--- AUTO_INCREMENT for table `registro`
---
-ALTER TABLE `registro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
-
---
--- AUTO_INCREMENT for table `registro_itens`
---
-ALTER TABLE `registro_itens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- AUTO_INCREMENT for table `registro_pagametno`
---
-ALTER TABLE `registro_pagametno`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
---
--- AUTO_INCREMENT for table `relatorios`
---
-ALTER TABLE `relatorios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `relatorio_custom`
---
-ALTER TABLE `relatorio_custom`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `status`
---
-ALTER TABLE `status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `tipos_permissao`
---
-ALTER TABLE `tipos_permissao`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
-
---
--- AUTO_INCREMENT for table `usuarios_permissoes`
---
-ALTER TABLE `usuarios_permissoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=467;
-
---
--- AUTO_INCREMENT for table `valores`
---
-ALTER TABLE `valores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
-
---
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `empresas`
+-- Limitadores para a tabela `empresas`
 --
 ALTER TABLE `empresas`
   ADD CONSTRAINT `id_fk_empresas_companhia` FOREIGN KEY (`empresa_id`) REFERENCES `companhia` (`id`);
 
 --
--- Constraints for table `formas_pagamento`
+-- Limitadores para a tabela `formas_pagamento`
 --
 ALTER TABLE `formas_pagamento`
   ADD CONSTRAINT `id_fk_empresa_formas` FOREIGN KEY (`empresa_id`) REFERENCES `companhia` (`id`);
 
 --
--- Constraints for table `registro`
+-- Limitadores para a tabela `registro`
 --
 ALTER TABLE `registro`
   ADD CONSTRAINT `id_fk_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
   ADD CONSTRAINT `id_fk_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 
 --
--- Constraints for table `status`
+-- Limitadores para a tabela `status`
 --
 ALTER TABLE `status`
   ADD CONSTRAINT `id_fk_empresa_status` FOREIGN KEY (`empresa_id`) REFERENCES `companhia` (`id`);
 
 --
--- Constraints for table `usuarios`
+-- Limitadores para a tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `id_fk_empresa_usuario` FOREIGN KEY (`empresa_id`) REFERENCES `companhia` (`id`);
 
 --
--- Constraints for table `valores`
+-- Limitadores para a tabela `valores`
 --
 ALTER TABLE `valores`
   ADD CONSTRAINT `id_fk_empresas_valor` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1,6 +1,9 @@
 <?php  
 //validando a session
 session_start();
+$dia = date('d');
+$mes = date('m');
+$ano = date('Y');
 $nome_usuario = $_SESSION["nome_usuario"];
 $empresa_id = $_SESSION["empresa_id"];
 $username_usuario = $_SESSION["username_usuario"];
@@ -138,6 +141,7 @@ header('Location: ../index.php');
       <ul class="sidebar navbar-nav">
 
 
+
       <!-- AGENDAMENTO -->
       <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
@@ -158,8 +162,8 @@ header('Location: ../index.php');
 
         <!-- OPERAÇÃO -->
       <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
-            <font color="black"><i class="fas fa-chevron-down" id="icon1"></i> Atendimento</font>
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar2(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon2"></i> Atendimento</font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao1){ ?>
@@ -184,8 +188,8 @@ header('Location: ../index.php');
 
       <!-- GERENCIAMENTO -->
       <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar2(this)">
-            <font color="black"><i class="fas fa-chevron-down" id="icon2"></i> Gerenciamento</font>
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar3(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon3"></i> Gerenciamento</font>
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -218,18 +222,33 @@ header('Location: ../index.php');
 
       <div id="content-wrapper" style="margin-left: 15px">
         <br>
-        <a class="btn btn-primary" href="novo_registro">Cadastrar novo agendamento&nbsp;&nbsp;&nbsp;<i class="fa fa fa-bolt"></i></a>
+        <a class="btn btn-primary" href="novo_agendamento">Cadastrar novo agendamento&nbsp;&nbsp;&nbsp;<i class="fa fa fa-bolt"></i></a>
         <br><br><br>
-
+        <h2><i class="far fa-calendar-alts"></i>Agendamentos de <?= $dia ?>/<?= $mes ?>/<?= $ano ?></h2>
+        <br><br>
         <?php
-          $dia = date('d');
-          $mes = date('m');
-          $ano = date('Y');
         
           $data = array();
           $data=$config->lista_agendamentos($dia, $mes, $ano, $empresa_id);
 
-          var_dump($data);
+          foreach ($data as $row) {
+              echo "<table class='table table-bordered' id='dataTable' width='100%'' cellspacing='0'>";
+              echo "<b><h5><i class='far fa-calendar-alt' id='icon1'></i> ".substr($row['data_inicio'], 0, 5)."</b> - <b>".substr($row['data_fim'], 0, 5)."</h5></b>";
+              echo "<tbody><tr><td>".$row['nome_cliente']."</td>";
+              echo "<td>".$row['procedimento']."</td>";
+              echo "<td>".$row['nome_empresa']."</td>";
+              echo "<td>".$row['nome_agenda']."</td>";
+              $id = $row['id'] + 15920 - 350;
+              echo "<td>
+                <a href='etiqueta-individual.php?id=".$id."'><i class='fas fa-check' title='Atender'></i></a>
+                <a href='../controller/editar_cliente.php?id=".$row['id_cliente']."' target='_blank'><i class='fas fa fa fa-child' title='Dados do paciente'></i></a>
+                <a href='editar_registro.php?id=".$id."'><i class='fas fa fa-edit' title='Editar agendamento'></i></a>
+                <a href='apagar_registro.php?id=".$id."'><i class='fas fa fa-times' title='Excluir agendamento'></i></a>
+              </td></tr></tbody>";
+              $cont++;
+              echo "</table><br>";
+            }
+            
         ?>
 
         

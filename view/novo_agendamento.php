@@ -92,6 +92,9 @@ header('Location: ../index.php');
 
         include("../model/config.php");
         $config = new Config();
+
+        $lista_agendas = array();
+        $lista_agendas = $config->lista_agendas($empresa_id);
         
         $permissao1=$config->verifica_permissao($usuario_id, 1); //registros
         $permissao2=$config->verifica_permissao($usuario_id, 2); //dashboard
@@ -138,8 +141,8 @@ header('Location: ../index.php');
 
         <!-- OPERAÇÃO -->
       <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
-            <font color="black"><i class="fas fa-chevron-down" id="icon1"></i> Atendimento</font>
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar2(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon2"></i> Atendimento</font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao1){ ?>
@@ -164,8 +167,8 @@ header('Location: ../index.php');
 
       <!-- GERENCIAMENTO -->
       <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar2(this)">
-            <font color="black"><i class="fas fa-chevron-down" id="icon2"></i> Gerenciamento</font>
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar3(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon3"></i> Gerenciamento</font>
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -211,9 +214,9 @@ header('Location: ../index.php');
             $lista_parceiros = $config->lista_parceiros($empresa_id);
             $lista_entregas = $config->lista_entregas($empresa_id);
           ?>
-          <h3><i class="fa fa  fa fa-bolt"></i> Novo Registro:</h3>
+          <h3><i class="far fa-calendar-alt"></i> Novo agendamento:</h3>
           <br>
-          <form action="../controller/novo_registro" method="POST">
+          <form action="../controller/novo_agendamento.php" method="POST">
                    
             <!--
               serve para adicionar o id do cliente, usando o inner HTML
@@ -225,62 +228,68 @@ header('Location: ../index.php');
             <div id="dados_cliente5"></div>
             <div id="dados_pagamento"></div>
             
-
-            <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#registroModal">Inserir cliente <i class="fas fa-child"></i></a>
+            <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#registroModal">Paciente <i class="fas fa-child"></i></a>
             <input type="text" style="width: 250px;" class="form-control" name="cliente" id="cliente" disabled="disabled" placeholder="Nome do cliente" required="required"><br>
 
-
-
-
-            Valor 1: <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#empresaValorModal1">Inserir empresa/valor <i class="fas fa-dollar-sign"></i></a> <input type="text" id="info-valor1" name="info-valor1" size="10" disabled="disabled"><br>
-
-            Valor 2: <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#empresaValorModal2">Inserir empresa/valor <i class="fas fa-dollar-sign"></i></a> <input type="text" id="info-valor2" name="info-valor2" size="10" disabled="disabled"><br> 
-
-            Valor 3: <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#empresaValorModal3">Inserir empresa/valor <i class="fas fa-dollar-sign"></i></a> <input type="text" id="info-valor3" name="info-valor3" size="10" disabled="disabled"><br>
-
-            Valor 4: <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#empresaValorModal4">Inserir empresa/valor <i class="fas fa-dollar-sign"></i></a> <input type="text" id="info-valor4" name="info-valor4" size="10" disabled="disabled"><br>
-
-            Valor 5: <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#empresaValorModal5">Inserir empresa/valor <i class="fas fa-dollar-sign"></i></a> <input type="text" id="info-valor5" name="info-valor5" size="10" disabled="disabled">
-            <br><br>
-            Total: <input type="text" id="desc_valor" name="desc_valor" size="10" disabled="disabled">
-
-            <br><br>
-
-            <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#FormaModal">Forma de pagamento <i class="fas fa-credit-card"></i></a>
-            <input type="text" style="width: 250px;" class="form-control" name="status_forma" id="status_forma" disabled="disabled" required="required"><br>
-
-            Descrição:<input type="text" class="form-control" name="descricao" id="descricao" placeholder="Descrição" required="required"><br>
-
-            <!-- parceiros !-->
-            Parceiro:
-            <select class="form-control" name="parceiro" placeholder="Parceiros" >
-              <?php
-                foreach ($lista_parceiros as $data) {
-                  echo "<option value='".$data['id']."'> ".$data['nome']." </option>";
-                }
-              ?>
-            </select><br>
+            <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#empresaValorModal1">Procedimento <i class="  fas fa-plus"></i></a> <input type="text" id="info-valor1" class="form-control" style="width: 250px;" name="info-valor1" size="10" disabled="disabled"><br>
 
             <!-- status !-->
-            Status:
-            <select class="form-control" name="status" placeholder="Status" >
+            Agenda:
+            <select class="form-control" name="agenda" style="width: 250px;">
               <?php
-                foreach ($lista_status as $data) {
+                foreach ($lista_agendas as $data) {
                   echo "<option value='".$data['id']."'> ".$data['nome']." </option>";
                 }
               ?>
             </select><br>
 
-            <!-- formas de entrega !-->
-            Forma de entrega:
-            <select class="form-control" name="entrega" placeholder="Forma de entrega" >
-              <?php
-                foreach ($lista_entregas as $data) {
-                  echo "<option value='".$data['id']."'> ".$data['nome']." </option>";
-                }
-              ?>
-            </select><br>
-            <br>
+            Dia <select name="dia">
+              <option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+            </select>
+
+            Mês <select name="mes">
+              <option value="01">Janeiro</option>
+              <option value="02">Fevereiro</option>
+              <option value="03">Março</option>
+              <option value="04">Abril</option>
+              <option value="05">Maio</option>
+              <option value="06">Junho</option>
+              <option value="07">Julho</option>
+              <option value="08">Agosto</option>
+              <option value="09">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+
+            Ano <select name="ano">
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+            <br><br>
+            Horário: <select name="hora">
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+
+            <select name="minuto">
+              <option value="00">00</option>
+              <option value="30">30</option>
+            </select>
+
+            <br><br>
 
             <input type="submit" class="form-control" value="Salvar" style="background-color: #ced4da;">
           </form>
@@ -739,7 +748,7 @@ header('Location: ../index.php');
                     document.getElementById('busca_id_valor1').innerHTML += "<option value="+data[i]['id']+">"+data[i]['nome']+" - R$ "+data[i]['valor']+"</option>";
                   }
                   document.getElementById('busca_id_valor1').innerHTML += "</select>";
-                  document.getElementById('busca-valores1').innerHTML += "Quantidade:<input class='form-control' id='quantidade1'>";
+                  document.getElementById('busca-valores1').innerHTML += "<br>Quantidade de horários:<input class='form-control' id='quantidade1'><br><i>* Cada horário tem a duração de meia hora</i>";
 
                 }
             });

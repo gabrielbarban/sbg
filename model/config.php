@@ -128,15 +128,15 @@ class config
 		$this->gera_log("Cadastrou novo status", "Nome do status: ".$nome);
 	}
 
-	public function nova_agenda($nome, $empresa_id)
+	public function novo_agendamento($valor_id, $agenda_id, $usuario_id, $cliente_id, $empresa_id, $horaInicio, $minutoInicio, $segundoInicio, $diaInicio, $mesInicio,   $anoInicio, $horaFim, $minutoFim, $segundoFim, $diaFim, $mesFim, $anoFim)
 	{
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
-		$sql = "INSERT INTO agenda (nome, empresa_id) 
-		VALUES('".$nome."', '".$empresa_id."')";
+		$sql = "INSERT INTO agendamento (valor_id, agenda_id, usuario_id, cliente_id, empresa_id, hora_inicio, minuto_inicio, segundo_inicio, dia_inicio, mes_inicio, ano_inicio, hora_fim, minuto_fim, segundo_fim, dia_fim, mes_fim, ano_fim) 
+		VALUES('".$valor_id."', '".$agenda_id."', '".$usuario_id."', '".$cliente_id."', '".$empresa_id."', '".$horaInicio."', '".$minutoInicio."', '".$segundoInicio."', '".$diaInicio."', '".$mesInicio."', '".$anoInicio."', '".$horaFim."', '".$minutoFim."', '".$segundoFim."', '".$diaFim."', '".$mesFim."', '".$anoFim."')";
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$pdo->exec($sql);
-		$this->gera_log("Cadastrou nova agenda", "Nome da agenda: ".$nome);
+		$this->gera_log("Cadastrou novo status", "Nome do status: ".$nome);
 	}
 
 	public function atualiza_status($id, $nome)
@@ -182,17 +182,19 @@ class config
 		$conexao = new Conexao();
 		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
 		$query = "SELECT 
-			ag.*, v.nome as 'procedimento', ag.data_criacao as 'data_criacao', cc.id as 'id_cliente', cc.nome as 'nome_cliente', ee.nome as 'nome_empresa'
+			ag.*, v.nome as 'procedimento', ag.data_criacao as 'data_criacao', cc.id as 'id_cliente',
+			cc.nome as 'nome_cliente', ee.nome as 'nome_empresa', a.nome as 'nome_agenda',
+			CONCAT(ag.hora_inicio,':',ag.minuto_inicio,' ',ag.dia_inicio,'/',ag.mes_inicio,'/',ag.ano_inicio) as 'data_inicio',
+			CONCAT(ag.hora_fim,':',ag.minuto_fim,' ',ag.dia_fim,'/',ag.mes_fim,'/',ag.ano_fim) as 'data_fim'
 			FROM agendamento ag
 			JOIN clientes cc ON (cc.id = ag.cliente_id)
 			JOIN usuarios u  ON (u.id = ag.usuario_id)
 			JOIN valores v  ON (v.id = ag.valor_id)
 			JOIN empresas ee  ON (ee.id = v.empresas_id)
+			JOIN agenda a  ON (a.id = ag.agenda_id)
 			WHERE ag.empresa_id='".$empresa_id."' AND ag.dia_inicio=".$dia." AND ag.mes_inicio=".$mes." AND ag.ano_inicio=".$ano."
-											      AND v.ativo=1 ORDER BY ag.data_criacao ASC;";
+											      AND v.ativo=1 ORDER BY CAST( ag.hora_inicio AS SIGNED ) ASC;";
 		$data = $pdo->query($query)->fetchAll();
-		//echo "TESTEEEE:";
-		//var_dump($data);exit;
 		return $data;
 	}
 
@@ -218,6 +220,17 @@ class config
 	}
 
 	public function novo_forma_registro($registro_id, $forma_id, $valor)
+	{
+		session_start();
+		$conexao = new Conexao();
+		$pdo = new PDO('mysql:host='.$conexao->host.':'.$conexao->port.';dbname='.$conexao->dbname.'', ''.$conexao->user.'', ''.$conexao->password.'');
+		$sql = "INSERT INTO registro_pagametno (registro_id, forma_id, valor) 
+		VALUES('".$registro_id."', '".$forma_id."', '".$valor."')";
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->exec($sql);
+	}
+
+	public function novo_agenda($registro_id, $forma_id, $valor)
 	{
 		session_start();
 		$conexao = new Conexao();

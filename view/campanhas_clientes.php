@@ -112,16 +112,33 @@ header('Location: ../index.php');
       ?>
 
 
-      <!-- Sidebar -->
+     <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
 
+
+
+      <!-- AGENDAMENTO -->
+      <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon1"></i> Agendamento</font>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <?php if($permissao1){ ?>
+              <a class="nav-link" href="novo_agendamento"><i class="fas fa-fw fa fa-bolt"></i><span> Cadastrar novo</span></a>
+            <?php } ?>
+            <div class="dropdown-divider"></div>
+            <?php if($permissao1){ ?>
+              <a class="nav-link" href="agendamentos"><i class="fas fa-fw fa fa-list-ul"></i><span> Listar agendamentos</span></a>
+            <?php } ?>
+          </div>
+      </li>
 
 
 
         <!-- OPERAÇÃO -->
       <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
-            <font color="black"><i class="fas fa-chevron-down" id="icon1"></i> Atendimento</font>
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar2(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon2"></i> Atendimento</font>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <?php if($permissao1){ ?>
@@ -146,8 +163,8 @@ header('Location: ../index.php');
 
       <!-- GERENCIAMENTO -->
       <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar2(this)">
-            <font color="black"><i class="fas fa-chevron-down" id="icon2"></i> Gerenciamento</font>
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar3(this)">
+            <font color="black"><i class="fas fa-chevron-down" id="icon3"></i> Gerenciamento</font>
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
