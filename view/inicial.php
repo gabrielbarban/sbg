@@ -256,7 +256,8 @@ header('Location: ../index.php');
 
 
 
-      <!-- AGENDAMENTO -->
+      <!-- permissao AGENDAMENTO -->
+      <?php if( !$permissao1 && !$permissao2 ){ ?>
       <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="alterar1(this)">
             <font color="black"><i class="fas fa-chevron-down" id="icon1"></i> Agendamento</font>
@@ -271,6 +272,7 @@ header('Location: ../index.php');
             <?php } ?>
           </div>
       </li>
+      <?php } ?>
 
 
 
